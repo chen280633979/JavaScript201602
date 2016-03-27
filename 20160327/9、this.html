@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->http://www.zhufengpeixun.cn/course/22/learn#lesson/460
+
+    function Fn() {
+        this.x = 100;
+        this.y = 200;
+        this.sum = function () {
+            console.log(this.x + this.y);
+        }
+    }
+    Fn.prototype.sum = function () {
+        console.log(this.x + this.y);
+    };
+    var f1 = new Fn;
+    f1.sum();//->this是f1 ->f1.x + f1.y ->300
+    f1.__proto__.sum();//->this是f1.__proto__ ->f1.__proto__.x + f1.__proto__.y ->NaN
+</script>
+</body>
+</html>

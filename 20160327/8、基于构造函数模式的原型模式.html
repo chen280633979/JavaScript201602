@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Fn() {
+        //->在函数体中出现的,this.xxx=xxx,给实例增加的属性,都是"私有的属性"
+        this.x = 100;
+    }
+    //->写在类的原型上的(Fn.prototype)属性和方法都是当前类的所有实例"公有的属性和方法"
+    Fn.prototype.getX = function () {
+        console.log(this.x);
+    };
+    var f1 = new Fn;
+    var f2 = new Fn;
+
+    console.log(Fn.prototype.__proto__ === Object.prototype);//->true
+
+
+    //    console.log(f1.getX == f2.getX);//->true
+    //
+    //    console.log("getX" in f1);//->true
+    //    console.log(f1.hasOwnProperty("getX"));//->false 是f1的一个属性,但是不是私有的属性->是f1公有的属性
+
+
+    //-------------------------------------------
+    //->不要问我为什么,因为这就是规定
+    //1、所有的函数数据类型(普通的函数、所有的类)都天生自带一个属性:prototype(原型)，这个属性存储的值是一个对象数据类型的值，浏览器默认为其属性值开辟一个堆内存
+    //2、在这个堆内存上("浏览器默认"给prototype开辟的这个)，有一个天生自带的属性:constructor,属性值是当前类本身
+    //3、所有的对象数据类型(普通对象、数组、正则、时间、类的实例、prototype)都天生自带一个属性:__proto__,这个属性指向当前实例所属类的原型
+    //->f1.__proto__ = Fn.prototype; (在IE浏览器中,是禁止我们使用__proto__这个属性的:因为IE为了保护内置的一些方法和类不被修改)
+
+    //->原型链查找模式:
+    //->"实例.属性名"的时候,首先找自己的私有属性,私有的有,就不在往上查找了;私有的没有则通过__proto__继续找所属类的原型,原型上有就不在继续查找了;如果原型上还没有,则继续通过原型上的__proto__找Object.prototype...
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>单例模式</title>
+</head>
+<body>
+<script type="text/javascript">
+    //->全局变量的相互冲突/全局变量的污染
+    //    var name = "穆博嘉";
+    //    var age = 92;
+    //    var say=function(){
+    //
+    //    };
+    //    var name="安亚楠";
+    //    var age=19;
+    //    var say=function(){
+    //
+    //    };
+    //    console.log(name);
+
+    //->单例模式:起到了一个分组的作用->把描述同一件事物的属性和方法放在同一个"命名空间"下,避免了全局变量过多使用造成的冲突
+    //->每一个对象都是一个单独的实例,里面的属性都是自己私有的属性,不同实例之间互不影响
+    //->在单例模式中,我们的person1/person2就不叫做对象名了,而叫做"命名空间"
+    //    var person1 = {
+    //        name: "穆博嘉",
+    //        age: 45,
+    //        say: function () {
+    //
+    //        }
+    //    };
+    //    var person2 = {
+    //        name: "安亚楠",
+    //        age: 19,
+    //        say: function () {
+    //
+    //        }
+    //    };
+
+    //->高级单例模式(Mantle Model) ->惰性思想
+    //    var num = 1;
+    //    var obj = (function () {
+    //        var num = 12;
+    //        return {
+    //            name: "",
+    //            sum: function () {
+    //                console.log(num);//->12
+    //            }
+    //        }
+    //    })();
+
+    //->在真实的项目中的单例模式应用->实现项目开发中的"模块化开发"
+    //->"模块化开发":一个项目比较大,需要多个人一同协作开发,我们一般可以按照功能把一个页面划分成不同的几个模块
+    //例如：百度首页->"搜素"、"登录"、"换肤"、"页卡"、"天气"
+
+    //->不想冲突的话,我们可以使用闭包
+    var utils = (function () {
+        return {
+            fn: function () {
+
+            }
+        }
+    })();
+
+
+    var searchModel = (function () {
+        var check = function () {
+            //->调用自己命名空间下的submit方法
+            //this->searchModel
+            this.submit();
+        };
+        var submit = function () {
+            //->调用公共模块下的fn方法
+            utils.fn();
+        };
+
+        return {
+            check: check,
+            submit: submit
+        }
+    })();
+    searchModel.check();
+
+    //->单例模式是我们前端JS,目前实现模块化开发,最常用的一种形式
+    //->require.js、sea.js他们这个些类库的实现原理和上面的源码思想是基本一样的
+</script>
+</body>
+</html>

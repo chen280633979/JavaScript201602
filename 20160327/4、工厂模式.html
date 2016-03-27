@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式</title>
+</head>
+<body>
+<p id="p1"></p>
+<script type="text/javascript">
+    //->工厂模式：把实现相同功能的代码进行封装,制定为一个函数,以后在想实现这个功能就不需要在手动的写这些代码了,只需要把函数执行即可; ->"批量生产" ->"函数(类)的封装":低耦合高内聚 ->减少页面中的冗余代码,提高代码的重复利用率
+    function createJsPerson(name, age) {
+        var obj = {};
+        obj.name = name;
+        obj.age = age;
+        obj.writeJs = function () {
+            console.log("my name is " + this.name + "，i am " + this.age + " years old，i can write javascript 啦~~");
+        };
+        return obj;
+    }
+    var jsPerson1 = createJsPerson("宫之晓", 40);
+    var jsPerson2 = createJsPerson("霍月林", 17);
+    //jsPerson1.writeJs();
+    //jsPerson2.writeJs();
+
+    //->面向对象：类的继承、封装、多态
+
+    //2、类的多态(多种形态)
+    //->多态：类的重写(子类重写父类的方法)、类的重载
+
+    //->[后台]
+    //重载:多个方法,方法名相同(参数的类型或者个数不一样),这样的话属于一个方法的重载,通过执行的时候传递参数的不一样,找到具体的某一个方法去执行
+    //    public void sum(int num1,int num2){
+    //
+    //    }
+    //    public void sum(int num1){
+    //
+    //    }
+    //    public void sum(int num1,String num2){
+    //
+    //    }
+    //    sum(100,200)
+    //    sum(100)
+    //    sum(100,"zhufeng")
+    //    sum();
+    //    private String/Boolean/Array/Object sum
+    //    static Int/double/float sum
+
+
+    //->JS从严格的意义上来讲是不存在重载的,因为方法名相同的话,最后一个会把前面的所有的都给覆盖掉
+    //    function fn(num1, num2) {
+    //
+    //    }
+    //    function fn(num1) {
+    //
+    //    }
+
+    //->如果非要强行说有重载,我们把下述称之为重载：同一个方法，根据传递的参数不一样实现了不同的功能
+    function fn(num1, num2) {
+        if (typeof num2 === "undefined") {//->判断第二个形参是否传递值,我们用typeof这种方式处理
+            console.log("参数不合法!!");
+            return;
+        }
+        console.log(num1 + num2);
+    }
+    fn(100, 200);
+    fn(100);
+</script>
+</body>
+</html>

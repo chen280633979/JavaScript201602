@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    var num = 2;
+    //    var obj = {
+    //        num: 1,
+    //        fn: (function (num) {
+    //            this.num *= 2;
+    //            num += 2;
+    //            return function () {
+    //                this.num *= 3;
+    //                num += 3;
+    //                console.log(num);
+    //            }
+    //        })(num)//->我这里是把全局下的num的值2赋值给自执行函数的形参num,如果想把obj的num值赋给形参的话,需要写obj.num?
+    //    };
+    //    var fn = obj.fn;
+    //    fn();
+    //    obj.fn();
+    //    console.log(obj.num, window.num);
+
+    var num = 2;
+    var obj = {num: 1,
+        fn: (function () {
+            this.num *= 2;
+            num += 2;
+            return function () {
+                this.num *= 3;
+                num += 3;
+                console.log(num);
+            }
+        })()
+    };
+    var fn = obj.fn;
+    fn(); obj.fn();
+    console.log(obj.num, window.num);
+
+</script>
+</body>
+</html>

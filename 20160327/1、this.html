@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>this</title>
+</head>
+<body>
+<script type="text/javascript">
+    //->学习this,记住周老师的一句话：你以为,你以为的,就是你以为的
+
+    //1、this?
+    //->执行的主体:谁来执行的
+    //->上下文(context):在哪执行的
+
+    //->耿大大去北京饭店“吃鸡蛋灌饼”  //->this==>耿大大  //->context:北京饭店
+    //->耿大大去马路牙子“吃鸡蛋灌饼”  //->this==>耿大大  //->context:马路牙子
+    //->张琦飞去人民大会堂“吃鸡蛋灌饼” //->this==>张琦飞  //->context:人民大会堂
+    //document.getElementById("div1"); //->getElementById获取元素的一个方法，在哪获取的?document(context)  谁来获取的?document(this)
+    //总结：我们的this和context没有必然的联系
+
+
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //    fn();//->它是浏览器window在执行这个fn ->window.fn() ->this是window
+    //
+    //    var obj = {name: "梁居毅", fn: fn};
+    //    obj.fn();//this->obj
+    //
+    //    function sum(){
+    //        //this->window
+    //        fn();//this->window
+    //        obj.fn();//this->obj
+    //    }
+    //    sum();
+
+    //console.log(this);//->window 全局作用域中的this是window,需要我们去研究的是每一个方法中的this是谁
+
+    //2、this情况的总结?
+    //->函数中的this是谁,和函数在哪定义的或者在哪执行的,都没有任何的关系
+
+    //以下所有的规律都是在"JS非严格模式下"运行的规律
+    //1)自执行函数中的this永远的是window
+    //    ~function () {
+    //        console.log(this);//->this是window
+    //    }();
+
+    //    var obj = {
+    //        name: "珠峰",
+    //        fn: (function () {
+    //            console.log(this);//->window
+    //            return function () {
+    //
+    //            }
+    //        })()
+    //    };
+
+    //    window.setTimeout(function () {
+    //        console.log(this);//->window
+    //    }, 1000);
+
+    //    ary.sort(function (a, b) {//->sort这个方法中的this是ary
+    //        console.log(this);//当做参数值传递进来的这个匿名函数在执行的时候，里面的this也是window
+    //        return a - b;
+    //    });
+
+
+    //2)给元素的某一个行为绑定一个方法,当行为触发的时候执行这个方法,此时方法中的this是当前的元素
+    //    oDiv.onclick = function () {
+    //        console.log(this);//->oDiv
+    //    };
+
+    //    oDiv.onclick = (function () {
+    //        console.log(this);//->window
+    //        return function () {
+    //            console.log(this);//->oDiv
+    //        }
+    //    })();
+
+    //    oDiv.addEventListener("click", function () {
+    //        console.log(this);//->oDiv
+    //    }, false);
+
+    //    oDiv.attachEvent("onclick", function () {
+    //        console.log(this);//在IE6~8下我们使用attachEvent绑定事件来代替addEventListener 按理来说我们的this应该是oDiv,但是实际上在IE6~8中它的this是window
+    //    });
+
+    //3)我们只需要看函数执行的时候，方法名前面是否有"."，有的话，"."前面是谁this就是谁，没有的话this就是window;
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //    fn();//->this是window
+
+    //    var obj = {name: "梁居毅", fn: fn};
+    //    obj.fn();//this->obj
+
+    //    ary.pop();//->pop中的this是ary
+    //    ary.__proto__.pop();//->pop中的this是ary.__proto__
+
+    //    fn.call.call.call.call.call();//->call方法中的this是fn.call.call.call.call
+
+    function fn() {
+        console.log(this.num);
+    }
+    var num = 12;
+    var obj = {num: 120, fn: fn};
+    oDiv.onclick = (function () {
+        console.log(this.num);//->this是window ->12
+        return function () {
+            console.log(this.num);//->this是oDiv ->undefined
+            fn();//->fn中的this是window ->12
+            obj.fn();//->fn中的this是obj ->120
+        }
+    })();
+</script>
+</body>
+</html>

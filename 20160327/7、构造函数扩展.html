@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->http://www.zhufengpeixun.cn/course/22/learn#lesson/462
+
+    //->类既是一个类也是一个普通的函数,区分哪些和实例有关,哪些和实例没关系
+    //    function Fn() {
+    //        var num = 13;
+    //        this.x = 100;
+    //        this.getX = function () {
+    //            console.log(this.x + 100);
+    //        }
+    //    }
+    //    var f1 = new Fn();
+    //    console.log(f1.x);//->100
+    //    f1.getX();//->200
+    //    console.log(f1.num);
+
+    //->自己手写return是否对默认返回的实例会产生影响
+    //    function Fn() {
+    //        this.x = 100;
+    //        this.getX = function () {
+    //            console.log(this.x + 100);
+    //        };
+    //        return 10;
+    //    }
+    //    var f1 = new Fn();
+    //    console.log(f1);
+
+    //    function Fn() {
+    //        this.x = 100;
+    //        this.getX = function () {
+    //            console.log(this.x + 100);
+    //        };
+    //        return {
+    //            name: "哈哈"
+    //        };
+    //    }
+    //    var f1 = new Fn();
+    //    console.log(f1);
+</script>
+</body>
+</html>

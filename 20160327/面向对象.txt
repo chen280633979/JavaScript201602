@@ -1,0 +1,34 @@
+所有的"编程语言"都是面向对象开发:JAVA、.NET(dot net)、C#、VB、PHP、RUBY、PYTHON、JavaScript、less(sass)CSS预编译...
+->只有理解和学会使用面向对象的思想进行开发,才能说自己的是"工程师"
+
+对象:JS中万物皆对象  ->自然界中万物皆对象
+类:把对象划分为具体的几大类 ->自然界可以笼统的分为 人类、动物类、植物类...
+实例:某一个类别中具体的一件事物 ->我们的每一个人都是人类中的一个实例
+
+
+1、在JS中有一个类->Array(数组类),我们的每一个数组都是它的一个实例 ->我们拿出其中的一个实例进行研究,那么本类别下的其它的实例也具有这写特征 ->我们认知的这个工程其实就是面向对象编程思想
+
+2、面向对象的编程思想需要我们掌握关于类的:继承、封装、多态
+
+
+[内置类]
+  ->每一个数据类型都有一个自己对应的类
+  Number(数字类,每一个数字都是它的一个实例)、String、Boolean、Null、Undefined、Array、RegExp、Date、Function、Object
+
+  ->关于元素对象(标签)也有一些自己的内置类
+  ->每一个HTML标签都有一个自己所属的类
+  <div></div> ->HTMLDivElement
+  <p></p>     ->HTMLParagraphElement  ->HTMLElement ->Element
+  document    ->HTMLDocument          ->Document
+                                      ->Node ->EventTarget ->Object
+
+  window ->Window ->WindowProperties ->EventTarget ->Object
+
+  ->元素集合/节点集合(类数组)
+  HTMLCollection  ->Object
+  NodeList  ->Object
+
+  ......
+
+
+[自定义类] ->自己定义类 ->构造函数模式

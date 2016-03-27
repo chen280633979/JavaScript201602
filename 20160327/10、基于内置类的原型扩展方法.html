@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [12, 23, 34, 12, 23, 34, 12, 23, 34, 12, 23, 34, 12, 23, 34];//->Array ->Object
+
+    //->内置方法的链式写法:执行完成上一个方法,返回的结果依然是当前类的实例,这样就可以继续执行下一个方法了
+    //    ary.sort(function (a, b) {
+    //        return a - b;
+    //    }).reverse().pop().push(100);
+    //    console.log(ary);
+
+
+    //->给方法起名字的时候加一个自己的前缀myXxx,防止把内置的方法覆盖掉
+    Array.prototype.myDistinct = function myDistinct() {
+        //this->ary:我们要去重的那个数组
+        var obj = {};
+        for (var i = 0; i < this.length; i++) {
+            var cur = this[i];
+            if (obj[cur] == cur) {
+                this[i] = this[this.length - 1];
+                this.length--;
+                i--;
+                continue;
+            }
+            obj[cur] = cur;
+        }
+        obj = null;
+        return this;//->实现链式写法
+    };
+
+    ary.myDistinct().push(100);
+    console.log(ary);
+
+
+
+</script>
+</body>
+</html>
