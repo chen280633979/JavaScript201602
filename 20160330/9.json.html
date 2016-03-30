@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //json是一种数据格式,不是数据类型,也不是编程语言,为了前后台数据交互
+    //json的语法:简单的值,对象,数组
+    var obj = {name:"xxx",age:18,gender:true};//普通的对象
+    //json对象:所有的属性名都严格得拿双引号包起来,如果是字符串也得拿双引号包起来
+    var obj = {"name":"xxx","age":18,"gender":true};
+
+    var ary = [{"name":"宫之晓","age":18,"score":20},{"name":"于金超","age":30,"score":30},{"name":"张琦飞","age":60,"score":40}];
+    var str = '[{"name":"宫之晓","age":18,"score":20},{"name":"于金超","age":30,"score":30},{"name":"张琦飞","age":60,"score":40}]';
+
+
+    //JSON对象:stringify 和parse
+    //stringify把json对象(普通的对象)转换的json的字符串
+    //parse 把json字符串转化成json对象
+    //console.log(JSON.stringify(ary));//'[{"name":"宫之晓","age":18,"score":20},{"name":"于金超","age":30,"score":30},{"name":"张琦飞","age":60,"score":40}]'
+   //console.log(JSON.parse(str));
+
+    //ie不兼容下,用eval()这个方法解决json字符串转化成json对象
+   //console.log(eval("("+str+")")) ;
+    function toJson(str){
+        try{
+            return JSON.parse(str);
+        }catch(e){
+            return eval("("+str+")")
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

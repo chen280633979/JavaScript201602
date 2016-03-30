@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    //求平均数:去掉一个最高分,去掉一个最低分,剩下的数求平均数
+    //    function avgFn(){
+    //        //求出了最大值和最小值
+    //        var max = Math.max.apply(null,arguments);
+    //        var min = Math.min.apply(null,arguments);
+    //        //console.log(max);
+    //        //console.log(min);
+    //        //求和
+    //        var total = null;
+    //        for(var i = 0;i<arguments.length;i++){
+    //            total+=arguments[i];
+    //        }
+    //        var res = (total-max-min)/(arguments.length-2);
+    //        console.log(res);
+    //
+    //    }
+    function avgFn() {
+        //1.排序
+        //console.log(typeof  arguments);
+        //arguments对象类型,类数组并不是数组,不能用数组上方法
+        //arguments.callee 表示方法本身
+        //arguments.length 表示传的实参的个数
+        //以数字作为属性名的属性值是我们传进来的实参
+        //把实参遍历出来
+
+//        for(var i = 0; i<arguments.length;i++){
+//            console.log(arguments[i]);
+//        }
+        //没法用for--in--循环遍历出来的那些属性是不可枚举的属性,.可以遍历出来的就称为是可枚举的
+//        for(var key in arguments){
+//            console.log("属性名"+key+"属性值"+arguments[key]);
+//        }
+        //console.dir(arguments);
+//        var ary = [];
+//        for(var key in arguments){
+//            ary[ary.length] = arguments[key];
+//        }
+//        ary.sort(function(a,b){
+//            return a-b;
+//        });
+//        ary.shift();
+//        ary.pop();
+//       return  eval(ary.join("+"))/ary.length;
+    }
+
+    //类数组不能直接调用数组上的方法,但是可以通过call来改变数组上方法的this关键字,从而间接的调用数组的方法
+    function avgFn() {
+        //[1,2,14].sort();
+        //[1,2,14].pop();
+//        [1,2,4].sort(function(a,b){
+//            return a-b;
+//        })
+
+//        Array.prototype.sort.call(arguments,function(a,b){
+//            return b-a;
+//        })
+//        [].sort.call(arguments,function(a,b){
+//            return b-a;
+//        })
+//        Array.prototype.pop.call(arguments);
+//        Array.prototype.shift.call(arguments);
+//var str=Array.prototype.join.call(arguments,"+");
+//       return  eval(str)/arguments.length;
+    }
+
+    //模拟pop方法
+//    Array.prototype.pop = function () {
+//        //this  -->Array类的实例
+////        var last = this[this.length-1];
+////        this.length--;
+////        return last;
+//
+////        var last = arguments[arguments.length - 1];
+////        arguments.length--;
+////        return last;
+//
+//    }
+
+    function avgFn(){
+        //slice是不改变原有数组的
+        //var ary = [1,2,3];
+        //var aryNew = ary.slice(0);
+        var ary = [].slice.call(arguments,0);
+        //console.log(ary instanceof Array); true
+        ary.sort(function(a,b){return a-b});
+        ary.pop();
+        ary.shift();
+       return  (eval(ary.join("+"))/ary.length).toFixed(2);
+    }
+
+ console.log(avgFn(70, 0, 2,11, 3, 51, 34, 33));
+
+</script>

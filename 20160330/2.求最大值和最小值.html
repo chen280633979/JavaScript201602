@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var ary = [1, 2, 5, 54, 7, 12, 22];
+    //1.冒泡排序
+    //2.sort方法排序
+    //3.Math.max()
+    //4.Math.max(ary.join(","));
+    //console.log(Math.max(eval(ary.join(","))));最后一个值
+    //    ary.sort(function(a,b){
+    //        return a-b;
+    //    })
+    //console.log(ary[ary.length-1])
+
+    //Math.max.apply(null,ary);
+    //正确:Math.max(1,2,5,54,7,12,22);
+
+    var str = ary.join(",");//"1,2,5,54,7,12,22"
+    Math.max("1,2,5,54,7,12,22");//NaN
+
+    //eval(ary.join(","))//将字符串转换成js表达式
+    //括号表达式:如果有多项,总是返回最后一项
+    //(1,2,5,54,7,12,22) //22
+    //(function fn1(){console.log(1)},function fn2(){console.log(2)});
+    //(function(){console.log(1)})()
+
+    //假设法 假设第一项是最大的值,依次和后面的项进行比较,如果后面有一项值比我假设的值大的话,说明假设错了,再重新设置假设的值
+    var ary = [1, 2, 5, 54, 7, 12, 22];
+    var curMax = ary[0];
+    var curMin = ary[0];
+    for (var i = 0; i < ary.length; i++) {
+        ary[i + 1] > curMax ? curMax = ary[i + 1] : null;
+        ary[i + 1] < curMin ? curMin = ary[i+1]:null;
+    }
+
+
+</script>
+</body>
+</html>
+
+

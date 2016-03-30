@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+</body>
+</html>
+<script>
+    var oUl = document.getElementById("list");
+    var oLis = oUl.getElementsByTagName("li");
+    //console.log(oLis);//元素集合也是一个类数组
+    //var ary = [].slice.call(oLis,0);
+    //SCRIPT5014: Array.prototype.slice: 'this' 不是 JavaScript 对象
+    //aruments类数组可以通过call改变this关键字从而调用数组的方法,所有浏览器兼容
+    //元素集合这个类数组通过这种方式转换成数组,(ie6-ie7不支持)
+//    var ary = [];
+//    for(var i = 0;i<oLis.length;i++){
+//        ary[ary.length] = oLis[i];
+//    }
+    //console.log(ary);
+
+   // try...catch(e)...finally.. 捕获浏览器异常
+
+    try{
+        //先执行这一步,如果报错,走到catch(e)语句里,没有报错不会到catch(e)里
+    }catch(e){
+        //e.message能获取具体异常信息
+    }finally{
+        //不管上面有没有报错,都会走到finally里面
+    }
+    //try..catch..代码如果报错,浏览器会捕获到,并且不会阻止后面的代码继续执行
+    function listToArray(likeArray){
+        try{
+            return  [].slice.call(likeArray,0);
+        }catch(e){
+            //console.log(e.message);
+            var ary=[];
+            for(var i = 0;i<likeArray.length;i++){
+                ary[ary.length] = likeArray[i];
+            }
+            return ary;
+        }
+    }
+    console.log(listToArray(oLis));
+
+   //需求:即想捕获到异常信息(try...catch),并且将报错误信息抛出,后面的代码也都不再执行
+    //用在处理兼容性问题
+    try{
+        console.log(aaa);
+    }catch(e){
+        //console.log(e.message);
+        throw new Error(e.message);//创建一个Error类的实例,并抛出异常信息
+    }
+    console.log("ok");
+
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #tab{
+            border-collapse: collapse;
+            border:1px solid red;
+        }
+        #tab td,#tab th{
+            border:1px solid red;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<table id="tab" width="700">
+    <thead>
+    <tr>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>分数</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>宫之晓</td>
+        <td>18</td>
+        <td>50</td>
+    </tr>
+    <tr>
+        <td>智力超</td>
+        <td>22</td>
+        <td>34</td>
+    </tr>
+    <tr>
+        <td>张琦飞</td>
+        <td>65</td>
+        <td>80</td>
+    </tr>
+    <tr>
+        <td>于金超</td>
+        <td>30</td>
+        <td>100</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+
+<script src="util.js"></script>
+<script>
+    //1.获取需要操作的元素
+    var oTab = document.getElementById("tab");
+    var oThead = oTab.tHead;//获取tHead元素,只有一个
+    var oThs = oThead.rows[0].cells;//获取thead下面第一行下的所有的列
+    var oBody = oTab.tBodies[0];//获取第一个tbody元素
+    var oRows = oBody.rows;//获取tBody下面所有的行(tr);
+    //2.类数组转化成数组
+    var ary = listToArray(oRows);
+    //console.log(ary);//[tr, tr, tr, tr]
+    //3.按照年龄这一列进行排序
+    function sortFn(n){
+        ary.sort(function(a,b){
+            //a.cells 获取一行里(tr)的所有的列(td)(元素结合)
+            //按照第二列进行排序的,第二列的索引是1
+            //a.cells[1]  <td>...</td>
+            if(n==0){//按照姓名来排列
+                return a.cells[0].innerHTML.localeCompare(b.cells[0].innerHTML);
+            }
+            return a.cells[n].innerHTML - b.cells[n].innerHTML;
+        });
+
+        //添加到页面上去
+        var fg = document.createDocumentFragment();//文档碎片
+        for(var i = 0;i<ary.length;i++){
+            fg.appendChild(ary[i])
+        }
+        oBody.appendChild(fg)//页面只会渲染一次
+    }
+
+    //对标题的每一列绑定点击事件
+    for(var i = 0;i<oThs.length;i++){
+        oThs[i].index = i;
+        oThs[i].onclick = function(){
+          //每点击一次,得执行sortFn这个方法,并且传个参数(点击的是哪一个列也就是点击的这一列的索引)
+            sortFn(this.index);
+        }
+    }
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+   /* call方法的作用
+    1.改变.前面的方法的this关键字
+    2.让.前面的方法执行
+    */
+//    var obj = {fn:fn};
+    function fn(){
+        console.log(this);
+    }
+//    fn();//window
+//    obj.fn();//obj
+//    fn.call();//window
+//    obj.fn.call(null);//window
+//    obj.fn.call(undefined);//window
+   //fn.call(true);
+
+    function sum(num1,num2){
+        var total = null;
+        total = num1+num2;
+        return total;
+    }
+    console.log(sum.call(null,2,3));
+    //call第一个参数是用来改变this关键字,从第二个及第二个以后的参数都是一个一个分别赋值给.前面方法的形参的(call方法传参的方式是散列式的,一个一个的传的)
+
+    //apply方法和call方法基本相同,但是传参的方式不一样
+    //apply方法只有两个参数,第一个参数也是用来改变this关键字的,第二个参数是一个数组(把要传给sum的参数都放在数组里传进去),以打包的方式
+
+    console.log(sum.apply(null,[2,3]))
+
+
+
+
+</script>
