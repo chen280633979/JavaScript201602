@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+</head>
+<body>
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //1、JSON:是一种数据格式,把属性名用“双引号(不能是单引号)”包起来的就是JSON格式的
+
+    //    var obj = {name: "珠峰", age: 7};//->普通的格式的对象
+    //    var jsonObj = {"name": "珠峰", "age": 7};//->JSON格式的对象
+    //
+    //    var str = '{name: "珠峰", age: 7}';//->普通格式的字符串
+    //    var jsonStr = '{"name": "珠峰", "age": 7}';//->JSON格式的字符串
+
+    //2、浏览器window这个对象中提供了一个叫做JSON的属性名,这个属性有两个属性值：parse、stringify用来解析JSON格式数据的
+    //->JSON.parse():把JSON格式的字符串转换为JSON格式的对象
+    //->JSON.stringify():把JSON的对象转换为JSON格式的字符串
+
+    //->在IE6~7浏览器中,window下并没有JSON这个属性,那么我们的parse/stringify都不能使用
+
+    var str = '{"code":0,"data":{"today":"2016-03-31","data":[{"date":"2015-10-08","number":"6","weekday":"\u661f\u671f\u56db"},{"date":"2015-10-09","number":"9","weekday":"\u661f\u671f\u4e94"}]},"version":"29a44ff5b283fc94d5eb546bd4424d1a"}';
+    //var jsonData = JSON.parse(str);
+    //console.log(eval("(" + str + ")"));//->使用eval的话,需要在JSON字符串的左右两边各加小括号(不要问我为什么,记下来即可)
+
+    var jsonData = utils.formatJSON(str);
+    console.dir(jsonData);
+
+
+    //    console.log(jsonData);
+    //    jsonData.data.today
+    //    jsonData.data.data[0].number
+
+    //    console.log(JSON.stringify(jsonData));
+
+</script>
+</body>
+</html>

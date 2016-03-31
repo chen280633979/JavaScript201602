@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //1、获取数据和解析数据
+    var jsonData = null;
+    ~function () {
+        var xhr = new XMLHttpRequest;
+        xhr.open("get", "json/userInfo.txt", false);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+                var str = xhr.responseText;
+                jsonData = utils.formatJSON(str);
+            }
+        };
+        xhr.send(null);
+    }();
+
+    //2、绑定数据
+</script>
+</body>
+</html>

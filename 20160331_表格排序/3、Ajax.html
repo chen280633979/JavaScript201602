@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //Ajax:向后台请求数据
+
+    //1、创建一个Ajax对象
+    var xhr = new XMLHttpRequest;
+
+    //2、打开一个链接地址(这个链接地址就是我们向后台请求数据的地址,这个地址是后台给我们的->API(Application Programming Interface))
+    //"get"->请求方式：get、post、put、delete、head...
+    //地址
+    //是同步还是异步:默认是true->异步  false->同步
+    xhr.open("get", "json/userInfo.txt", false);
+
+    //3、监听数据请求
+    //->xhr.readyState:Ajax请求状态码
+    //0:UNSENT 还没有发送请求
+    //1:OPENED 已经打开连接
+    //2:HEADERS_RECEIVED 已经获取到了响应头信息
+    //3:LOADING 请求的数据内容正在加载
+    //4:DONE 数据请求完成,我们可以得到数据了
+
+    //->xhr.status:网络(HTTP)状态码
+    //200正常 以2开头的(2xx)的都是正常的  ->/^2\d{2}$/ 以2开头,后面跟两位数字
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+            var str = xhr.responseText;//->接收后台返回的JSON格式的字符串的数据
+            //->把获取的JSON格式的字符串转换为JSON格式的对象
+            console.log(utils.formatJSON(str));
+        }
+    };
+
+    //4、发送请求
+    xhr.send(null);
+</script>
+</body>
+</html>
