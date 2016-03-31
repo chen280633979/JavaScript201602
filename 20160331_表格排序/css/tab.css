@@ -1,0 +1,84 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    -webkit-user-select: none;
+}
+
+.box {
+    margin: 10px auto;
+    padding: 20px;
+    width: 400px;
+    border: 1px solid darkcyan;
+
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px 0 grey;
+}
+
+.box table {
+    /*border-collapse: collapse;*//*去除单元格个单元格之间的空隙*/
+}
+
+.box thead tr {
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: cornflowerblue;
+}
+
+.box thead tr th {
+    width: 100px;
+    color: #fff;
+}
+
+.box thead tr th.cursor {
+    cursor: pointer;
+}
+
+.box tbody tr {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.box tbody tr td {
+    width: 100px;
+}
+
+.box tbody tr.bg {
+    background: lightblue;
+}
+
+/*CSS3中的奇数行和偶数行变色*/
+/*.box tbody tr:nth-child(odd) {
+    background: lightpink;
+}
+
+.box tbody tr:nth-child(even) {
+    background: lightblue;
+}*/
+
+/*CSS3中的隔三行变色*/
+/*.box tbody tr:nth-child(3n+1) {
+    background: lightblue;
+}
+
+.box tbody tr:nth-child(3n+2) {
+    background: lightpink;
+}
+
+.box tbody tr:nth-child(3n+3) {
+    background: lightseagreen;
+}*/
+
+/*CSS3中的不固定规律变色*/
+/*.box tbody tr:nth-child(1) {
+    /!*.box tbody tr:first-child*!/
+    background: lightseagreen;
+}
+
+.box tbody tr:nth-child(6) {
+    /!*.box tbody tr:last-child*!/
+    background: lightpink;
+}*/

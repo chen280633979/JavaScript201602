@@ -2,27 +2,41 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>表格排序</title>
+    <link type="text/css" rel="stylesheet" href="css/tab.css"/>
 </head>
 <body>
+<div class="box">
+    <!--cellspacing="0" cellpadding="0"这个两个属性只能写在table上,不是样式,是两个清除默认的"列和列之间的间距和填充的属性"-->
+    <table id="tab" cellspacing="0" cellpadding="0">
+        <!--在一个表格中只能有一个tHead,但是可以有多个tBody;不管是tHead/tBody中的行都用tr,tHead中的列是th,tBody中的列是td-->
+        <thead>
+        <tr>
+            <!--以后想让那一列排序,就给哪一列加class="cursor"-->
+            <th class="cursor">姓名</th>
+            <th class="cursor">年龄</th>
+            <th class="cursor">性别</th>
+            <th>武力</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- <tr>
+             <td>令狐冲</td>
+             <td>24</td>
+             <td>男</td>
+             <td>98</td>
+         </tr>
+         <tr class="bg">
+             <td>东方不败</td>
+             <td>26</td>
+             <td>未知</td>
+             <td>100</td>
+         </tr>-->
+        </tbody>
+    </table>
+</div>
 
 <script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript">
-    //1、获取数据和解析数据
-    var jsonData = null;
-    ~function () {
-        var xhr = new XMLHttpRequest;
-        xhr.open("get", "json/userInfo.txt", false);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
-                var str = xhr.responseText;
-                jsonData = utils.formatJSON(str);
-            }
-        };
-        xhr.send(null);
-    }();
-
-    //2、绑定数据
-</script>
+<script charset="utf-8" type="text/javascript" src="js/tab.js"></script>
 </body>
 </html>
