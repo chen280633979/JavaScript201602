@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->try catch finally
+    //    try {
+    //        //<js code>
+    //    } catch (e) {
+    //        //如果第11行的代码执行报错的话,就会执行catch中的代码
+    //        //e中存储了报错的信息:e.message
+    //    } finally {
+    //        //一般不加,不管第11行的代码是否报错,都会执行finally中的代码
+    //    }
+
+    //->可以把错误信息捕获到,防止在浏览器的控制台抛出异常的错误信息,这样的话JS代码可以继续向下执行
+    //    try {
+    //        console.log(num);
+    //    } catch (e) {
+    //        //console.dir(e);//->e是Error这个类的一个实例 e.__proto__==Error.prototype
+    //        //console.log(e.message);//->num is not defined
+    //
+    //        //escape->为了防止传输的时候中文乱码,我们可以把中文进行编译,获取到后,通过unescape进行反编译
+    //        console.log(unescape("%u6211%u4EEC%u516C%u53F8%u6CA1%u6709%u5E74%u7EC8%u5956%uFF0C%u8FD8%u7ECF%u5E38%u52A0%u73ED%uFF0C%u6CA1%u6709%u52A0%u73ED%u8D39%uFF0C%u70C2%u7684%u4E0D%u80FD%u5728%u70C2%u4E86%uFF0C%u5144%u5F1F%u9009%u62E9%u672C%u516C%u53F8%u9700%u8981%u614E%u91CD%u8003%u8651%7E%7E"));
+    //    }
+    //    console.log(1);//->1
+
+    //->如果当前行的代码报错了,我们既要把错误信息捕获到,也要下面代码不执行
+    try {
+        console.log(num);
+    } catch (e) {
+        //e.message
+        throw new Error("当前网络繁忙，请稍后~~~");//->手动向浏览器抛出异常信息,结束浏览器的继续执行
+//        throw new ReferenceError("");//->引用错误
+//        throw new TypeError("");//->类型错误
+//        throw new RangeError("");//->范围错误
+    }
+    console.log(1);
+</script>
+</body>
+</html>

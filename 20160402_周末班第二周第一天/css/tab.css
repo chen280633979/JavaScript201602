@@ -1,0 +1,64 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    -webkit-user-select: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+.box {
+    margin: 20px auto;
+    padding: 20px;
+    width: 400px;
+    border: 1px solid darkcyan;
+
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px 0 #999;
+}
+
+.box h2 {
+    height: 35px;
+    background: cornflowerblue;
+}
+
+.box h2 span {
+    display: inline-block; /*每一个span中间的空格也是占位置的,需要让每一个span中间没有任何的间隙,否则可以使用float:left来浮动处理*/
+    width: 100px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+.box h2 span.cursor {
+    cursor: pointer;
+}
+
+.box ul {
+
+}
+
+.box ul li {
+    height: 30px;
+    line-height: 30px;
+}
+
+.box ul li span {
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+
+/*使用CSS3实现隔行变色->在IE6~8下不兼容,想要兼容所有的浏览器,可以使用JS实现*/
+.box ul li:nth-child(even) {
+    /*even:偶数行(2n) odd:奇数行(2n+1)*/
+    background: lightblue;
+}
+
+.box ul li:hover {
+    background: yellowgreen;
+}

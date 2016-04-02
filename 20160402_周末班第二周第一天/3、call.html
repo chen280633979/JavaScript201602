@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //fn.__proto__===Function.prototype
+
+    //->fn.call:fn通过原型链的查找机制,找到Function.prototype上的call方法(xxxfff000)
+    //->fn.call():找到call方法之后,然后把call这个方法执行,此时call方法中的this->fn
+    //Function.prototype.call=function(){
+    //
+    //
+    //
+    // }//->.call=xxxfff000
+
+    //1、在call方法执行的时候,完成了一些事情:fn.call(obj)
+    //1)让fn中的this关键字变为obj
+    //2)让fn执行
+
+    //    "use strict";//->使用JS严格模式
+    //
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //    fn();//this->window(非严格模式下) this->undefined(严格模式下)
+
+
+    //    var obj = {name: "珠峰培训"};
+    //    function fn(num1, num2) {
+    //        console.log(this, num1, num2);
+    //    }
+    //fn();//this->window
+    //obj.fn();//->Uncaught TypeError: obj.fn is not a function
+
+    //    fn.call(obj);//this->obj num1/num2=undefined
+    //    fn.call(100, 200);//this->Number {[[PrimitiveValue]]: 100} num1=200 num2=undefined  ->使用call方法改变this指向,第一个参数值是我们要变成的那个this(第一个参数写啥,fn中的this就是啥),第二个及以后的参数才相当于给fn在传递形参的值
+    //    fn.call(obj, 100, 200);
+
+    //    fn.call();//this->window
+    //    fn.call(undefined);//this->window
+    //    fn.call(null);//this->window
+    //->在非严格模式下：第一个参数不写，或者写undefined/null，this都是window
+    //->在严格模式下：第一个不写,或者写undefined,this是undefined，第一个写null,this就是null
+
+
+    //2、apply的用法和call基本一样，区别在于给fn传递参数值的时候：call是一个个的传递进来(从第二个参数起是给fn传递的形参)，而apply是把需要给fn传递的形参值放在一个数组中一起传递进去的 ->但是作用都一样:把fn中的this改变为obj,然后给fn传递100/200两个参数值,最后在让fn执行
+    //    fn.call(obj, 100, 200);
+    //    fn.apply(obj, [100, 200]);
+
+    //3、bind:在IE6~8下不兼容,它相对于call/apply来说,只是把this预先处理为我们想要的,但是此时并没有执行fn方法 ->"预处理机制(柯理化函数思想)"
+    //    fn.call(obj, 100, 200);
+    //    var tempFn = fn.bind(obj, 100, 200);
+    //    tempFn();
+
+
+    var obj = {name: "珠峰培训"};
+    function fn() {
+        console.log(this);
+    }
+
+    //window.setTimeout(fn, 1000);//->1000ms后执行fn,fn中的this->window
+    //window.setTimeout(fn.call(obj), 1000);//->在设置定时器的时候,我们就把fn的this改变为obj,并且让fn执行了,把执行的结果undefined放在定时器中 ->window.setTimeout(undefined, 1000);
+    //window.setTimeout(fn.bind(obj), 1000);//->在创建定时器的时候,通过bind把fn中的this预先处理为obj,当1000ms后在执行fn的时候,this就已经变为了obj
+
+    //    Function.prototype.myBind = function myBind(context) {
+    //        context = context || window;//||:首先看左边的值是否为真(只有0、NaN、null、undefined、""为假,其余都为真)，左边的值为真的话，返回左边的值，左边的中为假的话，返回右边的值
+    //        if (typeof context === "undefined") {
+    //            context = window;
+    //        }
+    //    };
+
+    //->使用柯理化函数的思想来封装我们的myBind方法(模拟内置的bind),实现兼容所有的浏览器
+    Function.prototype.myBind = function myBind(context) {
+        context = context || window;
+        var tempFn = this;
+        var outArg = Array.prototype.slice.call(arguments, 1);
+        return function () {
+            var innArg = Array.prototype.slice.call(arguments, 0);
+            var arg = outArg.concat(innArg);
+            tempFn.apply(context, arg);
+        }
+    };
+    fn.myBind(obj, 100, 200);
+</script>
+</body>
+</html>

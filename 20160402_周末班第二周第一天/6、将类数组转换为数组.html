@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //->借用数组的slice将arguments转换为数组兼容所有的浏览器的
+    //    function fn() {
+    //        var ary = Array.prototype.slice.call(arguments, 0);
+    //        console.log(ary);
+    //    }
+    //    fn(100,200,300);
+
+    //->借用数组的slice将HTMLCollection/NodeList转换为数组 ->在IE6~8中报错了:Array.prototype.slice: 'this' 不是 JavaScript 对象
+    var eleList = document.getElementsByTagName("*");
+
+    //->使用try、catch捕获错误信息来处理兼容
+    //    var ary = [];
+    //    try {
+    //        ary = Array.prototype.slice.call(eleList, 0);
+    //    } catch (e) {
+    //        for (var i = 0, len = eleList.length; i < len; i++) {
+    //            ary[ary.length] = eleList[i];
+    //        }
+    //    }
+    //    console.log(ary);
+
+    console.log(utils.listToArray());
+</script>
+</body>
+</html>

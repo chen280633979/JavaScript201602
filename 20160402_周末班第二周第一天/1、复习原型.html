@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Fn(num) {
+        this.x = this.y = num;
+    }
+    Fn.prototype = {//->批量的给类的原型增加属性:Fn.prototype重新指向了我们自己创建的这个对象,浏览器之前给它开辟的这个堆内存会被释放掉(没有被占用)
+//        constructor: Fn,
+        x: 20,
+        sum: function () {
+            console.log(this.x + this.y);
+        }
+    };
+    var f = new Fn(10);
+    console.log(f.sum === Fn.prototype.sum);
+    f.sum();//->f首先找到Fn.prototype上的sum方法.让方法执行.方法中的this->f ==>f.x+f.y=10+10=20
+    Fn.prototype.sum();//->sum执行的时候,方法中的this->Fn.prototype ==>Fn.prototype.x+Fn.prototype.y=20+undefined=NaN
+    console.log(f.constructor);//->Object
+</script>
+</body>
+</html>

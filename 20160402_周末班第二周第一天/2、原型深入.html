@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1"></div>
+<a id="a1"></a>
+<script type="text/javascript">
+    //->函数数据类型：普通函数、类(自定义类/内置类)
+    //->对象数据类型：普通的对象({})、数组([])、正则(/^$/)、时间实例(new Date)、Math(数学对象,它里面包含了很多操作数字的属性和方法)、"实例"、"原型"(Fn.prototype)、函数也是对象数据类型的
+
+    //1、函数在整个JS中是最特殊的也是最重要的也是最难的
+    //->在JS中我们的函数有三种角色:
+
+    //普通的函数(优先级最高的角色):因为它可以执行形成私有的作用域->形参赋值(arguments)->预解释->代码执行(return)->作用域的销毁或者不销毁... fn instanceof Function ->true
+
+    //类:new执行,创建出自己的实例,有自己的原型,函数体中的this.xxx=xxx中的this是当前类的实例...
+
+    //普通的对象:和var obj;中的obj一样,就是个对象名,有自己的属性... fn instanceof Object ->true
+
+    //->函数的三种角色让其具有了多面性,但是每一种角色和其他的角色都是互不影响的
+
+    //2、Function函数类
+    //->每一个函数数据类型都是Function这个类的一个实例
+
+
+
+    //->http://www.zhufengpeixun.cn/course/22/learn#lesson/530
+
+
+    function fn(num1, num2) {
+
+    }
+</script>
+</body>
+</html>

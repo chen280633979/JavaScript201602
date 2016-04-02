@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->JSON就是一种数据格式:把属性名用"双引号"(不能是单引号)包起来,我们就把它称之为JSON格式的数据
+    //    var obj = {name: "珠峰"};//->普通格式的对象
+    //    var str = '{name:"珠峰"}';//->普通格式的字符串
+    //
+    //    var jsonObj = {"name": "珠峰"};//->JSON格式的对象
+    //    var jsonStr = '{"name":"珠峰"}';//->JSON格式的字符串
+
+
+    //->2、JSON格式数据的解析
+    //->window.JSON
+    //parse:把JSON格式的字符串转换为JSON格式的对象
+    //stringify:把JSON格式的对象转换为JSON格式的字符串
+    //    var jsonObj = JSON.parse(jsonStr);
+    //    //console.log(jsonObj);//->多维数据(数组)
+    //    console.log(JSON.stringify(jsonObj));
+
+    //->在IE6~7浏览器中window下没有JSON这个属性,同理也没有parse/stringify这两个方法了
+
+    //->把JSON格式的字符串转换为JSON格式的对象:
+    var jsonStr = '{"code":0,"data":{"today":"2016-04-02","data":[{"date":"2015-10-08","number":"6","weekday":"\u661f\u671f\u56db"},{"date":"2015-10-09","number":"9","weekday":"\u661f\u671f\u4e94"}]},"version":"ec9a6cb43cb0def47c11c81494d19db2"}';
+
+    //console.log(eval(jsonStr));//->Uncaught SyntaxError: Unexpected token :
+    console.log(eval("(" + jsonStr + ")"));//->我们使用eval来代替JSON.parse,但是一定要记住需要在字符串的左右两边手动增加一个小括号(不要问我为什么,记住即可)
+
+    //    var ary = [12, 23, 34];//->一维数组
+    //    var ary = [{name: ""}, {name: ""}];//->二维数组
+    //    var ary = [{list: [{}]}];
+</script>
+</body>
+</html>
