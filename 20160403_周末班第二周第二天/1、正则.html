@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //正则的项目实战作用:
+    //->表单验证:验证用户输入的内容是否符合我们设定的规则,例如：邮箱、电话、密码...
+    //->数据采集:在一堆数据中把我们需要的数据获取到,例如:
+    //1)URL传参(问号传参) 从列表页到详细页(或者其他的页面),我们点击不同的列表,在详细页面看到的内容也不同,但是详细页是同一个页面,想要展示不同的内容,需要把URL地址中的,?后面传递进来的参数获取到,通过传递过来的参数值的不一样展示不同的内容
+    //->queryURLParameter  ->{mid:'208:847736',name:'kbs'}
+    //http://kbs.sports.qq.com/kbsweb/game.htm?mid=208:847736&name=kbs
+    //http://kbs.sports.qq.com/kbsweb/game.htm?mid=100000:1467492&name=nba
+    //2)信息采集侠(信息盗取小偷)
+
+    //->把一些数据转变为我们想要的格式,例如:"2016-4-3 12:14:00" ->"2016年04月03日"
+
+    //...
+
+    //1、正则(用来处理字符串的一个规则)的作用:
+    //->正则就是用来处理字符串的:匹配字符串的格式是否符合既定的格式(正则的匹配)、把一个字符串中符合既定格式的内容获取到(正则的捕获)
+
+    //test->匹配
+    //    var reg = /\d/;//-> \d一个0-9之间的数字 ->包含一个0-9之间的数字的规则
+    //    console.log(reg.test("2016"));//->true
+    //    console.log(reg.test("zhufeng9peixun"));//->true
+    //    console.log(reg.test("zhufengpeixun"));//->false
+
+    //exec->捕获
+    //    var reg = /\d/g;
+    //    console.log(reg.exec("2016"));//->["2", index: 0, input: "2016"]
+    //    console.log(reg.exec("2016"));//->["0"...]
+    //    console.log(reg.exec("2016"));//->["1"...]
+    //    console.log(reg.exec("2016"));//->["6"...]
+
+
+    //3、如何把一个规则用正则制定出来?
+    //每个正则都是由元字符和修饰符两部分组成
+
+    //[修饰符]g、i、m
+    //g(global)->全局匹配
+    //i(ignoreCase)->忽略大小写匹配
+    //m(multiline)->换行匹配
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+var jsonStr = '[{"name":"令狐冲","age":24,"sex":0,"force":98},{"name":"东方不败","age":28,"sex":2,"force":100},{"name":"任盈盈","age":20,"sex":1,"force":80},{"name":"岳灵珊","age":20,"sex":1,"force":85},{"name":"林平芝","age":23,"sex":0,"force":90},{"name":"岳不群","age":58,"sex":0,"force":96}]';

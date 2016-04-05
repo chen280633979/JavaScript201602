@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul id="ul1">
+    <li>
+        <ul>
+            <li>1-1</li>
+            <li>1-2</li>
+            <li>1-3</li>
+        </ul>
+    </li>
+    <li name="zhufeng">2</li>
+    <li name="zhufeng">3</li>
+    <li name="zhufeng">4</li>
+    <li name="zhufeng">5</li>
+</ul>
+<script type="text/javascript">
+    //->DOM映射机制:
+    //JS中获取的元素/元素集合 和 页面中的元素标签/容器 是紧紧的绑定在一起的,其中一个改变,另外一个也会跟着改变
+
+    var oUl = document.getElementById("ul1");
+    var oLis = oUl.getElementsByTagName("li");//->把#ul1下子子孙孙级别的li都获取到了
+
+    //oLis = document.querySelectorAll("#ul1>li");//->获取#ul1下所有子元素中的li
+    //document.querySelectorAll("div[index=2]");
+
+
+    //oLis[0]是集合中的第一个元素对象,它和页面中的第一个LI是映射关系
+    //->oUl.appendChild(oLis[0]);//->并没有往末尾新增加元素,而是把之前的第一个li位置进行了改变,第一个li现在处于末尾的位置
+
+    //页面中的#ul1和oUl是映射关系
+    //    oUl.style.background = "red";
+
+    //    console.log(oLis.length);//->5 oLis这个集合和页面中#ul1这个容器中的内容是存在映射关系的
+    //    oUl.innerHTML += "<li>6</li>";
+    //    console.log(oLis.length);//->6 不需要重新获取,我们集合中的内容也会跟着自动的增加
+
+    //    var oUl = document.getElementById("ul1");
+    //    var oLis = oUl.querySelectorAll("li");//->NodeList 通过querySelectorAll获取到的节点集合和其他的节点集合不一样,它准确的来说的话,应该属于StaticNodeList ->是不存在DOM的映射机制的
+    //
+    //    console.log(oLis.length);//->5
+    //    oUl.innerHTML += "<li>6</li>";
+    //    console.log(oLis.length);//->5
+    //
+    //    oLis = oUl.querySelectorAll("li");
+    //    console.log(oLis.length);//->6
+
+    //->var nameList = document.getElementsByName("zhufeng");
+    //->getElementsByName获取到的节点集合是存在映射关系的
+</script>
+</body>
+</html>
