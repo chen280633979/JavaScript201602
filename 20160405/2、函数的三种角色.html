@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->函数有三种角色：
+    //1、普通的函数->执行、形成闭包、形参、预解释、返回值、作用域的销毁/不销毁...
+    //2、类->实例、原型、__proto__、constructor、instanceof...
+    //3、普通的对象->自己的属性名和属性值
+    //函数的三种角色之间没有任何的必然联系
+    function Fn(num1, num2) {
+        this.x = num1;
+        this.y = num2;
+        var total = 0;
+        total = num1 + num2;
+        return total;//->手动返回的是一个基本数据类型的值,对new Fn创建的那个实例是没有任何的影响的
+    }
+    Fn.prototype = {
+        //自己开辟的对象中不会天生自带constructor属性
+        sum: function () {
+            console.log(this.x + this.y);
+        }
+    };
+    Fn.total = 100;
+    Fn.sum = function () {
+        console.log(this.x + this.y);
+    };
+
+    var res1 = Fn(10, 20);//->普通函数执行 num1=10 num2=20 var total; this->window  window.x=10  window.y=20  res1是函数执行的返回值30
+    console.log(res1);//->30
+
+    var f1 = new Fn;//->类 f1是fn的一个实例 f1 instanceof Fn->true  this->f1 私有属性:x、y  在执行Fn的时候没有传递值,所以f1.x=f1.y=undefined  total/num1/num2只是Fn当做普通的函数执行的一个私有的变量,和实例没有关系 "只有在函数体中出现的this.xxx=xxx才相当有给当前的实例增加一些自己的私有属性"
+    console.log(f1.total);//->undefined
+    f1.sum();//->NaN
+
+    var f2 = new Fn(10, 20);//->f1.x=10 f1.y=20
+    console.log(f2.total);//->undefined
+    f2.sum();//->30
+
+    console.log(Fn.total);//->100
+    Fn.sum();//->this是Fn Fn.x+Fn.y = undefined+undefined = NaN
+
+    console.log(f1.constructor);//->Object
+    console.log(Fn.constructor);//->Fn是Function的一个实例,->Function
+</script>
+</body>
+</html>

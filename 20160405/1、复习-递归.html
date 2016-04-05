@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //递归:函数执行的时候,在自己的函数体中在重新的调用自己执行
+    //1)自己调用自己
+    //2)但是不能无限次的调用下去,需要在一个阶段结束递归的调用
+
+    //1、需求:1-10之间把所有能被三整除的进行相加
+    //    function sum(n) {
+    //        if (n === 1) {
+    //            return 0;
+    //        }
+    //        if (n % 3 === 0) {
+    //            return n + sum(n - 1);
+    //        }
+    //        return sum(n - 1);
+    //    }
+    //    var total = sum(10);//->sum(9) ->9+sum(8) ->9+sum(7) ->9+sum(6) ->9+6+sum(5) ->9+6+sum(4) ->9+6+sum(3) ->9+6+3+sum(2) ->9+6+3+sum(1) ->9+6+3+0
+    //    console.log(total);
+
+
+    //    var total = null;
+    //    for (var i = 1; i <= 10; i++) {
+    //        i % 3 === 0 ? total += i : null;
+    //    }
+    //    console.log(total);
+
+    //->Uncaught RangeError: Maximum call stack size exceeded
+    //    function fn() {
+    //        fn();
+    //    }
+    //    fn();
+
+    //2、在1、3、5、7、9......99(1-100之间的奇数)之间，找出整除5的进行相加，找出整除3的进行相减，找出整除7的进行相乘...最后汇总结果
+    //    var total = null;
+    //    //->i += 2 对于偶数是不进行循环处理的
+    //    for (var i = 1; i <= 99; i += 2) {
+    //        if (i % 3 === 0) {
+    //            total -= i;
+    //            continue;
+    //        }
+    //        if (i % 5 === 0) {
+    //            total += i;
+    //            continue;
+    //        }
+    //        if (i % 7 === 0) {
+    //            total *= i;
+    //        }
+    //    }
+    //    console.log(total);//->-40858460
+
+    function sum(n) {
+        if (n === 1) {
+            return 0;
+        }
+        var sig = n % 3 === 0 ? "-" : (n % 5 === 0 ? "+" : (n % 7 === 0 ? "*" : null));
+        if (sig) {
+            return eval("sum(n-2)" + sig + "n");
+        }
+        return sum(n - 2);
+
+//        if (n % 3 === 0) {
+//            return sum(n - 2) - n;
+//        }
+//        if (n % 5 === 0) {
+//            return sum(n - 2) + n;
+//        }
+//        if (n % 7 === 0) {
+//            return sum(n - 2) * n;
+//        }
+//        return sum(n - 2);
+    }
+    var total = sum(9);//->-9+((5+(-3+0))*7)
+    console.log(total);
+
+    //->一列数的规则如下:1 、 1 、 2 、 3 、 5 、 8 、 13 、 21 、 34…… 求第30位数是多少,用递归算法实现
+    //->递归将一个整数输出：如654321，输出1,2,3,4,5,6
+    //...
+</script>
+</body>
+</html>

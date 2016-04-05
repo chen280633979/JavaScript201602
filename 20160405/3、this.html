@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //    fn.prototype.sum = function () {
+    //        console.log(this);
+    //    };
+    //    var obj = {name: "珠峰", fn: fn};
+    //    fn();
+    //    obj.fn();
+    //    var f = new fn;
+    //    fn.prototype.sum();//->this是fn.prototype ->f.__proto__
+    //    f.sum();//->this是f
+    //    f.hasOwnProperty();
+    //    Object.prototype.hasOwnProperty();
+
+    //    var obj = {
+    //        fn: (function () {
+    //            console.log(this);//this->window
+    //
+    //            return function () {
+    //                console.log(this);
+    //            }
+    //        })()
+    //    };
+    //    var fn = obj.fn;
+    //    obj.fn();//this->obj
+    //    fn();//this->window
+
+    //    function fn() {
+    //        console.log(this);
+    //    }
+    //    //oDiv.onclick = fn;//->fn中的this->oDiv
+    //    oDiv.onclick = function anonymous() {
+    //        console.log(this);//->anonymous中的this->oDiv
+    //
+    //        //fn();//->fn中的this->window
+    //        //->想让fn中的this也变为oDiv
+    //        fn.call(this);//->fn中的this->oDiv  ==>fn.call(oDiv) anonymous函数中的this就是oDiv
+    //    }
+
+    //    window.setTimeout(function anonymous() {
+    //        console.log(this);//->window
+    //    }, 1000);
+
+    //    var obj = {
+    //        name: "珠峰",
+    //        fn: function () {
+    //            console.log(this);//this->window
+    //        }
+    //    };
+    //    window.setTimeout(obj.fn, 1000);
+
+    //->"回掉函数机制"：模拟setTimeout,理解this为啥都是window
+    //    function setTimeout(callback, time) {
+    //        //->到达time这个时间的时候执行方法->callback
+    //        callback();//->callback这个函数执行的时候里面的this就是window
+    //    }
+    //    setTimeout(obj.fn, 1000);
+    //->一般情况下回掉函数中的this都是window
+
+    var ary = [12, 13];
+    //    ary.sort(function () {
+    //        console.log(this);//this->window
+    //    });
+    //    ary.forEach(function () {
+    //        console.log(this);//this->window
+    //    });
+    //    ary.map(function () {
+    //        console.log(this);//this->window
+    //    });
+
+    //    var str = "A";
+    //    str.replace(/./g, function () {
+    //        console.log(this);//this->window
+    //    });
+
+    //->我想让"obj.fn"中的this变为obj
+    //    var obj = {
+    //        name: "珠峰", fn: function () {
+    //            console.log(this);
+    //        }
+    //    };
+    //    function A(callback, context) {
+    //        //callback();//->obj.fn中的this->window
+    //        callback.call(context);//->obj.fn中的this->context
+    //    }
+    //    A(obj.fn, obj);
+
+    //    ary = [12, 13];
+    //    ary.forEach(function () {
+    //        console.log(this);//this->Number {[[PrimitiveValue]]: 100}
+    //    }, 100);
+    //forEach、map方法可以传递两个参数,第一个是anonymous,如果第二个参数不传,anonymous中的this->window;第二个参数是context,让anonymous中的this进行改变的;
+
+    //    var obj = {name: "珠峰"};
+    //    function anonymous() {
+    //        console.log(this);//this->obj
+    //    }
+    //    window.setTimeout(anonymous.bind(obj), 1000);
+
+
+    //    Array.prototype.xxx=function(){};
+    //    String.prototype.xxx=function(){};
+    //    Number.prototype.xxx=function(){};
+    //    ...
+
+    //(5).plus(3).minus(2)
+    Number.prototype.plus = function plus() {
+        var val = Number(arguments[0]);
+        if (isNaN(val)) {
+            throw new ReferenceError("参数不合法");
+        }
+        return this + val;
+    };
+
+    Number.prototype.minus = function minus() {
+        var val = Number(arguments[0]);
+        if (isNaN(val)) {
+            throw new ReferenceError("参数不合法");
+        }
+        return this - val;
+    };
+
+    console.log((5).plus(3).minus(2));
+</script>
+</body>
+</html>
