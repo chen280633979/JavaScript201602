@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .box {
+            margin: 100px;
+            border: 10px solid green;
+            padding: 30px;
+            width: 200px;
+            height: 200px;
+            line-height: 25px;
+
+            /*opacity:设置元素的透明度,在IE6~8下不兼容,我们需要使用滤镜处理*/
+            opacity: 0.654321;
+            filter: alpha(opacity=65.4321);
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    站在台风口上,猪都能飞起来~~;要得到你必须要付出,要付出你还需要学会坚持,如果你真的觉得很难,那你就放弃,但是一但放弃就不要在抱怨,我觉得人生就是这样,世界真的是平衡的,每个人都是通过自己的努力,去决定自己生活的样子;
+</div>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    //->最简单版
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        if ("getComputedStyle" in window) {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } else {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //->第一次升级:获取的结果带单位(例如:"200px"),我们需要把单位去除掉;但是不是所有的都去单位,只有部分值("100px"、"-23.8px"、"100"、"0.2"...),这样的才把单位去除
+    //    function getCss(curEle, attr) {
+    //        var val = null, reg = null;
+    //        if ("getComputedStyle" in window) {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } else {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        //->去除单位需要加格式判断,有的能去,有的值不能去
+    //        reg = /^(-?(\d|([1-9]\d+))(\.\d+)?)(px|pt|em|rem)?$/;
+    //        return reg.test(val) ? parseFloat(val) : val;
+    //    }
+    //    console.log(getCss(box, "width"));//->200
+    //    console.log(getCss(box, "float"));//->"none"
+    //    console.log(getCss(box, "border"));//->"10px solid rgb(0, 128, 0)"
+
+    //第二次升级:处理透明度样式的兼容问题
+    function getCss(curEle, attr) {
+        var val = null, reg = null;
+        if ("getComputedStyle" in window) {
+            val = window.getComputedStyle(curEle, null)[attr];
+        } else {
+            //->IE6~8:我们不能在使用opacity获取透明度了,需要使用filter来获取
+            if (attr === "opacity") {
+                val = curEle.currentStyle["filter"];//->alpha(opacity=65.4321) ->在这个字符串中捕获到数字65.4321,然后在除以100
+                reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/;
+                val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+            } else {
+                val = curEle.currentStyle[attr];
+            }
+        }
+        reg = /^(-?(\d|([1-9]\d+))(\.\d+)?)(px|pt|em|rem)?$/;
+        return reg.test(val) ? parseFloat(val) : val;
+    }
+    console.log(getCss(box, "opacity"));
+</script>
+</body>
+</html>

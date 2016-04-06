@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .box {
+            margin: 100px;
+            border: 10px solid green;
+            padding: 30px;
+            width: 200px;
+            height: 200px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="box box2" id="box">
+    站在台风口上,猪都能飞起来~~;要得到你必须要付出,要付出你还需要学会坚持,如果你真的觉得很难,那你就放弃,但是一但放弃就不要在抱怨,我觉得人生就是这样,世界真的是平衡的,每个人都是通过自己的努力,去决定自己生活的样子;
+    站在台风口上,猪都能飞起来~~;要得到你必须要付出,要付出你还需要学会坚持,如果你真的觉得很难,那你就放弃,但是一但放弃就不要在抱怨,我觉得人生就是这样,世界真的是平衡的,每个人都是通过自己的努力,去决定自己生活的样子;
+</div>
+<script type="text/javascript">
+    //->JS盒子模型:JS中提供一系列的属性,让我们获取到CSS盒子模型中的相关样式的值
+    var box = document.getElementById("box");
+
+    //->内容高度:在样式中设置了具体的值,那么不管内容多了还是少了,高度都是我们设置的那个值;如果没有设置具体的高度,获取的结果是实际内容撑开的高度;
+    //->真实内容高度:不管是否在样式中设置了高度值,内容如果有益处,也需要把溢出内容的高度加上
+
+    //->JS盒子模型提供的属性都是当前元素的"私有的属性"(13个)
+    //1、client系列:clientHeight/clientWidth/clientTop/clientLeft
+
+    //->clientWidth/clientHeight:内容宽度(高度)+左右(上下)padding的值
+    //->clientTop/clientLeft:上边框的高度(左边框的宽度)
+    //内容是否有益处对于最后的结果是没有任何的影响的
+
+    //2、offset系列:offsetHeight/offsetWidth/offsetTop/offsetLeft/offsetParent
+
+    //->offsetWidth/offsetHeight:clientWidth(clientHeight)+左右(上下)的边框
+    //内容是否有益处对于最后的结果是没有任何的影响的
+
+    //3、scroll系列:scrollHeight/scrollWidth/scrollTop/scrollLeft
+
+    //->scrollWidth/scrollHeight:在没有内容溢出的情况下和我们的clientWidth(clientHeight)一模一样
+    //->scrollHeight:在有内容溢出的情况下,我们获取到的值"约等于":真实内容的高度+上padding
+    //为什么是约等于?
+    //1)同一个浏览器,是否增加了overflow: hidden;对最后的结果会有影响
+    //2)不同的浏览器获取到的值是不一样的
+
+
+    //3、对于浏览器来说,我们超出一屏幕的内容都是当前浏览器溢出的内容
+    //->获取当前浏览器可视窗口(一屏幕)的宽度和高度
+    //document.documentElement.clientWidth
+    //document.documentElement.clientHeight
+
+    //->获取整个网页的实际宽度和高度
+    //document.documentElement.scrollWidth
+    //document.documentElement.scrollHeight
+
+    //->对于操作浏览器的"所有的盒子模型属性"来说,想要兼容所有的浏览器,必须要写两套获取方式:
+    //document.documentElement.[盒子模型的属性]||document.body.[盒子模型的属性]
+    //例如：document.documentElement.scrollHeight||document.body.scrollHeight
+</script>
+</body>
+</html>

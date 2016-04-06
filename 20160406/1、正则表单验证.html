@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: #616161;
+        }
+
+        input {
+            outline: none;
+        }
+
+        em, span, input {
+            display: block;
+        }
+
+        .box {
+            position: relative;
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .box input {
+            padding: 8px 12px;
+            padding-left: 30px;
+            width: 400px;
+            height: 22px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .box input.ok {
+            border-color: green;
+        }
+
+        .box input.error {
+            border-color: red;
+        }
+
+        .box em {
+            position: absolute;
+            top: 7px;
+            left: 1px;
+            width: 24px;
+            height: 24px;
+            background-image: url("img/input_icons.png");
+            background-position: 0 -68px;
+        }
+
+        .box span {
+            display: none;
+            height: 35px;
+            line-height: 35px;
+            color: red;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <em></em>
+    <!--placeholder:是HTML5中给文本框新增加的一个用来展示默认提示信息的属性 在IE浏览器的兼容性特别的差,如果是在IE使用的话,需要自己编写程序来实现这个功能-->
+    <input type="text" id="userEmail" placeholder="请输入您常用的邮箱"/>
+    <span id="spanEmail"></span>
+</div>
+
+<script type="text/javascript">
+    var userEmail = document.getElementById("userEmail"), spanEmail = document.getElementById("spanEmail");
+
+    //onkeydown->键盘按下事件(只要按下不管是否松开都发生了)
+    //onkeypress->键盘按下(一直按着没松开)
+    //onkeyup->键盘抬起事件
+
+    userEmail.onkeyup = function () {
+        var val = this.value.replace(/(^ +| +$)/g, "");
+        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if (val.length === 0 || !reg.test(val)) {
+            this.className = "error";
+            spanEmail.style.display = "block";
+            spanEmail.innerHTML = val.length === 0 ? "请输入您的邮箱~~" : "您输入的邮箱不符合格式~~";
+            return;
+        }
+        this.className = null;
+        spanEmail.style.display = "none";
+    };
+
+
+    //->文本框获取焦点(光标进来),让边框变为绿色(class='ok'),并且让错误的提示信息也消失
+    //    userEmail.onfocus = function () {
+    //        this.className = "ok";
+    //        spanEmail.style.display = "none";
+    //    };
+
+    //->文本框失去焦点(光标离开),首先判断用户有没有输入内容,没有的话,让文本框的class='error',并且让提示显示;如果输入内容但是不是邮箱的格式,同样也是让文本框的class='error',并且让提示显示;如果输入的正确,文本框和提示都回归初始的样式;
+    //    userEmail.onblur = function () {
+    //        var val = this.value;//->获取文本框输入的内容
+    //        //val = val.trim();//->去除字符串的首尾空格 trim这个方法在IE6~8下和部分火狐浏览器中不兼容
+    //        val = val.replace(/(^ +| +$)/g, "");//->兼容所有浏览器的去除字符串的首尾空格
+    //        if (val.length === 0) {//->用户没有输入内容
+    //            this.className = "error";
+    //            spanEmail.style.display = "block";
+    //            spanEmail.innerHTML = "请输入您的邮箱~~";
+    //            return;
+    //        }
+    //        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    //        if (!reg.test(val)) {
+    //            this.className = "error";
+    //            spanEmail.style.display = "block";
+    //            spanEmail.innerHTML = "您输入的邮箱不符合格式~~";
+    //            return;
+    //        }
+    //        this.className = null;
+    //        spanEmail.style.display = "none";
+    //    };
+</script>
+</body>
+</html>

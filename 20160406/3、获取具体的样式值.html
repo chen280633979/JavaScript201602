@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .box {
+            margin: 100px;
+            border: 10px solid green;
+            padding: 30px;
+            width: 200px;
+            height: 200px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    站在台风口上,猪都能飞起来~~;要得到你必须要付出,要付出你还需要学会坚持,如果你真的觉得很难,那你就放弃,但是一但放弃就不要在抱怨,我觉得人生就是这样,世界真的是平衡的,每个人都是通过自己的努力,去决定自己生活的样子;
+</div>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    //->JS盒子模型中提供的属性获取的都是组合样式的值,针对于一些需求来说是比较方便,但是如果想获取指定某一个具体样式属性的是,是没有办法的
+    //->获取指定样式属性值
+    //1、[curEle].style.[attr]:获取当前元素[curEle]的[attr]这个行内样式属性值
+    //->只有把样式写在行内,才能获取到,写在样式表中的样式是获取不到的
+    //console.log(box.style.paddingTop);//->"" 虽然我们把样式写在样式表中了,但是由于没有写在行内上,所以获取不到
+
+    //2、使用getComputedStyle获取
+    //->getComputedStyle:window这个对象的一个属性(方法),获取当前元素所有经过浏览器计算过的样式(只要当前的元素能够在页面中呈现出来,那么它的所有的样式都是经过浏览器计算过的->不管样式写在哪,也不管写没写,都有)
+    //window.getComputedStyle=function getComputedStyle(){[nav code]}
+    //->window.getComputedStyle([curEle], [当前元素的伪类,一般不用都写null]) 获取的结果是一个对象(CSSStyleDeclaration这个内置类的一个实例),我们当前元素的所有的样式在这个对象中都可以找到
+    //->console.log(window.getComputedStyle(box, null)["paddingTop"]);
+
+    //3、但是此方法在IE6~8下不兼容(window下没有getComputedStyle这个属性)
+    //->console.log("getComputedStyle" in window); ->false
+    //->console.log(window.getComputedStyle); ->undefined
+    //->IE下提供了另外的一个方法,来获取当前元素所有经过浏览器计算的样式:currentStyle
+    //->[curEle].currentStyle.[attr]
+
+    //->getCss:获取当前元素(curEle)经过浏览器计算的某个样式属性(attr)的值
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        try {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } catch (e) {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+
+    //4、处理浏览器的兼容性问题总结
+    //1)使用try、catch处理兼容
+    //->保证不兼容的情况下,我们try中的代码在执行的时候,浏览器中会报错才可以
+    //->不管当前浏览器是兼容还是不兼容,我们都需要把try中的先执行一遍(浪费性能)
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        try {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } catch (e) {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //2)判断window下是否存在这个属性,存在就兼容,不存在就不兼容
+    //[方案一]
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        if ("getComputedStyle" in window) {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } else {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //[方案二]
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        if (window.getComputedStyle) {//->首先获取属性值,判断属性的值真假:兼容的话属性值是一个函数->true 不兼容的话属性值是undefined->false
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } else {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //[方案三]
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        if (typeof window.getComputedStyle === "function") {//->检测获取到的属性值的类型,是一个函数的话代表兼容
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        } else {
+    //            val = curEle.currentStyle[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //3)直接通过判断浏览器的类型来决定是否兼容
+    //    function getCss(curEle, attr) {
+    //        var val = null;
+    //        if (/MSIE ([6-8])/i.test(navigator.userAgent)) {
+    //            val = curEle.currentStyle[attr];
+    //        } else {
+    //            val = window.getComputedStyle(curEle, null)[attr];
+    //        }
+    //        return val;
+    //    }
+
+    //->获取当前浏览器的类型(版本信息)
+    //console.log(window.navigator.userAgent);
+    //谷歌:"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2679.0 Safari/537.36"
+    //火狐:"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0"
+    //IE10:"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)"
+    //IE8:"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)"
+    //...
+    //->扩展作业:自己测试也好,自己上网查也好,写一个检测浏览器的方法,能够判断当前的浏览器是否为IE、火狐、谷歌、Safari...
+
+    //->基础知识
+    //    var attr = "name";
+    //    var obj = {name: "珠峰"};
+    //    console.log(obj.attr);//->获取obj下属性名为attr这个属性的值 ->undefined
+    //    console.log(obj[attr]);//->获取obj下属性名为 attr这个变量存储值 对应的属性名 ->obj["name"] ->"珠峰"
+</script>
+</body>
+</html>

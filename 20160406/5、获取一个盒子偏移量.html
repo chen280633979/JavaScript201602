@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            cursor: pointer;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #outer {
+            margin: 50px auto;
+            padding: 30px;
+            width: 240px;
+            height: 240px;
+            border: 10px solid #000;
+            background: orange;
+        }
+
+        #inner {
+            padding: 30px;
+            width: 180px;
+            height: 180px;
+            border: 10px solid #000;
+            background: lightskyblue;
+        }
+
+        #center {
+            width: 180px;
+            height: 180px;
+            border: 10px solid #000;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="center"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var outer = document.getElementById("outer"), inner = document.getElementById("inner"), center = document.getElementById("center");
+
+    //->parentNode:父亲节点(HTML层级关系中的上一级节点)
+    //    center.parentNode->inner
+    //    inner.parentNode->outer
+    //    outer.parentNode->body
+
+    //->offsetParent:父级参照物(在同一个水平面上最外层的元素就是所有元素的父级参照物)->和我们的HTML层级结构没有必然的联系
+    //一般情况下页面中所有元素的父级参照物都是body
+    //    center.offsetParent->body
+    //    inner.offsetParent->body
+    //    outer.offsetParent->body
+
+    //->盒子的偏移量：当前元素(从外边框开始)距离父级参照物(内边框结束)的距离(左边offsetLeft/上边offsetTop)
+
+    //->父级参照物如何的修改?
+    //给对应的元素添加定位->relative、absolute、fixed
+    //    outer.style.position = "relative";
+    //    console.log(inner.offsetParent);//->outer
+    //    console.log(center.offsetParent);//->outer
+    //    console.log(outer.offsetParent);//->body
+
+    //    outer.style.position = "relative";
+    //    inner.style.position = "relative";
+    //    console.log(center.offsetParent);//->inner
+    //    console.log(inner.offsetParent);//->outer
+    //    console.log(outer.offsetParent);//->body
+
+
+    outer.style.position = "relative";
+    inner.style.position = "relative";
+
+    //->需求：不管当前元素的父级参照物是谁，我都要获取当前元素的外边框距离body的偏移,例如：center的父级参数物inner... center距离body的偏移
+
+    //->offset:获取当前元素距离body的左偏移/上偏移
+    function offset(curEle) {
+        var disLeft = curEle.offsetLeft;
+        var disTop = curEle.offsetTop;
+        var par = curEle.offsetParent;
+        while (par) {
+            //在标准的IE8浏览器中,元素距离父级参照物的距离是包含了边框的,所以我们每一次在累加的时候,IE8下是不需要在加边框的
+            if (navigator.userAgent.indexOf("MSIE 8") === -1) {
+                disLeft += par.clientLeft;
+                disTop += par.clientTop;
+            }
+            disLeft += par.offsetLeft;
+            disTop += par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {left: disLeft, top: disTop};
+    }
+    var centerDis = offset(center);
+    console.log(centerDis.left);
+    console.log(centerDis.top);
+</script>
+</body>
+</html>
