@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .box {
+            position: relative;
+            margin: 20px auto;
+            padding: 0 5px 0 35px;
+            width: 960px;
+            height: 30px;
+            border: 1px dashed green;
+            background: papayawhip;
+        }
+
+        .box .boxIcon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: url("img/notic.jpg") no-repeat center center;
+        }
+
+        .box .boxCon {
+            height: 30px;
+            line-height: 30px;
+            white-space: nowrap; /*强制不换行*/
+            overflow: hidden;
+        }
+
+        #boxCon_begin, #boxCon_end {
+            display: inline-block;
+        }
+
+        #boxCon_begin span, #boxCon_end span {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="boxIcon"></div>
+    <div class="boxCon" id="boxCon">
+        <div id="boxCon_begin">
+            <span>新版经理人论坛上线了</span>：亲爱的用户，为了更好的提供服务，神州英才推出了全新经理人论坛平台。从即日起面向网站所有的会员朋友们开放公测！上线的社区平台，有全新的读版、读帖页样式，增添了更多的交互功能，关注用户需求和使用感受。
+        </div>
+        <div id="boxCon_end">
+            <span>新版经理人论坛上线了</span>：亲爱的用户，为了更好的提供服务，神州英才推出了全新经理人论坛平台。从即日起面向网站所有的会员朋友们开放公测！上线的社区平台，有全新的读版、读帖页样式，增添了更多的交互功能，关注用户需求和使用感受。
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //->思考题：实现鼠标滑上去停止,鼠标离开后继续
+    //->竖向的跑马灯
+
+    //->原理：
+    //1)保证页面上有两个容器:boxCon_begin,boxCon_end,boxCon_end中的内容个boxCon_begin中的内容一模一样
+    //2)获取boxCon_begin的宽度:boxCon_begin_width
+    //3)设置定时器,每隔一段时间,让boxCon的scrollLeft值进行累加；当我们的scrollLeft值已经>=boxCon_begin_width,说明已经让第二个div的语句开头正好处于最左边开始的位置,我们立马让boxCon的scrollLeft=0,这样又开始从头走了
+
+    var boxCon = document.getElementById("boxCon");
+    var boxCon_begin = document.getElementById("boxCon_begin");
+    var boxCon_begin_width = utils.getCss(boxCon_begin, "width");
+    var timer = window.setInterval(function () {
+        var curLeft = boxCon.scrollLeft;
+        if (curLeft >= boxCon_begin_width) {
+            boxCon.scrollLeft = 0;
+            return;
+        }
+        boxCon.scrollLeft = ++curLeft;
+    }, 5);
+
+    //->每当到末尾,都需要重新的新增加一个p标签,这样导致了时间过长,页面中会增加很多很多很多的p
+    //    var timer = window.setInterval(function () {
+    //        var curScrollLeft = boxCon.scrollLeft;
+    //        boxCon.scrollLeft = curScrollLeft + 1;
+    //        var newScrollLeft = boxCon.scrollLeft;
+    //        if (newScrollLeft === curScrollLeft) {
+    //            boxCon.appendChild(boxP.cloneNode(true));//->把第一个p克隆一份一模一样的,追加到bocCon这个容器的末尾,来实现无缝滚动
+    //        }
+    //    }, 5);
+
+    //    var timer = window.setInterval(function () {
+    //        var curScrollLeft = boxCon.scrollLeft;
+    //        boxCon.scrollLeft = curScrollLeft + 1;
+    //        var newScrollLeft = boxCon.scrollLeft;
+    //        if (newScrollLeft === curScrollLeft) {
+    //            boxCon.scrollLeft = 0;//->每一次结束后,执行下一次的时候会出现一个闪动的效果
+    //        }
+    //    }, 13);
+
+
+    //    var timer = window.setInterval(function () {
+    //        var curScrollLeft = boxCon.scrollLeft;
+    //        boxCon.scrollLeft = curScrollLeft + 1;
+    //        //->边界判断：即使我们在原来的基础上累加后,得到的结果和原来的结果一样,说明累加已经起不到任何作用了->到达最大的边界了
+    //        var newScrollLeft = boxCon.scrollLeft;
+    //        if (newScrollLeft === curScrollLeft) {
+    //            window.clearInterval(timer);
+    //        }
+    //    }, 13);
+
+
+</script>
+</body>
+</html>

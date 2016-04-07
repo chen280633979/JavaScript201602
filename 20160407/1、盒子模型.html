@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        /*不仅仅是对于样式的初始化,也是对于JS获取样式值的一个统一化*/
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: serif;
+            font-size: 14px;
+        }
+
+        #box {
+            padding: 30px;
+            width: 200px;
+            height: 200px;
+            border: 10px solid red;
+        }
+
+        #boxTwo {
+            margin: 10px auto;
+            padding: 30px;
+            width: 300px;
+            border: 1px solid green;
+        }
+
+        #boxTwo p {
+            line-height: 25px;
+        }
+
+        /*#boxTwo:hover {
+            /!*onmouseover/onmouseout*!/
+            background: orange;
+        }
+
+        #boxTwo:active {
+            /!*移动端用这个伪类来实现按下态效果*!/
+            background: lightblue;
+        }*/
+
+        #boxTwo p:before {
+            /*在内容的前面增加一个虚拟的标签,可以给这个标签设置值和样式*/
+            display: block;
+            content: "珠峰培训";
+            line-height: 35px;
+            background: red;
+            text-align: center;
+        }
+
+        #boxTwo p:after {
+            display: block;
+            content: "珠峰培训";
+            line-height: 35px;
+            background: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--<div id="box"></div>-->
+
+<div id="boxTwo">
+    <p id="p1">
+        从2009年开始，珠峰培训就专注于JavaScript培训。经过七年沉淀，已经成为在国内知名的良心品牌！而大多数从事前端培训的机构，是从2015年随着互联网发展的形式跟风进来的课程既不成体系，东拼西凑一些老师（有些老师都是我们刚毕业的学生，还是很大的培训机构），为了挣个快钱搞起前端培训！</p>
+</div>
+
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //    var box = document.getElementById("box");
+    //    console.log(utils.getCss(box, "fontSize"));
+    //    console.log(utils.getCss(box, "fontFamily"));
+    //    console.log(utils.getCss(box, "margin"));
+    //    console.log(utils.getCss(box, "borderTopWidth"));
+
+    //console.dir(window.getComputedStyle(box, null));
+    //console.dir(box.currentStyle);
+    //->两个方法获取到的结果不完全一致,尤其是我们没有设置样式的默认值是不一样的 ->我们在写页面的时候,需要在样式表中,把常用到的样式进行默认值的初始化处理
+
+    var boxTwo = document.getElementById("boxTwo");
+    var p1 = document.getElementById("p1");
+</script>
+</body>
+</html>

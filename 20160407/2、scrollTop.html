@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: serif;
+            font-size: 14px;
+        }
+
+        #box {
+            margin: 10px auto;
+            padding: 30px;
+            width: 200px;
+            height: 200px;
+            border: 10px solid red;
+            line-height: 26px;
+
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    从2009年开始，珠峰培训就专注于JavaScript培训。经过七年沉淀，已经成为在国内知名的良心品牌！而大多数从事前端培训的机构，是从2015年随着互联网发展的形式跟风进来的课程既不成体系，东拼西凑一些老师（有些老师都是我们刚毕业的学生，还是很大的培训机构），为了挣个快钱搞起前端培训！
+    从2009年开始，珠峰培训就专注于JavaScript培训。经过七年沉淀，已经成为在国内知名的良心品牌！而大多数从事前端培训的机构，是从2015年随着互联网发展的形式跟风进来的课程既不成体系，东拼西凑一些老师（有些老师都是我们刚毕业的学生，还是很大的培训机构），为了挣个快钱搞起前端培训！
+</div>
+
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    //->之前学习的JS盒子模型中的11个属性都是"只读的":只能获取值,但是不能修改值
+    //box.offsetHeight ->280
+    //box.offsetHeight=1000;
+    //box.offsetHeight ->280 只能获取不能修改,修改了也不会有任何的作用
+
+    //->我们通过JS盒子模型的属性获取的结果永远不会出现小数,一但出现小数,浏览器会自己默认进行四舍五入
+    //box.style.height="100.2px"
+    //box.offsetHeight ->180
+    //box.style.height="100.8px"
+    //box.offsetHeight ->181
+
+    //1、scrollTop/scrollLeft:滚动条卷去的高度/宽度
+    //->这两个属性既可以获取到值,也可以修改它们的值,这两个属性是"可读写"的
+
+    //->scrollTop是存在对大值和最小值的
+    //最小值:0
+    //最大值:box.scrollHeight(真实的高度,包含溢出内容)-box.clientHeight(一屏幕的高度)
+    //->我们设置的scrollTop值如果比最小值小/比最大值还要大,是没有任何作用的,得到的结果还是最大值和最小值
+    //box.scrollTop=-1000;
+    //box.scrollTop ->0;
+    //box.scrollTop=1000;
+    //box.scrollTop ->346
+</script>
+</body>
+</html>
