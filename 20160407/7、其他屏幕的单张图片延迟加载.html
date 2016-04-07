@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图片懒加载</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .banner {
+            margin: 1000px auto;
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+            background: url("img/default.gif") no-repeat center center #e1e1e1;
+        }
+
+        .banner img {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="banner" id="banner">
+    <img src="" zhuFengImg="img/jd.jpg"/>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //->当浏览器的滚动条在进行滚动的时候,我们判断 图片的底边框的位置是否在浏览器底边框位置之上(在之上说明整张图片都显示在我们的视野中了),此时我们加载真实的图片地址
+    var banner = document.getElementById("banner");
+    var bannerImg = banner.getElementsByTagName("img")[0];
+
+    var bannerTop = utils.offset(banner).top;//->图片顶边距离BODY的上偏移
+    var bannerHeight = banner.offsetHeight;
+    var clientH = utils.win("clientHeight");
+
+    function lazyImg() {
+        var curTop = utils.win("scrollTop");//->当前浏览器卷去的高度
+        //->重复加载问题:当前第一次符合条件后,我们已经把真实的图片加载出来了,但是当页面继续向下滚动的时候onscroll这个行为还在一直的被触发,条件只要还成立,又重新的加载图片一次(没必要浪费性能) ->第一次加载完成后,以后不管条件是否成立都不要在重新的加载了
+        if (bannerImg.zhufengIsLoad) {
+            //->已经加载过了
+            return;
+        }
+
+        if ((bannerHeight + bannerTop) <= (clientH + curTop)) {//->A<b 符合这个条件的话就说明该图片已经完全出现在视野中的了,我们开始加载真实的图片地址
+            var oImg = new Image;
+            oImg.src = bannerImg.getAttribute("zhuFengImg");
+            console.log("ok");
+            oImg.onload = function () {
+                bannerImg.src = this.src;
+                bannerImg.style.display = "block";
+                oImg = null;
+            };
+            bannerImg.zhufengIsLoad = true;//->增加一个自定义的属性,证明已经加载过了(写在外面:不管能不能正常的记载,只要加载过一次,说明我们已经处理过了,以后没有必要重复的进行处理了)
+        }
+    }
+    window.onscroll = lazyImg;//->当滚动条滚动的时候,我们开始加载真实的图片
+</script>
+</body>
+</html>

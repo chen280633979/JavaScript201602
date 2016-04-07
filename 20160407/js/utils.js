@@ -75,6 +75,15 @@ var utils = (function () {
                 par = par.offsetParent;
             }
             return {left: disLeft, top: disTop};
+        },
+        //win:获取或者设置关于浏览器的盒子模型的信息
+        win: function (attr, value) {
+            //->不传value的话默认是获取样式值
+            if (typeof value === "undefined") {
+                return document.documentElement[attr] || document.body[attr];
+            }
+            document.documentElement[attr] = value;
+            document.body[attr] = value;
         }
     }
 })();

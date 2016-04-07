@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图片懒加载</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .banner {
+            margin: 10px auto;
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+            background: url("img/default.gif") no-repeat center center #e1e1e1; /*给当前区域加一张默认图占个位置,告诉用户我的这个区域的图片正在加载中(要求默认图必须非常的小,一般都是5kb以内)*/
+        }
+
+        .banner img {
+            display: none; /*开始并没有给img的src加真实图片的地址,为了防止在IE中没有图片会显示叉子(不好看),我们默认让图片先隐藏*/
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="banner" id="banner">
+    <img src="" zhuFengImg="img/jd.jpg"/><!--zhuFengImg是自定义属性,用来存储真实图片的地址-->
+</div>
+<script type="text/javascript">
+    var banner = document.getElementById("banner");
+    var bannerImg = banner.getElementsByTagName("img")[0];
+    function lazyImg() {
+        var trueImg = bannerImg.getAttribute("zhuFengImg");
+        //->我们通过自定义属性获取到的真实图片的地址不一定是正确的地址，如果地址是错误的，图片就加载不出来，在IE下还是一个错误的叉子图
+        //bannerImg.src = trueImg;
+        //bannerImg.style.display = "block";
+
+        //->在加载真实图片之前还需要验证一下获取的地址能否正常的加载成功
+        var oImg = new Image;//->document.createElement("img") 临时创建一个IMG元素标签
+        oImg.src = trueImg;//->把我们的真实地址赋值给临时的IMG标签(由于临时的标签并没有增加到页面中,不管图片是否正常,用户都看不到错误的叉子图)
+        //->如果临时IMG能够把图片加载出来,说明当前的图片是正确的地址,我在把地址赋值给页面中的图片
+        oImg.onload = function () {//->oImg.onload图片能够正常加载成功后触发的行为
+            bannerImg.src = trueImg;
+            bannerImg.style.display = "block";
+            oImg = null;
+        }
+    }
+
+
+    window.setTimeout(lazyImg, 1000);//->1000ms后开始加载真实的图片
+    //window.onload = lazyImg; ->当页面中所有的资源都加载完成开始加载真实的图片
+</script>
+
+<script type="text/javascript">
+    //->JS实战优化最重要的优化法则之一:"图片延迟加载"
+    //->刚开始加载页面的时候,首屏(第一屏)的真实图片并没有进行加载,而是一张默认的图片在站着位置,当第一屏幕的数据加载完成后,在把真实的图片进行加载
+    //->第一屏幕以下的真实图片默认是不进行加载的,只有当浏览器滚动到对应区域的时候,才加载真实的图片
+</script>
+</body>
+</html>

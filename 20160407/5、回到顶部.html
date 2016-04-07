@@ -31,6 +31,7 @@
         }
 
         #linkTo {
+            display: none;
             position: fixed;
             right: 20px;
             bottom: 200px;
@@ -54,13 +55,77 @@
 <!--href="javascript:;" 阻止a标签点击跳转页面的默认行为 这里使用a标签不是为了实现跳转页面,为的是使用期hover、active这两个伪类-->
 <a href="javascript:;" id="linkTo">回到顶部</a>
 
+<script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript">
-    var linkTo = document.getElementById("linkTo");
-    linkTo.onclick = function () {
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-    };
+    ~function () {
+        var linkTo = document.getElementById("linkTo");
+        var clientH = utils.win("clientHeight");
 
+        function windowScroll() {
+            var curTop = utils.win("scrollTop");
+            linkTo.style.display = curTop >= clientH ? "block" : "none";
+        }
+
+        window.onscroll = windowScroll;
+        linkTo.onclick = function () {
+            this.style.display = "none";
+            window.onscroll = null;
+            var target = utils.win("scrollTop"), duration = 500, interval = 10, step = (target / duration) * interval;
+            var timer = window.setInterval(function () {
+                var nowTop = utils.win("scrollTop");
+                if (nowTop <= 0) {
+                    window.clearInterval(timer);
+                    window.onscroll = windowScroll;
+                    return;
+                }
+                utils.win("scrollTop", nowTop - step);
+            }, interval);
+        }
+    }();
+
+    //->当浏览器滚动条滚动的时候(鼠标拖拽滚动条、点击滚动条上下按钮或者是空白处、键盘的上下键或者是pageUp/pageDown键、JS中我们通过代码让页面滚动...),我们判断卷去的高度是否超过了一屏幕的高度,超过了让回到顶部的按钮显示,否则隐藏
+    //->onscroll行为:只要滚动条发生滚动就出会触发这个行为
+    //    var clientH = utils.win("clientHeight");
+    //    function windowScroll() {
+    //        var curTop = utils.win("scrollTop");
+    //        linkTo.style.display = curTop >= clientH ? "block" : "none";
+    //    }
+    //    window.onscroll = windowScroll;
+    //
+    //    linkTo.onclick = function () {
+    //        //->当点击之后,让回到顶部的按钮隐藏,防止在运动过程中重复的进行点击
+    //        this.style.display = "none";//->光这样写还是不行的,因为我们JS在控制页面运动过程中又重新的触发了window.onscroll这个行为,开始点击一瞬间确实隐藏了,但是通过window.onscroll方法中的判断又让其显示了
+    //        window.onscroll = null;
+    //
+    //        var target = utils.win("scrollTop"), duration = 500, interval = 10, step = (target / duration) * interval;
+    //        var timer = window.setInterval(function () {
+    //            var nowTop = utils.win("scrollTop");
+    //            if (nowTop <= 0) {
+    //                window.clearInterval(timer);
+    //                //->当动画结束后还需要在重新的启动这个行为window.onscroll
+    //                window.onscroll = windowScroll;
+    //                return;
+    //            }
+    //            utils.win("scrollTop", nowTop - step);
+    //        }, interval);
+    //    };
+
+    //    linkTo.onclick = function () {
+    //        //->计算步长
+    //        var target = utils.win("scrollTop");
+    //        var duration = 500;
+    //        var interval = 10;
+    //        var step = (target / duration) * interval;
+    //        //->实现运动
+    //        var timer = window.setInterval(function () {
+    //            var nowTop = utils.win("scrollTop");
+    //            if (nowTop <= 0) {//->已经到头了
+    //                window.clearInterval(timer);
+    //                return;
+    //            }
+    //            utils.win("scrollTop", nowTop - step);
+    //        }, interval);
+    //    };
     //总距离:开始的位置(当前的scrollTop)-结束的位置(0)
     //总时间:1000ms
     //频率:多长时间走一次 10ms
