@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        img{
+            display: block;
+            border: none;
+        }
+        #news{
+            padding: 20px;
+        }
+        #news li{
+            position: relative;
+            padding: 10px 0;
+            border-bottom: 1px solid #cccccc;
+            height: 60px;
+            line-height: 60px;
+        }
+        #news li div:nth-child(1){
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 75px;
+            height: 60px;
+            background: url("img/default.jpg") no-repeat center;
+            background-size: 100% 100%;
+        }
+        #news li div:nth-child(1) img{
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        #news li div:last-child{
+            margin-left: 80px;
+        }
+        #news li h2{
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #news li p{
+            line-height: 20px;
+            color: #999;
+        }
+
+    </style>
+
+</head>
+<body>
+<ul id=news></ul>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var news=document.getElementById("news");
+    var newsList=news.getElementsByTagName("li");
+    var imgList=news.getElementsByTagName("img");
+
+
+    var jsonData=null;
+    ~function(){
+      var xhr=new XMLHttpRequest;
+        xhr.open("get","json/list.txt",false);
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState===4&&/^2(\d{2})$/.test(xhr.status)){
+                var str=xhr.responseText;
+                jsonData=utils.formatJSON(str);
+            }
+        };
+        xhr.send(null);
+    }();
+
+    ~function(){
+        var str="";
+        for(var i= 0,len=jsonData.length;i<len;i++){
+            var curData=jsonData[i];
+            str+="<li>";
+            str+="<div><img src='' oldImg='"+curData["img"]+"'></div>";
+            str+="<div>";
+            str+="<h2>"+curData["title"]+"</h2>";
+            str+="<p>"+curData["cont"]+"</h2>";
+            str+="</div>";
+            str+="</li>";
+        }
+        news.innerHTML=str;
+    }();
+
+
+
+    function lazyImg(curEle){
+        if(curEle.isLoad){
+            return;
+        }
+        var curDiv=curEle.parentNode;
+        var a=curDiv.offsetHeight+utils.offset(curDiv).top,b=utils.win("clientHeight")+utils.win("scrollHeight");
+        if(a<b){
+            var oImg=new Image;
+            oImg.src=curEle.getAttribute("oldImg");
+            oImg.isLoad=true;
+            oImg.onload=function(){
+                curEle.style.display="block";
+                curEle.src=this.src;
+                oImg=null
+            }
+        }
+    }
+
+
+    function handleAllImg(){
+        for(var i= 0,len=imgList.length;i<len;i++){
+            lazyImg(imgList[i]);
+        }
+    };
+    window.setTimeout(handleAllImg,1000);
+    window.onscroll=handleAllImg;
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

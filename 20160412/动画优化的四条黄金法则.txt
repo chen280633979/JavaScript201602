@@ -1,0 +1,58 @@
+1、关于边界判断的问题，例如：
+   我的总运动距离是1266px(起始的位置是0px,目标的位置是1266px)，我们限定了每一次运动的步长是5px，这样的话就会导致一个问题：当我走了253步的时候，当前元素的位置在1265px的位置，还没有到达边界，但是如果我在多走一步的话(也就是254步)，最后的位置处于1270px的位置->不走还少，走了还多，这样的话我到底是走还是不走？
+
+   解决办法：
+   每一次在做边界判断的时候，我们首先让当前的位置+步长和目标值进行比较，如果加上步长的结果大于等于目标值了，我们直接让元素运动到目标的位置即可
+    var timer = window.setInterval(function () {
+        var curLeft = utils.getCss(box, "left");
+        //->在做边界判断
+        if (curLeft+step >= target) {
+           box.style.left = target + "px";
+           window.clearInterval(timer);
+           return;
+        }
+        curLeft += step;
+        box.style.left = curLeft + "px";
+    }, 10);
+
+2、在使用递归思想，让setTimeout实现一个和setInterval一样的轮循动画效果，我们在方法执行完成后，都会重新的创建一个setTimeout定时器，到达指定的时间重新的执行当前的方法
+   ->但是这样的话会导致创建很多冗余(没用,但是还占着内存位置)的定时器，所以在每一次执行方法之前，最好都把上一次创建的定时器进行销毁
+   [DEMO]
+   var timer = null;
+   function move() {
+       //->清除掉之前上一次创建的定时器
+       window.clearTimeout(timer);
+
+       <js code>
+
+       //->设置新的定时器，从新的执行move方法
+       timer = window.setTimeout(move, 10);
+   }
+   move();
+
+
+3、如果使用setTimeout实现轮循动画,在每一次设置的定时器中执行当前方法,方法不需要传递参数还好,如果一旦需要传递参数,我们只能用一个匿名函数把当前方法包起来,这样写的话虽然可以实现,但是会导致作用域的层级嵌套,形成很多的不销毁的私有作用域
+   例如:
+   function move(tar) {
+       window.clearTimeout(timer);
+       <js code>
+       timer = window.setTimeout(function () {
+           move(tar);
+       }, 10);
+   }
+   move(1266);
+
+
+4、把定时器的返回值设置为当前元素的自定义属性，这样的话，每一次执行其它动画的时候，都是先清除自定义属性存储的值(相当于把之前正在运行的动画都停止掉)
+
+
+
+
+
+
+
+
+
+
+
+

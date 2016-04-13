@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 500px;
+            width: 100px;
+            height: 100px;
+            background: lightcoral;
+            cursor: pointer;
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            width: 400px;
+            height: 50px;
+        }
+
+        .btn input {
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            margin-left: 50px;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="左" id="btnLeft"/>
+    <input type="button" value="右" id="btnRight"/>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var tarLeft = 0, tarRight = utils.win("clientWidth") - box.offsetWidth;
+
+    //var timer = null;//->不管是那个方向的动画,使用的都是全局变量,下一个动画开始会把上一次的动画给结束掉
+    function move(tar) {
+        //var timer = null;//->放在私有中,会导致两个方向的动画共存
+
+        //->在move中在定义一个方法叫做_move,把所有动画的逻辑都放在_move中
+        _move();
+        function _move() {
+            window.clearTimeout(box.timer);
+            var curLeft = utils.getCss(box, "left");
+            if (tar > curLeft) {
+                if (curLeft + 5 >= tar) {
+                    box.style.left = tar + "px";
+                    return;
+                }
+                curLeft += 5;
+                box.style.left = curLeft + "px";
+            } else if (tar < curLeft) {
+                if (curLeft - 5 <= tar) {
+                    box.style.left = tar + "px";
+                    return;
+                }
+                curLeft -= 5;
+                box.style.left = curLeft + "px";
+            } else {
+                return;
+            }
+            box.timer = window.setTimeout(_move, 10);
+        }
+    }
+
+    document.getElementById("btnLeft").onclick = function () {
+        move(tarLeft);
+    };
+    document.getElementById("btnRight").onclick = function () {
+        move(tarRight);
+    };
+</script>
+</body>
+</html>

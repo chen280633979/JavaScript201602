@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 500px;
+            width: 100px;
+            height: 100px;
+            background: lightcoral;
+            cursor: pointer;
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            width: 400px;
+            height: 50px;
+        }
+
+        .btn input {
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            margin-left: 50px;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="左" id="btnLeft"/>
+    <input type="button" value="右" id="btnRight"/>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    //->设定目标值
+    var tarLeft = 0, tarRight = utils.win("clientWidth") - box.offsetWidth;
+
+    var timer = null;
+    //->既要实现向左走也要实现向右走
+    function move(tar) {
+        window.clearTimeout(timer);
+
+        //->tar:目标位置,首先需要判断元素是向左还是向右走,如果传递进来的目标值小于我们元素的当前位置,应该向左走,反之大于当前的位置,应该向右走
+        var curLeft = utils.getCss(box, "left");
+        if (tar > curLeft) {//->向右
+            if (curLeft + 5 >= tar) {
+                box.style.left = tar + "px";
+                return;
+            }
+            curLeft += 5;
+            box.style.left = curLeft + "px";
+
+        } else if (tar < curLeft) {//->向左
+            if (curLeft - 5 <= tar) {
+                box.style.left = tar + "px";
+                return;
+            }
+            curLeft -= 5;
+            box.style.left = curLeft + "px";
+
+        } else {//->不动
+            return;
+        }
+        //timer = window.setTimeout(move, 10);//->此时我们的move方法,是需要传递目标位置值的,定时器中这样写,虽然执行了move方法,但是执行的时候并没有给其传递任何的值,所以导致第二次执行move方法,不能实现运动的动画
+        timer = window.setTimeout(function () {
+            move(tar);
+        }, 10);
+    }
+
+    document.getElementById("btnLeft").onclick = function () {
+        move(tarLeft);
+    };
+    document.getElementById("btnRight").onclick = function () {
+        move(tarRight);
+    };
+</script>
+</body>
+</html>

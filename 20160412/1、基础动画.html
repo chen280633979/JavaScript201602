@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: lightcoral;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //"use strict";
+    //->使用arguments.call后出现了一个错误：Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+    //->在严格的模式中,是禁止我们使用arguments下的call和caller这两个属性的
+
+    //->限定步长 不限定运动的总时间 的匀速动画
+    var box = document.getElementById("box");
+    var step = 5, target = utils.win("clientWidth") - box.offsetWidth;
+
+    var timer = null;
+    function move() {
+        //->在每一次执行move方法的时候,进来的第一步,就是把我们把上一次执行方法创建的那个,不在起到作用的(垃圾)setTimeout定时器给清除掉
+        window.clearTimeout(timer);
+
+        var curLeft = utils.getCss(box, "left");
+        //->边界判断:加上步长一起做判断
+        if (curLeft + step >= target) {
+            box.style.left = target + "px";
+            return;
+        }
+        curLeft += step;
+        box.style.left = curLeft + "px";
+
+        //->每一次执行完成move方法,为了可以实现一个类似于setInterval定时器的轮循效果,我们设置一个setTimeout定时器,间隔一段时间后在重新的执行本方法(递归思想)
+        timer = window.setTimeout(move, 10);
+    }
+    move();
+
+
+    //    var timer = window.setInterval(function () {
+    //        var curLeft = utils.getCss(box, "left");//->每一次获取当前盒子的left值
+    //        //->当我们获取的当前left的值已经大于等于目标值了,说明已经到达目标位置，结束动画即可
+    //        if (curLeft + step >= target) {
+    //            box.style.left = target + "px";
+    //            window.clearInterval(timer);
+    //            return;
+    //        }
+    //        curLeft += step;//->让当前的left值在原来的基础上累加步长
+    //        box.style.left = curLeft + "px";//->把最新累加的结果赋值给当前的元素样式,让元素运动到指定的位置
+    //    }, 10);
+
+
+</script>
+</body>
+</html>

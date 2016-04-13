@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 100px;
+            width: 100px;
+            height: 100px;
+            background: lightcoral;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+
+    //->限定总时间的匀速运动动画
+    //第一种思想：
+    //1)总距离/总时间*interval ->计算出步长
+    //2)让元素在当前位置的基础上累加步长,实现一步一步的运动
+
+    //    var duration = 1000;//->总时间
+    //    var target = utils.win("clientWidth") - box.offsetWidth;//->总距离:结束的位置-起始的位置
+    //    var interval = 10, step = (target / duration) * interval;
+    //    var timer = window.setInterval(function () {
+    //        var curLeft = utils.getCss(box, "left");
+    //        if (curLeft + step >= target) {
+    //            box.style.left = target + "px";
+    //            window.clearInterval(timer);
+    //            return;
+    //        }
+    //        curLeft += step;
+    //        box.style.left = curLeft + "px";
+    //    }, interval);
+
+
+    //第二种思想：
+    //->linear:实现运算运动的一套公式
+    //->t(time):当前动画已经运动的总时间
+    //->b(begin):当前元素的初始位置
+    //->c(change):当前元素要运动的总距离(目标位置-起始位置b)
+    //->d(duration):需要运动的总时间
+    //    t/d ->我们走的时间在总时间中占的比例 ->我们走的距离已经占据了全程的百分之多少
+    //    c*(t/d) -> 我已经走了具体多远了
+    //    c*(t/d)+b -> 最后获取到的其实就是我们当前的位置
+
+    function linear(t, b, c, d) {
+        return c * t / d + b;
+    }
+
+    function BackEaseInOut(t, b, c, d) {
+        if ((t /= d) < (1 / 2.75)) {
+            return c * (7.5625 * t * t) + b;
+        } else if (t < (2 / 2.75)) {
+            return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
+        } else if (t < (2.5 / 2.75)) {
+            return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
+        } else {
+            return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
+        }
+    }
+
+    var target = 1000;//->目标位置
+    var time = 0;//->已经运动的时间
+    var begin = utils.getCss(box, "left");//->起始位置
+    var change = target - begin;//->总距离
+    var duration = 1000;//->总时间
+    var interval = 10;//->多长时间走一次
+
+    var timer = window.setInterval(function () {
+        time += interval;
+        //->运动的时间已经大于总时间了,说明到达目标的位置
+        if (time >= duration) {
+            box.style.left = target + "px";
+            window.clearInterval(timer);
+            return;
+        }
+        var curLeft = BackEaseInOut(time, begin, change, duration);//->change * time / duration + begin;
+        box.style.left = curLeft + "px";
+    }, interval);
+</script>
+</body>
+</html>
