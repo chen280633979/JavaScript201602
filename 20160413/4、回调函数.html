@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    ary.sort(function (a, b) {
+    //        return a - b;
+    //    });
+    //
+    //    str.replace(/\d+/, function () {
+    //
+    //    });
+    //
+    //    window.setTimeout(function () {
+    //
+    //    }, 1000);
+    //
+    //    ary.forEach(function(){
+    //
+    //    });
+
+    //->回调函数
+    //把一个函数A当做一个值传递给另外一个函数B,在B执行的过程中,可以执行A方法
+    //    function A() {
+    //        console.log("我是A");
+    //    }
+    //    function B(callBack) {
+    //        console.log("我是B");
+    //        for (var i = 0; i < 5; i++) {
+    //            typeof callBack === "function" ? callBack() : null;
+    //        }
+    //    }
+    //    B(A);
+
+    function A() {
+        console.log("我是A", this);
+    }
+    function B(callBack) {
+        //->this:obj
+        console.log("我是B");
+        for (var i = 0; i < 1; i++) {
+            //callBack && callBack();//->A() this->window
+            //callBack && callBack.call(obj);
+            callBack && callBack.call(this);
+        }
+    }
+    var obj = {name: "珠峰", B: B};
+    obj.B(A);
+</script>
+</body>
+</html>

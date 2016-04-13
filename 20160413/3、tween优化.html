@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: lightskyblue;
+
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/tweenEvent.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    zhufengAnimate(box, {
+        top: 150,
+        left: 800
+    }, 1000, function () {
+        zhufengAnimate(this, {
+            width: 300,
+            height: 300,
+            opacity: 0.1
+        }, 500, function () {
+            this.style.backgroundColor = "red";
+        });
+    });
+</script>
+</body>
+</html>
