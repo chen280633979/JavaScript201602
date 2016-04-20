@@ -1,0 +1,34 @@
+1、jQuery选择器
+  #id .class * element select1,select2...
+  xxx xxx、xxx>xxx、xxx~xxx、xxx+xxx
+  :eq(索引) :gt :lt :not :has :contains :nth-child(第几个) :first :last
+  [xxx] [xxx=xxx] [xxx^=xxx] [xxx$=xxx] [xxx|=xxx] [xxx*=xxx]
+  :disable :enable :checked :selected :text :radio ....
+
+2、jQuery常用的方法
+->操作属性的
+attr、removeAttr、prop、removeProp、addClass、removeClass、toggleClass、html、text、val
+
+->操作CSS样式的
+css、offset、position、scrollTop、scrollLeft、width、height、innerWidth、innerHeight、outerWidth、outerHeight
+
+->操作文档/文档处理的 创建、增加、删除...
+append、appendTo、prepend、prependTo、insertBefore、insertAfter、after、before、replaceAll、clone、remove、warp
+
+->筛选的
+filter、find、children、eq/get(区别)、first、last、hasClass、has、contains、next、nextAll、prev、prevAll、siblings、index...
+
+->动画
+fadeIn、fadeOut、fadeToggle、show、hide、toggle、slideUp、slideDown、slideToggle、animate、stop(finish)、delay
+
+->事件
+on、off、bind、unbind、trigger、delegate(live)、click、mouseover...
+
+->Ajax
+$.ajax、post...
+
+->工具
+each(在原型和对象上都有 $().each/$.each)、map、isXxx检测数据类型这一套、unique...
+
+->核心方法
+extend(基于原型或者对象进行扩展)
