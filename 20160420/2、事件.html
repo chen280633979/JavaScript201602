@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 1000px auto;
+            width: 200px;
+            height: 200px;
+            background: orange;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+    //1、事件
+    //->行为本身:我操作的那个动作既是行为
+    //例如:
+    //click、mouseover(mouseenter)、mousemove、mouseout(mouseleave)、mousedown、mouseup、mousewheel、keydown、keyup、keypress、load、unload、scroll、focus、blur、resize...
+
+    //->事件绑定:给行为绑定了一个方法,当行为触发的时候执行对应的方法
+    //1)DOM零级事件绑定(onxxx=function...)、DOM二级事件绑定(在元素对象原型链上的EventTarget这个类就是DOM二级事件绑定的类,在EventTarget.prototype上提供了addEventListener/removeEventListener就是DOM二级事件绑定/移除事件绑定的方法)
+    //2)单从性能角度来说,我们的DOM0级事件绑定要优于DOM2级事件绑定(零级找的都是自己的私有的属性，而二级是通过原型一级级的查找才找到的)
+
+    //JS的事件:既是我们没有给当前的行为绑定方法,当我们操作的时候也会把对应的行为触发,只不过触发后什么事情都没做而已
+
+    //2、事件对象
+    //->给元素的某一个行为绑定方法,当行为触发的时候,会把对应绑定的方法执行(方法中的this是当前的元素->DOM0);
+    //->其实不仅仅把这个方法执行了,浏览器还会默认的给这个方法传递一个参数值(在标准浏览器中是这样的机制,IE6~8的机制不是这样的)==>"事件对象":里面存储的都是当前本次操作的相关信息(鼠标操作的信息或者是键盘操作的信息等)
+
+    //1)鼠标事件对象(它是MouseEvent这个类的一个实例,它是一个对象数据类型值;鼠标事件对象(包含很多自己的私有属性)->MouseEvent.prototype(initMouseEvent/getModifierState)->UIEvent.prototype(initUIEvent)->Event.prototype(initEvent/preventDefault/stopImmediatePropagation/stopPropagation)->Object.prototype)
+
+    //2)键盘事件对象(它是KeyboardEvent这个类的一个实例;键盘事件对象(包含很多自己的私有的属性)->KeyboardEvent.prototype(getModifierState/initKeyboardEvent)->UIEvent.prototype->Event.prototype->Object.prototype)
+    //    oBox.onclick = function () {
+    //        console.dir(arguments[0]);
+    //    };
+    //    document.onkeyup=function(){
+    //      /**/  console.dir(arguments[0]);
+    //    };
+
+    //3、关于事件对象中常用的属性以及兼容处理
+    //->在IE6~8下,我们的浏览器并不是把"事件对象"当做一个参数传递进来的,而是把事件对象存储到了window.event当中了 ->e = e || window.event;
+
+    //->鼠标事件对象其实就是,存储一些关于“当前本次操作”,鼠标的一些“相关的信息”(例如:鼠标操作点的坐标信息等等);而页面中只有一个鼠标,当前本次操作,不管是那个元素行为对应的方法,方法中获取到的e其实都是这个鼠标本次操作的信息,所以是一样的内容;
+
+    //->当我进行第二次操作的时候,又重新获取了本次操作的鼠标相关信息,并且这些信息会把上一次存储的信息给覆盖掉;
+
+    //->我们可以利用window.event来理解就简单了:window下只有一个event属性,每一次不管哪个方法都是获取这一个属性的值,所以是相同的;下一次操作也是把值存储到这个属性中了,会把上一次的给覆盖掉;
+    //    oBox.onclick = function (e) {
+    //        e = e || window.event;
+    //        console.log(e);
+    //    };
+    //    document.body.onclick = function (e) {
+    //        e = e || window.event;
+    //        console.log(e);
+    //    };
+
+
+    oBox.onclick = function (e) {
+        e = e || window.event;
+        console.log(e);
+        //->e.type:当前本次操作的行为类型  type:"click"
+        //->e.clientX/e.clientY:当前鼠标的触发点距离当前窗口(不是距离BODY)X轴/Y轴的坐标
+
+        //[兼容性]
+        //->e.target:事件源(鼠标是在哪个元素上触发的这个行为,那么当前的事件源就是谁) 在IE6~8中是不存在e.target的,只能使用e.srcElement
+        e.target = e.target || e.srcElement;
+        //->e.pageX/e.pageY:当前鼠标的触发点距离BODY的X轴/Y轴的坐标(在IE6~8中是不存在这两个属性的)
+        e.pageX = e.pageX || ((document.documentElement.scrollLeft || document.body.scrollLeft) + e.clientX);
+        e.pageY = e.pageY || ((document.documentElement.scrollTop || document.body.scrollTop) + e.clientY);
+
+        //->e.preventDefault:阻止默认行为(阻止浏览器天生的一些行为)
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    };
+</script>
+</body>
+</html>

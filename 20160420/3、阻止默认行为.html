@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 1000px auto;
+            width: 200px;
+            height: 200px;
+            background: orange;
+            cursor: pointer;
+        }
+
+        input{
+            padding: 0 15px;
+            width: 300px;
+            height: 35px;
+            border: 1px solid green;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<!--a标签的默认行为:跳转页面/锚点连接-->
+<!--href=''点击的时候是在刷新本页面; href='#box'页面的锚点连接,直接跳转到当前页面中ID为box这个盒子的位置(在URL地址栏加#xxx就是跳转到具体的一个位置); -->
+<!--<a href="http://www.zhufengpeixun.cn#course-list" id="link">珠峰前端课程</a>-->
+
+<!--HTML阻止默认行为：href="javascript:;" href="javascript:void 0;"-->
+<!--<a href="javascript:;" id="link">珠峰前端课程</a>-->
+
+<!--为了SEO的优化,我们肯能需要给一个真实的地址,但是点击还不想跳转页面,只能在JS中阻止默认的行为了-->
+<a href="http://www.zhufengpeixun.cn/" id="link">珠峰前端课程</a>
+
+<script type="text/javascript">
+    var oLink = document.getElementById("link");
+    //    oLink.onclick = function () {
+    //        return false;//->JS中最简单的阻止默认行为
+    //    };
+
+    oLink.onclick = function (e) {
+        e = e || window.event;
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;//->JS中利用事件对象阻止默认行为
+    };
+</script>
+
+<div id="box"></div>
+</body>
+</html>
