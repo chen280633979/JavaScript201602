@@ -110,7 +110,7 @@ banner.onmouseout = function () {
 
 //6、实现点击焦点切换
 ~function () {
-    for (var i = 0, len = oLis.length; i < len; i++) {
+                                                                                                                                                                                                                                                                for (var i = 0, len = oLis.length; i < len; i++) {
         var curLi = oLis[i];
         curLi.index = i;
         curLi.onclick = function () {

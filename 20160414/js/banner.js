@@ -39,14 +39,14 @@
                 i === 0 ? str += '<li class="bg"></li>' : str += '<li></li>';
             }
         }
-        bannerTip.innerHTML = str;
+        bannerTip.innerHTML += str;
     }();
 
     //3、实现图片的延迟加载
     window.setTimeout(lazyImg, 500);
     function lazyImg() {
         for (var i = 0, len = imgList.length; i < len; i++) {
-            ~function (i) {
+            ~function () {
                 var curImg = imgList[i];
                 var oImg = new Image;
                 oImg.src = curImg.getAttribute("trueImg");
@@ -62,7 +62,7 @@
 
     //4、实现自动轮播
     //->记录的是步长(当前是哪一张图片,零是第一张图片)
-    var step = 0, interval = 1000, autoTimer = null;
+    var step = null, interval = 1000, autoTimer = null;
     autoTimer = window.setInterval(autoMove, interval);
     function autoMove() {
         if (step >= (count - 1)) {
