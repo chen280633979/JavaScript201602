@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>京东放大镜</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .box {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 350px;
+            height: 350px;
+            box-shadow: 4px 4px 10px 0 #999;
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box .mark {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 175px;
+            height: 175px;
+            background: #000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            cursor: move;
+            /*background: rgba(0, 0, 0, 0.5);/!*CSS3中的背景颜色透明*!/*/
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="img/iphone.jpg"/>
+
+    <div class="mark"></div>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $mark = $(".box>.mark");
+    $(".box").on("mouseenter", function (e) {
+        //this->box
+        $mark.stop().show();
+        computedMarkPos.call(this, e);
+        //computedMarkPos(e);//computedMarkPos->this是window
+    }).on("mousemove", computedMarkPos).on("mouseleave", function (e) {
+        $mark.stop().hide();
+    });
+
+    //->computedMarkPos:计算MARK这个盒子的位置信息
+    function computedMarkPos(e) {
+        //this->box
+
+        //->计算正常情况下MARK的TOP/LEFT的值
+        var boxOffset = $(this).offset();
+        var curT = e.clientY - boxOffset.top - $mark.innerHeight() / 2;
+        var curL = e.clientX - boxOffset.left - $mark.innerWidth() / 2;
+
+        //->进行边界判断,到达边界值不会在继续减少或者增加,让其等于边界值即可
+        var minL = 0, minT = 0, maxL = $(this).innerWidth() - $mark.innerWidth(), maxT = $(this).innerHeight() - $mark.innerHeight();
+        curL = curL <= minL ? minL : (curL >= maxL ? maxL : curL);
+        curT = curT <= minT ? minT : (curT >= maxT ? maxT : curT);
+
+        //->设置MARK的样式信息
+        $mark.css({
+            top: curT,
+            left: curL
+        });
+    }
+</script>
+</body>
+</html>
