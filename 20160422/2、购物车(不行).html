@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        .menu {
+            height: 40px;
+            background: #333;
+        }
+
+        .menu .menuCon {
+            margin: 0 auto;
+            width: 1226px;
+        }
+
+        .menu .menuCon .shop {
+            float: right;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #b0b0b0;
+            background: #424242;
+        }
+
+        .menu .menuCon .shop.bg {
+            background: #fff;
+            color: orange;
+        }
+
+        .shopDetail {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 70px;
+            width: 316px;
+            height: 95px;
+            line-height: 95px;
+            text-align: center;
+            background: #fff;
+
+            box-shadow: 3px 3px 10px 0 #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <div class="menuCon">
+        <div class="shop">购物车</div>
+    </div>
+</div>
+<div class="shopDetail">
+    购物车空空
+</div>
+
+<script charset="utf-8" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $shop = $(".shop"), $shopDetail = $(".shopDetail");
+    $shop.on("mouseover", function () {
+        $(this).addClass("bg");
+        $shopDetail.stop().slideDown(300);
+
+    }).on("mouseout", function () {
+        $(this).removeClass("bg");
+        $shopDetail.stop().slideUp(300);
+
+    });
+</script>
+</body>
+</html>

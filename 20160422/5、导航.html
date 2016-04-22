@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        a, a:hover, a:active, a:visited, a:target {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background: #e1e1e1;
+        }
+
+        .con {
+            position: relative;
+            margin: 100px auto;
+            width: 1266px;
+        }
+
+        /*左侧导航区域的*/
+        .navBg, .nav {
+            padding: 20px 0;
+            width: 234px;
+            height: 420px;
+        }
+
+        .navBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: #000;
+            opacity: 0.6;
+            filter: alpha(opacity=60);
+        }
+
+        .nav {
+            /*background: rgba(0, 0, 0, 0.6); /!*只是给背景设置透明度,里面的子元素是不透明的,我们自己写opacity会导致里面的内容也是透明的*!/*/
+        }
+
+        .nav .navLi {
+            height: 42px;
+            line-height: 42px;
+        }
+
+        .nav .navLi.bg {
+            background: #ff6700;
+        }
+
+        .nav .navLi .navLiTitle {
+            display: inline-block;
+            padding-left: 30px;
+            height: 42px;
+            color: #fff;
+        }
+
+        /*右侧详细区域的*/
+        .navDetail {
+            display: none;
+            position: absolute;
+            left: 234px;
+            top: 0;
+            width: 800px;
+            height: 370px;
+            background: #fff;
+        }
+
+        .navDetail li {
+            float: left;
+            padding: 18px 20px;
+            width: 225px;
+            height: 40px;
+        }
+
+        .navDetail li img, .navDetail li span, .navDetail li a {
+            display: block;
+            float: left;
+        }
+
+        .navDetail li img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .navDetail li span {
+            padding-left: 10px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .navDetail li a {
+            float: right;
+            margin-top: 8px;
+            width: 58px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            border: 1px solid #ff6700;
+        }
+
+        .navDetail li a:hover {
+            background: #f25807;
+            border-color: #f25807;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="con">
+    <div class="navBg"></div>
+    <ul class="nav">
+        <li class="navLi">
+            <span class="navLiTitle">手机电话卡</span>
+        </li>
+        <li class="navLi">
+            <span class="navLiTitle">手机平板</span>
+        </li>
+        <li class="navLi">
+            <span class="navLiTitle">平板电话卡</span>
+        </li>
+    </ul>
+    <div class="navDetail">
+        <ul>
+            <li>
+                <img src="img/xiangbao.jpg"/>
+                <span>手机电话卡</span>
+                <a href="javascript:;">选购</a>
+            </li>
+            <li>
+                <img src="img/xiangbao.jpg"/>
+                <span>手机电话卡</span>
+                <a href="javascript:;">选购</a>
+            </li>
+            <li>
+                <img src="img/xiangbao.jpg"/>
+                <span>手机电话卡</span>
+                <a href="javascript:;">选购</a>
+            </li>
+            <li>
+                <img src="img/xiangbao.jpg"/>
+                <span>手机电话卡</span>
+                <a href="javascript:;">选购</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $navDetail = $(".navDetail");
+    //->不管鼠标经过哪一个元素都会触发BODY的MOUSEOVER行为
+    $(document.body).on("mouseover", function (e) {
+        //->由于navLi/navDetail里面的HTML标签比较的多,我们的事件源很有可能是里面的某一个子元素,这样的情况应该也是显示的
+        var $tar = $(e.target);
+
+        //->如果事件源有navLi样式,我们进行显示的操作
+        if ($tar.hasClass("navLi")) {
+            $tar.addClass("bg").siblings().removeClass("bg");
+            $navDetail.stop().show().html($navDetail.html() + $tar.html());
+            return;
+        }
+
+        //->如果事件源有navDetail样式,我们什么都不处理
+        if ($tar.hasClass("navDetail")) {
+            return;
+        }
+
+        //->当前事件源没有navLi/navDetail样式,我们还需要判断一下其父级元素中是否存在这两个样式
+        var $tarPars = $tar.parents();
+
+        var $navLi = null, flag = false;//->假设事件源的所有父级元素中并没有navLi
+        $tarPars.each(function (index, item) {
+            if ($(item).hasClass("navLi")) {
+                flag = true;
+                $navLi = $(item);
+            }
+        });
+        if (flag) {//->说明是navLi下的一个子元素
+            $navLi.addClass("bg").siblings().removeClass("bg");
+            $navDetail.stop().show().html($navDetail.html() + $navLi.html());
+            return;
+        }
+
+
+        flag = false;//->假设事件源的所有父级元素中并没有navDetail
+        $tarPars.each(function (index, item) {
+            if ($(item).hasClass("navDetail")) {
+                flag = true;
+            }
+        });
+        if (flag) {//->说明是navDetail下的一个子元素
+            return;
+        }
+
+        //->上述操作都不符合的话,我们隐藏,并且移除所有navLi的选中样式
+        $navDetail.stop().hide();
+        $(".navLi").removeClass("bg");
+    });
+</script>
+</body>
+</html>

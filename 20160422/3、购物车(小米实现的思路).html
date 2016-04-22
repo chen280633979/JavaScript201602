@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        .menu {
+            height: 40px;
+            background: #333;
+        }
+
+        .menu .menuCon {
+            margin: 0 auto;
+            width: 1226px;
+        }
+
+        .menu .menuCon .shop {
+            position: relative;
+            float: right;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #b0b0b0;
+            background: #424242;
+        }
+
+        .menu .menuCon .shop.bg {
+            background: #fff;
+            color: orange;
+        }
+
+        .menu .menuCon .shop .shopDetail {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 316px;
+            height: 95px;
+            line-height: 95px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 3px 8px 10px 0 #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <div class="menuCon">
+        <div class="shop">
+            购物车
+            <!--把详细信息放在购物车容器里面,这样即使鼠标滑到详细上,也属于在购物车盒子里面,只有离开了购物车和详细才算真正的离开-->
+            <div class="shopDetail">
+                购物车空空
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script charset="utf-8" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $shop = $(".shop"), $shopDetail = $(".shopDetail");
+    $shop.on("mouseover", function () {
+        $(this).addClass("bg");
+        $shopDetail.stop().slideDown(300);
+    }).on("mouseout", function () {
+        $(this).removeClass("bg");
+        $shopDetail.stop().slideUp(300);
+    });
+</script>
+</body>
+</html>
