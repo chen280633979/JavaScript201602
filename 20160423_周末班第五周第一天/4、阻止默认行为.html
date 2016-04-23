@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 1000px auto;
+            width: 200px;
+            height: 200px;
+            background: lightblue;
+            cursor: pointer;
+        }
+
+        a, a:hover, a:visited, a:active, a:target {
+            display: block;
+            text-decoration: none;
+            color: #424242;
+        }
+
+        .link {
+            margin: 50px auto;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid green;
+        }
+
+        .link:hover {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+<!--A标签的默认行为：根据HREF中的地址进行跳转,默认是在当前页面跳转到新的页面,增加target="_blank"在新的窗口打开页面-->
+<!--<a href="http://www.zhufengpeixun.cn/" target="_blank">珠峰培训课程介绍</a>-->
+
+<!--A标签的默认行为：锚点连接 href="#ID" 当点击的时候直接的跳转到当前页面中指定ID的位置(当前页面不刷新) 原理:在URL的后面增加一个#ID,这样在加载页面的时候就可以跳转到具体的位置了-->
+<!--<a href="#box">珠峰培训课程介绍</a>-->
+<!--<a href="http://www.zhufengpeixun.cn/#course-list">珠峰培训课程</a>-->
+
+<!--HTML中阻止A标签的默认行为: href="javascript:;" href="javascript:void 0;"-->
+<!--<a href="javascript:;" class="link" id="link">购物</a>-->
+
+<a href="" class="link" id="link">购物</a>
+<script type="text/javascript">
+    //->JS阻止A的默认行为的两种方式
+
+    /*document.getElementById("link").onclick = function () {
+     return false;
+     };*/
+
+    document.getElementById("link").onclick = function (e) {
+        e = e || window.event;
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    };
+</script>
+
+
+<div id="box"></div>
+<script type="text/javascript">
+    //JS中实现页面跳转的方法
+    document.getElementById("box").onclick = function () {
+        //window.location.href = "http://www.zhufengpeixun.cn/";//->在当前页面实现跳转
+        //console.log(window.location.href); //->获取当前页面地址栏中的URL地址
+        //window.location.href = window.location.href; ->刷新本页面
+
+        //window.open("http://www.zhufengpeixun.cn/"); //->在新的窗口打开页面
+    };
+</script>
+</body>
+</html>

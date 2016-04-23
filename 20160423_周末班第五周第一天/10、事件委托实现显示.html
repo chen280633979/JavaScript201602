@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .box {
+            position: absolute;
+            top: 20px;
+            right: 200px;
+            z-index: 10;
+            width: 140px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #999;
+            background: #fff;
+        }
+
+        .boxDel {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 200px;
+            width: 310px;
+            height: 70px;
+            border: 1px solid #999;
+            background: #fff;
+        }
+
+        .box.bg {
+            border-bottom-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box" id="box">我的购物车</div>
+<div class="boxDel" id="boxDel"></div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.min.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box"), boxDel = document.getElementById("boxDel");
+
+    //->事件委托中,如果有一个子元素需要特殊的处理,我们可以通过阻止冒泡传播来消除父元素委托对其的影响
+    boxDel.onmouseover = function (e) {
+        e = e || window.event;
+        e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+    };
+
+    document.body.onmouseover = function (e) {
+        e = e || window.event;
+        var curTar = e.target || e.srcElement;
+
+        //->如果事件源是BOX:显示详细信息
+        if (curTar.id === "box") {
+            utils.addClass(curTar, "bg");
+            utils.css(boxDel, "display", "block");
+            return;
+        }
+
+        //->剩下的就是隐藏
+        utils.removeClass(box, "bg");
+        utils.css(boxDel, "display", "none");
+    };
+</script>
+</body>
+</html>

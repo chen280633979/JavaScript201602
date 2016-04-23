@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 1000px auto;
+            width: 200px;
+            height: 200px;
+            background: lightblue;
+            cursor: pointer;
+        }
+
+    </style>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<div id="box"></div>
+
+<script type="text/javascript">
+    //->当行为触发的时候执行对应的绑定方法,而且浏览器还给对应的方法传递了一个参数值：事件对象
+    //1)MouseEvent:鼠标事件对象
+    //->记录当前本次操作鼠标相关信息的一个对象(对象中有很多的属性名和属性值记录了鼠标的相关信息)
+    //->MouseEvent这个类的一个实例 e instanceof MouseEvent (true)
+    //->私有的属性和方法~MouseEvent.prototype~UIEvent.prototype~Event.prototype~Object.prototype
+
+    var oBox = document.getElementById("box");
+    oBox.onclick = function (e) {
+        //->鼠标事件对象的本身的兼容问题:标准浏览器是通过执行方法传参的方式让我们获取到鼠标的相关信息,但是在IE6~8下并没有给函数传递参数,我们就没有办法通过形参获取到了,我们需要到window.event这个对象中去获取鼠标的对象信息
+        e = e || window.event;
+        //console.dir(e);
+
+        //->e.type:"click" 记录的是当前本次操作的行为类型
+        //->e.clientX/e.clientY:253/113 记录的是鼠标当前操作这个点距离"当前窗口"左上角的X/Y轴的坐标值 (当前窗口:不管它是第几屏,当前屏幕左上角的坐标)
+
+        //[在IE6~8中不兼容的属性]
+        //->e.target:事件源(当前鼠标是在哪个元素上操作的,那么事件源就是谁)
+        //e.target = e.target || e.srcElement;
+
+        //->e.pageX/e.pageY:记录的是鼠标当前操作这个点距离"BODY左上角"的X/Y轴的坐标值 (BODY左上角:第一屏幕的左上角)
+        //e.pageY = e.pageY || (e.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+
+        //->e.preventDefault:阻止默认行为的方法,在IE6~8下使用e.returnValue=false;来进行兼容处理
+        //e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+        //->e.stopPropagation:阻止事件的冒泡传播
+        //e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+    };
+
+
+    //->在IE6~8下不支持addEventListener的DOM2级绑定,我们需要使用attachEvent绑定,当行为触发执行对应的绑定方法,我们的鼠标事件对象也是通过传递形参获取到的结果(其实获取到的结果和window.event中存储的结果是一模一样的,依然没有target/pageX/pageY这些属性)
+    //    oBox.addEventListener("click", function (e) {
+    //        console.dir(e);
+    //    }, false);
+    //    oBox.attachEvent("onclick", function (e) {
+    //        console.dir(e.pageX); //->undefined
+    //    });
+
+
+    //2)键盘事件对象:存储的是当前本次操作的键盘信息
+    //->KeyboardEvent这个类的一个实例
+    //->自己的私有属性~KeyboardEvent.prototype~UIEvent.prototype~Event.prototype~Object.prototype
+    //    document.onkeyup = function (e) {
+    //        e = e || window.event;
+    //        //e.keyCode:记录当前按键的编码
+    //        //->方向键:左37 上38 右39 下40
+    //        //->BackSpace回退键:8
+    //        //->Enter回车键:13
+    //        //->space空格键:32
+    //        //->DEL删除键:46
+    //        //->Shift:16
+    //        //->Ctrl:17
+    //        console.log(e.keyCode);
+    //    };
+</script>
+</body>
+</html>

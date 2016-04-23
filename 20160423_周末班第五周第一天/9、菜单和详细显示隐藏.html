@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        .box {
+            position: relative;
+            margin: 20px auto;
+            width: 140px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #999;
+            background: #fff;
+        }
+
+        .box .boxDel {
+            display: none;
+            position: absolute;
+            right: -1px;
+            top: 40px;
+            width: 310px;
+            height: 70px;
+            border: 1px solid #999;
+        }
+
+        .box span {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 40px;
+            background: #fff;
+        }
+
+        .box.bg span {
+            height: 41px;
+            border-bottom-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<!--把要展示的详细信息放在当前区域的里面作为一个子元素来处理-->
+<div class="box" id="box">
+    <div class="boxDel" id="boxDel"></div>
+    <span>我的购物车</span>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="js/utils.min.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box"), boxDel = document.getElementById("boxDel");
+    box.onmouseenter = function () {
+        utils.addClass(this, "bg");
+        utils.css(boxDel, "display", "block");
+    };
+
+    box.onmouseleave = function () {
+        utils.removeClass(this, "bg");
+        utils.css(boxDel, "display", "none");
+    };
+</script>
+</body>
+</html>

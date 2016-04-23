@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background: lightblue;
+            cursor: pointer;
+        }
+
+    </style>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        //        var oBox = document.getElementById("box");
+        //        console.log(oBox);//->null
+
+        //->只有所有资源(HTML结果、图片、文字、音视频...)加载完成才会触发；只能使用一次；
+        //        window.onload = function () {
+        //            var oBox = document.getElementById("box");
+        //            console.log(oBox);//->#box (2)
+        //        };
+        //        window.onload = function () {
+        //            var oBox = document.getElementById("box");
+        //            console.log(oBox);//->#box (2)
+        //        };
+
+        //->只要HTML加载完成就会触发；可以使用多次；
+        //        $(document).ready(function () {
+        //            console.log($("#box"));//->(1)
+        //        });
+        //        $(document).ready(function () {
+        //            console.log($("#box"));//->(1)
+        //        });
+    </script>
+</head>
+<body>
+<div id="box"></div>
+
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+
+    //1、全新的认识事件(某一个具体的行为)
+    //->行为本身:浏览器天生自带的一些行为操作 ->click、mouseover(mouseenter)、mousemove、mouseout(mouseleave)、mousedown、mouseup、mousewheel(鼠标滚轮滚动的事件行为)、scroll、resize(window.onresize当前屏幕窗口大小改变的行为)、focus、blur(文本框获取焦点和失去焦点)、keydown、keyup、keypress、load... (在当前元素的私有属性上存储着呢)
+
+    //->事件绑定:给元素的某一个行为绑定方法,当行为触发的时候执行对应的方法
+
+    //[DOM零级事件绑定]
+    //    function fn() {
+    //        console.log("ok");
+    //    }
+    //    oBox.onclick = fn;//->绑定方法的时候fn没有执行,当行为触发的时候,浏览器才会执行fn这个方法
+    //    oBox.onclick = fn();//->绑定方法的时候就把fn执行了,这里是把fn执行的返回结果undefined绑定给元素的点击行为(这样写是不行的)
+    //    oBox.onclick = (function () {
+    //        return function () {
+    //
+    //        }
+    //    })();//->绑定方法的时候就把自执行函数执行了,把它的返回值"匿名函数"绑定给元素的点击行为,当行为触发的时候,执行里面小的“匿名函数”
+
+    //    oBox.onclick = function () {
+    //        console.log(1);
+    //    };
+    //    oBox.onclick = function () {
+    //        console.log(2);
+    //    };
+    //->当点击行为触发的时候,只把最后一次绑定的方法执行了,第一次绑定的方法并没有执行：“DOM零级事件绑定,只能给当前元素的某一个行为绑定一个方法,绑定的最后一个方法会把前面的所有绑定的方法给覆盖掉”
+
+
+    //[DOM二级事件绑定]
+    //->在当前元素对象所属类EventTarget的原型上,提供了两个方法:addEventListener/removeEventListener实现DOM二级事件绑定和移除绑定
+    //    function fn() {
+    //        console.log("ok");
+    //    }
+    //    oBox.addEventListener("click", function () {
+    //        console.log(1);
+    //    }, false);
+    //    oBox.addEventListener("click", function () {
+    //        console.log(2);
+    //    }, false);
+    //    oBox.addEventListener("click", fn, false);
+    //    oBox.addEventListener("click", fn, false);
+    //->DOM二级事件绑定可以给当前元素的某一个行为绑定多个“不同的”方法(如果方法相同了,只保留一个)
+
+    //    oBox.onclick = function () {
+    //        console.log(0);
+    //    };
+    //    oBox.addEventListener("click", function () {
+    //        console.log(1);
+    //    }, false);
+    //    oBox.addEventListener("click", function () {
+    //        console.log(2);
+    //    }, false);
+    //->DOM零级事件绑定和DOM二级事件绑定可以共存,不冲突(DOM0和DOM2的事件处理机制是不一样的:DOM0其实就是对象的属性名和属性值操作的机制(onclick就是一个属性名,绑定的方法就是它的一个属性值,当行为触发的时候获取到属性值执行即可),DOM2的机制是使用了浏览器的事件池/事件队列的机制完成的)
+
+    //2、
+    //->DOM0中的事件行为在DOM2中依然可以进行使用,但是DOM2还单独的提了一些DOM0中没有的行为：DOMContentLoaded...
+
+    //面试题：window.onload和$(document).ready()的区别?
+    //window.onload:只有页面中的HTML结构、图片、文字等所有资源都加载完成才会触发这个行为;在同一个页面中只能使用一次;
+    //->因为window.onload是DOM0事件绑定,只能给其绑定一个方法(只能执行一次),onload就是所有资源都加载完成才会执行;
+    //->他也可以使用多次,需要使用DOM2绑定
+    //    window.addEventListener("load", function () {
+    //        console.log(1);
+    //    }, false);
+    //    window.addEventListener("load", function () {
+    //        console.log(2);
+    //    }, false);
+
+    //$(document).ready():jQuery中的方法,只要HTML结构加载完成就会触发对应的行为;在同一个页面中可以使用多次;
+    //->因为jQuery中使用的是DOM2绑定所以可以执行多次;因为使用的是DOMContentLoaded这个行为,所以只需要HTML结构加载完成就会触发;
+    //    window.addEventListener("DOMContentLoaded", function () {
+    //        console.log(1);
+    //    }, false);
+    //    window.addEventListener("DOMContentLoaded", function () {
+    //        console.log(2);
+    //    }, false);
+
+    //3、DOM0事件绑定兼容所有的浏览器,DOM2事件绑定兼容性特别差(IE6~8和标准浏览器之间的区别)
+
+    //4、在移除绑定方法的时候也有一些细节的问题需要重点考虑
+    //    oBox.onclick = function () {
+    //        console.log(0);
+    //    };
+    //    oBox.onclick();//->除了手动点击可以执行以外,还可以在JS中通过获取属性值的方式去执行
+    //    oBox.onclick = null;//->移除:不需要管之前绑定的是啥方法
+
+    //->(function(){})===(function(){}) ->false不是同一个堆内存地址
+    //->以后处理DOM2绑定的时候,需要"瞻前顾后":绑定的是要想着我可能还会移除呢,所以我们绑定的方法基本上都是实名函数
+    //    function fn() {
+    //        console.log(1);
+    //    }
+    //    oBox.addEventListener("click", fn, false);
+    //    oBox.removeEventListener("click", fn, false)
+</script>
+</body>
+</html>
