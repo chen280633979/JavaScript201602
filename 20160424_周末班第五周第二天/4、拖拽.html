@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #e1e1e1;
+            overflow: hidden;
+        }
+
+        #box {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: green;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script charset="utf-8" type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+
+    //->JS实现让盒子处于屏幕正中间位置
+    var winW = document.documentElement.clientWidth || document.body.clientWidth, winH = document.documentElement.clientHeight || document.body.clientHeight;
+    var boxW = oBox.offsetWidth, boxH = oBox.offsetHeight;
+    oBox.style.left = (winW - boxW) / 2 + "px";
+    oBox.style.top = (winH - boxH) / 2 + "px";
+    oBox.style.visibility = "visible";
+
+    //->JS实现拖拽:mousedown、mousemove、mouseup
+    zhufengEvent.on(oBox, "mousedown", down);
+
+    //->记录盒子的起始位置和鼠标的起始位置
+    function down(e) {
+        //->鼠标的起始位置
+        this["strX"] = e.clientX;
+        this["strY"] = e.clientY;
+        //->盒子的起始位置
+        this["strL"] = this.style.left;
+        this["strT"] = this.style.top;
+
+        //->只有鼠标按下来的时候才说明拖拽开始,我们在绑定move/up方法
+        zhufengEvent.on(oBox, "mousemove", move);
+        zhufengEvent.on(oBox, "mouseup", up);
+    }
+
+    //->随时获取鼠标的最新位置-鼠标的起始位置,计算出鼠标的偏移,用偏移加上盒子的起始位置就是我们盒子的当前位置
+    function move(e) {
+        //->鼠标的偏移
+        var changeX = e.clientX - parseFloat(this["strX"]);
+        var changeY = e.clientY - parseFloat(this["strY"]);
+        //->盒子当前位置
+        var curL = parseFloat(this["strL"]) + changeX;
+        var curT = parseFloat(this["strT"]) + changeY;
+        //->边界判断
+        var minL = 0, minT = 0, maxL = winW - boxW, maxT = winH - boxH;
+        curL = curL <= minL ? minL : (curL >= maxL ? maxL : curL);
+        curT = curT <= minT ? minT : (curT >= maxT ? maxT : curT);
+        //->设置样式
+        oBox.style.left = curL + "px";
+        oBox.style.top = curT + "px";
+    }
+
+    //->拖拽结束移除move/up方法
+    function up(e) {
+        zhufengEvent.off(oBox, "mousemove", move);
+        zhufengEvent.off(oBox, "mouseup", up);
+    }
+
+
+    //->鼠标焦点丢失问题
+    //如果我的鼠标移动的速度太快,会出现鼠标离开盒子,如果在盒子的外面把鼠标抬起了,并没有触发盒子的mouseup行为(因为鼠标没在盒子上),这样move方法就不能移除了,下一次不管是否鼠标按下来,只要鼠标在盒子上移动,盒子都跟着走....
+</script>
+</body>
+</html>

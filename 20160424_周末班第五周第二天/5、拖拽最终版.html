@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #e1e1e1;
+            overflow: hidden;
+        }
+
+        #box {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: green;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script charset="utf-8" type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+    var winW = document.documentElement.clientWidth || document.body.clientWidth, winH = document.documentElement.clientHeight || document.body.clientHeight;
+    var boxW = oBox.offsetWidth, boxH = oBox.offsetHeight;
+    oBox.style.left = (winW - boxW) / 2 + "px";
+    oBox.style.top = (winH - boxH) / 2 + "px";
+    oBox.style.visibility = "visible";
+
+    zhufengEvent.on(oBox, "mousedown", down);
+    function down(e) {
+        this["strX"] = e.clientX;
+        this["strY"] = e.clientY;
+        this["strL"] = this.style.left;
+        this["strT"] = this.style.top;
+
+        if (this.setCapture) {
+            this.setCapture();//->在IE和火狐浏览器中支持这个方法:把鼠标和当前的盒子this绑定在一起了,不管鼠标多快,盒子都可以跟着运动
+            zhufengEvent.on(oBox, "mousemove", move);
+            zhufengEvent.on(oBox, "mouseup", up);
+            return;
+        }
+        //谷歌:不管鼠标运动多快,始终逃不出document,这样的话我们就把mousemove/mouseup绑定给document,当方法执行的时候控制盒子运动
+        //zhufengEvent.processThis(move, this);//this->oBox
+        this["MOVE"] = zhufengEvent.processThis(move, this);
+        this["UP"] = zhufengEvent.processThis(up, this);
+        zhufengEvent.on(document, "mousemove", this["MOVE"]);
+        zhufengEvent.on(document, "mouseup", this["UP"]);
+    }
+    function move(e) {
+        var changeX = e.clientX - parseFloat(this["strX"]);
+        var changeY = e.clientY - parseFloat(this["strY"]);
+        var curL = parseFloat(this["strL"]) + changeX;
+        var curT = parseFloat(this["strT"]) + changeY;
+        var minL = 0, minT = 0, maxL = winW - boxW, maxT = winH - boxH;
+        curL = curL <= minL ? minL : (curL >= maxL ? maxL : curL);
+        curT = curT <= minT ? minT : (curT >= maxT ? maxT : curT);
+        oBox.style.left = curL + "px";
+        oBox.style.top = curT + "px";
+    }
+    function up(e) {
+        if (this.releaseCapture) {
+            this.releaseCapture();//->解绑
+            zhufengEvent.off(oBox, "mousemove", move);
+            zhufengEvent.off(oBox, "mouseup", up);
+            return;
+        }
+        zhufengEvent.off(document, "mousemove", this["MOVE"]);
+        zhufengEvent.off(document, "mouseup", this["UP"]);
+    }
+</script>
+</body>
+</html>
