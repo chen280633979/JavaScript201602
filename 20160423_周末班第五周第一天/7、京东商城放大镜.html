@@ -74,7 +74,7 @@
     var boxDel = document.getElementById("boxDel"), boxImg = boxDel.getElementsByTagName("img")[0];
 
     //->计算MARK的位置信息
-    function computedMarkPos(e) {
+    function computedMarkPos(e) {；
         e = e || window.event;
         var curL = e.clientX - box.offsetLeft - mark.offsetWidth / 2;
         var curT = e.clientY - box.offsetTop - mark.offsetHeight / 2;

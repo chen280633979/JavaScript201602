@@ -1,4 +1,4 @@
-//->processThis:改变某一个方法中的this关键字
+ //->processThis:改变某一个方法中的this关键字
 function processThis(callBack, context) {
     var outerArg = Array.prototype.slice.call(arguments, 2);
     return function () {
