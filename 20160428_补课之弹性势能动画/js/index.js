@@ -91,6 +91,7 @@ function drop() {
             window.clearInterval(_this.dropTimer);
             return;
         }
+        console.log(_this.dropTimer)
         speed += 10;
         speed *= 0.98;
         var curT = _this.offsetTop + speed;
