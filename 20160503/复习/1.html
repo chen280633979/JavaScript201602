@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #div1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $timeoutFn = $.Callbacks();//->创建一个回调函数的集合,类似于我们"发布订阅模式中的发布一项计划"
+    window.setTimeout(function () {
+        //$timeoutFn.fire("ok");//->当1000ms后把回调函数集合中添加的所有方法都触发执行 ->而"ok"是给任务队列中的每一个方法都传递这样一个参数
+    }, 1000);
+
+    //->分别往计划中增加需要执行的方法
+    $timeoutFn.add(fn1);
+    $timeoutFn.add(fn2);
+    $timeoutFn.add(fn3);
+    $timeoutFn.add(fn4);
+    $timeoutFn.add(fn5);
+
+    //->在计划表中移除一项任务
+    $timeoutFn.remove(fn1);
+
+    function fn1() {
+        console.log(1);
+    }
+    function fn2() {
+        console.log(2, arguments);
+    }
+    function fn3() {
+        console.log(3);
+    }
+    function fn4() {
+        console.log(4);
+    }
+    function fn5() {
+        console.log(5);
+    }
+</script>
+
+<script type="text/javascript" src="js/zhufengEvent.js"></script>
+<script type="text/javascript" src="js/drag-opp2.js"></script>
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    var dragDiv = new Drag(oDiv);
+    dragDiv.on("zhufengDragMove", function (e) {
+        //this->当前操作的元素对象
+        var curL = e.pageX - dragDiv.strX + dragDiv.strL;
+        var curT = e.pageY - dragDiv.strY + dragDiv.strT;
+        curL = curL <= 0 ? 0 : curL;
+        curT = curT <= 0 ? 0 : curT;
+        this.style.left = curL + "px";
+        this.style.top = curT + "px";
+    });
+
+    var obj = {
+        total: null
+    };
+
+    function sum(num1, num2, e) {
+        console.log(num1, num2, e, this);
+        this.total = num1 + num2;//this->obj
+    }
+
+    //document.body.onclick = sum;//this->BODY  num1->e num2->undefined
+
+    //document.body.onclick = sum.bind(obj, 100, 200);
+
+    //document.body.onclick = zhufengEvent.processThis(sum, obj, 100, 200);
+</script>
+
+
+</body>
+</html>
