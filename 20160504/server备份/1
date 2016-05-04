@@ -1,0 +1,33 @@
+url.parse(request.url)
+
+Url {
+  protocol: null,
+  slashes: null,
+  auth: null,
+  host: null,
+  port: null,
+  hostname: null,
+  hash: null,
+  search: '?age=12&name=zfpx',
+  query: 'age=12&name=zfpx', 问号后面的所有内容
+  pathname: '/index.html', 当前URL文件的地址
+  path: '/index.html?age=12&name=zfpx',
+  href: '/index.html?age=12&name=zfpx'
+}
+
+
+url.parse(request.url,true); ->第二个参数传递一个true,这样的话问号后面传递进来的参数值都会被解析成对象键值对的方式进行存储
+
+Url {
+  protocol: null,
+  slashes: null,
+  auth: null,
+  host: null,
+  port: null,
+  hostname: null,
+  hash: null,
+  search: '?age=12&name=zfpx',
+  query: { age: '12', name: 'zfpx' },
+  pathname: '/index.html',
+  path: '/index.html?age=12&name=zfpx',
+  href: '/index.html?age=12&name=zfpx' }

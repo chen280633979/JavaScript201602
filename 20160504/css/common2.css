@@ -1,0 +1,10 @@
+#div1 {
+    border: 1px solid red;
+}
+
+img {
+    display: block;
+    border: none;
+    width: 100px;
+    height: 100px;
+}

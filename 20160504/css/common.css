@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#div1 {
+    /*不考虑浏览器兼容的居中法*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    width: 200px;
+    height: 200px;
+    background: green;
+}
