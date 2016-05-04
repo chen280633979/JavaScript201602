@@ -1,0 +1,37 @@
+[GENERAL]
+响应和请求通用的首部
+
+[REQUEST HEADERS]
+//->起始行
+->起始行中常用的三部分 HTTP METHOD(请求方式)、HTTP URL(请求地址)、HTTP VERSION(HTTP的版本)
+GET /userInfo?name=%E8%82%96%E9%87%91%E9%A3%8E HTTP/1.1
+
+//->首部(内置的请求首部)
+Host: localhost
+Connection: keep-alive
+Cache-Control: max-age=0
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2679.0 Safari/537.36
+Accept: */*
+Referer: http://localhost/index.html
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+//->自定义请求首部
+//->xhr.setRequestHeader([name],[value]);
+
+
+
+[RESPONSE HEADERS]
+//->起始行
+HTTP/1.1 200(HTTP STATUS CODE网络状态码) OK(描述)
+
+//->内置的响应首部
+content-type: application/json
+Date: Wed, 04 May 2016 08:45:45 GMT  ->服务器的时间(GMT 服务器返回的时间都是格林尼治时间)
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+
+[QUERY STRING PARAMETERS]
+我们通过URL地址问号传递给后台的参数在这里都可以看到并且进行解析
+

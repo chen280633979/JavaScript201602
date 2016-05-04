@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、什么是Ajax?
+    //->async(异步的) javascript and xml(可扩展的标记语言)
+
+    //2、Ajax作用?
+    //->获取服务器端数据的,但是要求客户端和服务器端是同源->"同源策略":协议、域名、端口一模一样的才是同源
+    //例如:客户端的URL地址http://localhost:80/index.html,服务器端提供的数据接口的地址是http://localhost:80/userInfo?name=xxx
+
+    //->"非同源策略(跨域)":协议、域名、端口三个有一个不一样就是跨域,处理跨域请求的话就不能使用AJAX了,而需要使用JSONP
+    //例如:客户端的URL地址http://localhost:80/index.html,服务器端的数据接口地址http://matchweb.sports.qq.com:80/kbs/hotMatchList
+
+
+    //3、我们的一个URL地址分为三部分
+    //->URI(统一资源标识符)、URL(它是URI中的一种)
+
+    //->协议:HTTP、HTTPS、FTP...
+
+    //->域名:一级域名、二级域名、三级域名...
+    //www.qq.com(一级)、sports.qq.com(二级)、kbs.sports.qq.com(三级)
+
+    //->端口号:0~65535之间的一个任意数字(HTTP的默认端口号是80、HTTPS的默认端口号是443、FTP默认端口号是21)
+
+
+    //4、什么是HTTP?
+    //->它是超文本传输协议(除了可以传递文字以外对于其它内容也可以进行传输,例如:HTML、XML、IMG...) ->HTTPS比HTTP安全,FTP是文件上传和下载协议...
+
+    //->它的作用可以理解为快递小哥,把客户端的内容带给服务器端,同样也可以把服务器端的内容带给客户端，其实说白了就是在客户端和服务器端进行数据和内容传输的
+
+    //->HTTP事物
+    //1)事物:由两件及以上的事情共同组成一个事物,其中一件事没完成,这个事物都不算完成
+    //2)HTTP事物是由两件事情组成:请求(客户端->服务器端)、响应(服务器端->客户端)，只有这个阶段都完成才算完成,一个阶段没完成都算失败
+    //3)向服务器端发送一个请求就会建立一个连接通道,只有响应阶段也成功了通道才会销毁;这样有可能出现同一时间向服务器发送的请求过多,导致正在连接处理的通道过多,导致的网络通道资源堵塞->所以我们尽量减少同一时间的HTTP请求以及HTTP的请求数来做项目的优化
+
+    //->HTTP报文(进货单/发货单)
+    //1)起始行:记录一些基本的信息,请求:请求方式、请求地址、HTTP版本,响应:HTTP版本、网络状态码、描述信息
+
+    //2)首部:通用首部、请求首部、响应首部、实体首部、扩展首部
+
+    //3)主体:我们传递给服务器的内容和服务器返回给我们的内容,基本上都在主体中呢
+
+
+    //    //->创建一个XHR对象
+    //    var xhr = new XMLHttpRequest;
+    //    //->打开一个链接地址
+    //    xhr.open("get", "http://matchweb.sports.qq.com:80/kbs/hotMatchList");
+    //    //->监听数据请求
+    //    //->发送
+    //    xhr.send(null);
+    //->XMLHttpRequest cannot load http://matchweb.sports.qq.com/kbs/hotMatchList. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:63342' is therefore not allowed access. ->说明不能使用ajax读取我们的数据,当前处于非同源
+</script>
+</body>
+</html>

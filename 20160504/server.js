@@ -4,7 +4,7 @@ var fs = require("fs");
 var server = http.createServer(function (request, response) {
     var urlObj = url.parse(request.url, true);
     var pathname = urlObj["pathname"], query = urlObj["query"];
-
+    
     //->请求的都是HTML/CSS/JS文件
     if (/(css|js|html)/i.test(pathname)) {
         //->获取pathname中的后缀名,来确定content-type的类型
