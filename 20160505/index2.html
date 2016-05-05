@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>跨域</title>
+</head>
+<body>
+<!--
+   JSONP的原理:
+   <SCRIPT SRC=''>既可以引入自己的JS文件也可以引入别人的JS文件,所以说SCRIPT不存在跨域这一说法
+
+   JSONP就是利用SCRIPT不存在跨域来实现的
+
+   ->想要使用JSONP需要别人家的后台支持才可以
+-->
+<!--
+   http://matchweb.sports.qq.com/kbs/hotMatchList?callback=
+-->
+<script type="text/javascript">
+    function fn(data) {
+        console.log(data);
+    }
+</script>
+<script type="text/javascript" src="http://matchweb.sports.qq.com/kbs/hotMatchList?callback=fn"></script>
+</body>
+</html>

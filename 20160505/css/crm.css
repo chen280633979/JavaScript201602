@@ -1,0 +1,175 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a, a:hover, a:active, a:target, a:visited {
+    text-decoration: none;
+    color: #424242;
+}
+
+input {
+    display: block;
+    outline: none;
+}
+
+span {
+    display: block;
+    width: 200px;
+}
+
+.w60 {
+    width: 60px;
+}
+
+.w100 {
+    width: 100px;
+}
+
+.w280 {
+    width: 280px;
+}
+
+/*下面是INDEX页面的样式*/
+
+.addBtn {
+    display: block;
+    margin: 10px auto;
+    width: 942px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 18px;
+}
+
+.addBtn:hover{
+    text-decoration: underline;
+    color: green;
+}
+
+.box {
+    margin: 10px auto;
+    padding: 20px;
+    width: 900px;
+    border: 1px solid #999;
+    box-shadow: 3px 3px 10px 0 #999;
+    overflow: hidden;
+}
+
+.head {
+    height: 35px;
+    line-height: 35px;
+    background: green;
+}
+
+.head span {
+    float: left;
+    height: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.list li {
+    height: 35px;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.list li.bg {
+    background: aliceblue;
+}
+
+.list li.hov {
+    background: lightblue;
+}
+
+.list li span {
+    float: left;
+    height: 100%;
+    text-align: center;
+}
+
+.list li span a {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/*以下是增加页面的样式*/
+.cusAdd {
+    margin: 10px auto;
+    padding: 20px;
+    width: 500px;
+    border: 1px solid #999;
+    box-shadow: 3px 3px 10px 0 #999;
+    overflow: hidden;
+}
+
+.cusAdd div {
+    height: 50px;
+    line-height: 50px;
+}
+
+.cusAdd div span, .cusAdd div input {
+    float: left;
+}
+
+.cusAdd div span {
+    width: 100px;
+    text-align: center;
+}
+
+.cusAdd div input {
+    margin-top: 8px;
+    padding: 0 10px;
+    width: 360px;
+    height: 34px;
+}
+
+#userAge {
+    width: 100px;
+    text-align: center;
+}
+
+.cusAdd .submit {
+    margin: 20px auto 0 auto;
+    width: 300px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid green;
+    background: lightgreen;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
