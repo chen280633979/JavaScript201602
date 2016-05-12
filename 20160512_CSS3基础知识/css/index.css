@@ -1,0 +1,173 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    /*在移动端我么尽量使用微软雅黑和无衬字体*/
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+}
+
+header, footer, article, nav, section, aside, figure, figcaption {
+    display: block;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+a, a:hover, a:active, a:visited, a:target {
+    text-decoration: none;
+    color: #424242;
+}
+
+.article {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.article p, .article h3 {
+    margin-top: 10px;
+    line-height: 30px;
+}
+
+.article h3 {
+    color: green;
+}
+
+.header {
+    padding: 0 5px;
+    height: 80px;
+    background: lightblue;
+}
+
+.header h1, .header h2 {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.header h1 {
+    font-size: 20px;
+}
+
+.header h2 {
+    font-size: 16px;
+}
+
+.figure {
+    margin: 10px 20px 0 0;
+    float: left;
+    width: 300px;
+}
+
+.figure img {
+    width: 100%;
+}
+
+.figure .figcaption {
+    font-size: 12px;
+    line-height: 25px;
+    color: #999;
+}
+
+.aside {
+    margin: 10px 0 0 20px;
+    float: right;
+    width: 300px;
+    line-height: 43px;
+    font-size: 24px;
+    font-weight: bolder;
+    font-style: italic;
+    border-top: 1px solid #999;
+    border-bottom: 3px solid #999;
+}
+
+.aside em {
+    display: inline-block;
+    width: 61px;
+    height: 43px;
+    vertical-align: middle;
+}
+
+.aside em.fir {
+    margin-right: 10px;
+    background: url("../img/quotes_start.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.aside em.last {
+    margin-left: 10px;
+    background: url("../img/quotes_end.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.footer {
+    margin: 20px auto;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.footer p {
+    line-height: 30px;
+    color: #999;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.footer p a {
+    color: #999;
+}
+
+/*当前屏幕的宽度小于1000,我们让容器距离左右两边有10px的边距*/
+@media all and (max-width: 1000px) {
+    .article, .footer {
+        margin: 0 10px;
+    }
+}
+
+@media all and (max-width: 640px) {
+    .figure, .aside {
+        width: 200px;
+    }
+
+    .aside {
+        font-size: 18px;
+        line-height: 29px;
+    }
+
+    .aside em {
+        width: 41px;
+        height: 29px;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .figure, .aside {
+        width: 150px;
+    }
+
+    .aside {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .aside em {
+        width: 35px;
+        height: 24px;
+    }
+}
+
+
+
+
+
+
+

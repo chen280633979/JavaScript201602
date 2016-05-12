@@ -1,0 +1,143 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+    -webkit-user-select: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+input {
+    display: block;
+    outline: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.table {
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    border: 1px solid green;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px 0 #999;
+    overflow: hidden;
+}
+
+.head {
+    height: 40px;
+    line-height: 40px;
+    background: lightblue;
+}
+
+/*CSS3新增加的后代选择器:.HEAD下的子元素中的所有的SPAN标签*/
+.head > span {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.list {
+    height: 300px;
+}
+
+.list > li {
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+/*CSS3新增加的伪类选择器:nth-child([num(1~+)|(even|odd)|(xn+x)])*/
+.list > li:nth-child(even) {
+    background: #eee;
+}
+
+.list > li:hover {
+    background: linen;
+}
+
+/*.list > li:nth-child(3n+1){
+    background: red;
+}
+.list > li:nth-child(3n+2){
+    background: orange;
+}
+.list > li:nth-child(3n+3){
+    background: green;
+}*/
+
+.list > li span {
+    display: block;
+    float: left;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+
+.page {
+    float: right;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+/*.PAGE下所有的子元素*/
+.page > * {
+    float: left;
+}
+
+.page > div, .page li, .page > input {
+    margin-left: 5px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid blue;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.page > div {
+    width: 45px;
+}
+
+.page > ul {
+    overflow: hidden;
+}
+
+.page > ul > li {
+    float: left;
+    width: 20px;
+}
+
+.page > ul > li.bg{
+    background: lightblue;
+}
+
+.page > input {
+    width: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

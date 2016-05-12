@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX分页</title>
+    <link type="text/css" rel="stylesheet" href="css/table.css"/>
+</head>
+<body>
+<div class="table">
+    <h2 class="head"><span>学号</span><span>姓名</span><span>性别</span><span>分数</span></h2>
+    <ul class="list" id="pageList">
+
+    </ul>
+    <div class="page" id="page">
+        <div>FIRST</div>
+        <div>PREV</div>
+        <ul id="pageTip">
+
+        </ul>
+        <div>NEXT</div>
+        <div>LAST</div>
+
+        <!--HTML5中给表单元素新增加的TYPE类型,只能输入数字-->
+        <input type="number" step="1" id="userNum" value="1"/>
+    </div>
+</div>
+<script charset="utf-8" type="text/javascript" src="js/table.js"></script>
+</body>
+</html>

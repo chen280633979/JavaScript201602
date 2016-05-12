@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow: hidden;
+        }
+
+        #div1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+
+            width: 100px;
+            height: 100px;
+            background: red;
+
+            /*/!*最后一个参数是运动多少次,infinite是运动无限次*!/
+            -webkit-animation: moveFir 2s linear 0s 1;
+            animation: moveFir 2s linear 0s 1;*/
+        }
+
+        .move {
+            -webkit-animation: moveFir 1s linear 0s 1;
+            animation: moveFir 1s linear 0s 1;
+            /*animation动画中,我们虽然看到元素在运动,但是其实元素的位置没有发生任何的变化,只是相当于按照轨迹播放了一遍,这样就导致动画结束,元素还是会回到起始的位置*/
+
+            /*解决这个问题:设置动画结束后停留在最后一帧的位置*/
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes moveFir {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes moveFir {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        /*@-webkit-keyframes moveFir {
+            0%, 50%, 100% {
+                -webkit-transform: scale(1) rotate(0deg);
+                transform: scale(1) rotate(0deg);
+            }
+            25%, 75% {
+                -webkit-transform: scale(2) rotate(360deg);
+                transform: scale(2) rotate(360deg);
+            }
+        }
+
+        @keyframes moveFir {
+            0%, 50%, 100% {
+                -webkit-transform: scale(1) rotate(0deg);
+                transform: scale(1) rotate(0deg);
+            }
+            25%, 75% {
+                -webkit-transform: scale(2) rotate(180deg);
+                transform: scale(2) rotate(180deg);
+            }
+        }*/
+
+        /*@-webkit-keyframes moveFir {
+            from {
+
+            }
+            to {
+
+            }
+        }*/
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    oDiv.addEventListener("click", function () {
+        this.className = "move";
+
+        window.setTimeout(function () {
+            this.className = null;
+        }.bind(oDiv), 1000);
+    }, false);
+</script>
+</body>
+</html>

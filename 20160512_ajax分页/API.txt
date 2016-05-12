@@ -1,0 +1,20 @@
+1、分页请求数据
+  地址：/getData
+  类型：GET
+  方式：同源AJAX
+  参数：/getData?pageCount=10&pageNum=1
+       pageCount:每一页展示多少条
+       pageNum:当前是第几页
+  返回：
+  {
+     total:5 ->一共有多少页
+     data:[ ->当前客户端请求那一页的数据
+        {
+           num:'001',
+           name:'张三',
+           sex:0 ->0是男 1是女
+           score:80
+        },
+        ...
+     ]
+  }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow: hidden;
+        }
+
+        #div1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+
+            width: 100px;
+            height: 100px;
+            background: red;
+
+            /*all:在运动的过程中所有的属性都跟着一起运动 1s:运动的总时间 linear:匀速运动 0s:延迟时间,这里是没有延迟*/
+            /*-webkit-transition: all 1s linear 0s;*/
+            /*transition: all 1s linear 0s;*/
+
+            /*-webkit-transform: scale(1.5) rotate(16deg);*/
+            /*transform: scale(1.5) rotate(16deg);*/
+            /*-webkit-transform: translate(200px,200px);*/
+            /*transform: translate(200px,200px);*/
+        }
+
+        /*#div1:hover {
+            /!*设置一个目标值,那么运动到这个目标值的时候,我们将按照之前设置的过渡效果来运动*!/
+            /!*width: 200px;*!/
+            /!*height: 200px;*!/
+
+            /!*在CSS3动画中,我们的目标值如果可以使用transform来设置的话,尽量不用具体的样式属性，因为transform变形的过程中开启了我们的硬件加速，性能会更好一些*!/
+            -webkit-transform: scale(2) rotate(360deg);
+            transform: scale(2) rotate(360deg);
+        }*/
+
+        .cc {
+            -webkit-transform: scale(2) rotate(360deg);
+            transform: scale(2) rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    oDiv.style.webkitTransition = "all 1s linear 0s";
+    //    oDiv.style.webkitTransitionProperty="all";
+    //    oDiv.style.webkitTransitionDuration="1s";
+    //    oDiv.style.webkitTransitionTimingFunction="linear";
+    //    oDiv.style.webkitTransitionDelay="0s";
+
+    oDiv.addEventListener("click", function () {
+        oDiv.style.webkitTransform = "scale(2) rotate(360deg)";
+    }, false);
+</script>
+
+<!--
+  CSS3动画:
+  ->transition:过渡动画,设定的是从A到B怎么去过渡
+    它既可以在CSS中事先把运动的目标值设定好,也可以在JS中动态的设置目标值
+
+  ->animation:帧动画,设定从A到B怎么走,但是可以设定这段运动过程中的每一个点 @keyframes设置每一帧的运动效果
+    帧动画运动的目标值无法在JS中动态的设置，只能事先在CSS中规定好
+
+  CSS3变形:
+  ->transform:
+    scale(1.5)->在原来的基础上放到1.5倍
+    rotate(180deg) ->在原来的基础上旋转180度
+    skew(45deg) ->在原来的基础上倾斜45度
+    translate(x,y) ->移动到某一个位置 translateX、translateY
+
+  在移动端使用CSS3动画需要些两套(transition、animation、keyframes、transform)
+  -webkit-transition: ;
+  transition: ;
+-->
+</body>
+</html>
