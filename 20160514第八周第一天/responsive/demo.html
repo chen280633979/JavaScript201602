@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width = device-width,initial-scale = 1.0"/>
+    <!--user-scalable:no 禁止用户缩放-->
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding:0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        div{
+            width: 640px;
+            height: 100%;
+            transform-origin: left top;
+            -webkit-transform-origin: left top;
+        }
+        @media screen and (max-width:1000px){
+            /*当显示区域的宽度小于等于1000时,以下的css起作用*/
+            div{
+                width: 980px;
+                background: red;
+            }
+        }
+        /*max-width用在pc端页面,max-device-width用在移动设备上*/
+        /*device-pixel-ratio 设备像素比*/
+        /*设备自己单位-物理单位dp/dip*/
+        /*css像素 px*/
+        /*
+        设备像素比是1  1px == 1dp/1dip
+        设备像素比是2  1px == 4dp/4dip
+        设备像素比是3  1px == 9dp/9dip
+        */
+
+        /* 普通显示屏(设备像素比例小于等于1)使用1倍的图 */
+        .css{
+            background-image: url(img_1x.png);
+        }
+
+        /* 高清显示屏(设备像素比例大于等于2)使用2倍图  */
+        @media only screen and (-webkit-min-device-pixel-ratio:2){
+            .css{
+                background-image: url(img_2x.png);
+            }
+        }
+
+        /* 高清显示屏(设备像素比例大于等于3)使用3倍图  */
+        @media only screen and (-webkit-min-device-pixel-ratio:3){
+            .css{
+                background-image: url(img_3x.png);
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<!--
+1.固定布局的pc端页面在移动设备上时,默认会缩小,目的:为了页面能显示完整,并且防止滚动条的出现 ,默认缩放值 : 设备的宽度/980
+viewport:浏览器显示内容的区域 -窗口的大小
+移动设备两个viewport :
+    布局的viewport ->layoutviewport
+    虚拟的viewport ->visualviewport  ->移动设备的宽高
+
+媒体查询可以选择性加载css .这个是实现响应式web开发的关键  css3模块
+
+-->
+<div id="div1"><img src="images/slide-tv.jpg" width="100%"></div>
+</body>
+</html>
+<script>
+//    var oDiv = document.getElementById("div1");
+//    oDiv.style.webkitTransform = "scale(0.5)"
+
+</script>

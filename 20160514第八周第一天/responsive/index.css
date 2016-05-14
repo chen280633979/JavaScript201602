@@ -1,0 +1,142 @@
+*{
+    margin:0;
+    padding:0;
+}
+ul{
+    list-style: none;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: "Microsoft yahei";
+}
+.headerLayout{
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    background: #fff;
+    box-shadow: 0 0 3px 3px rgba(0,0,0,0.3);
+}
+@media all and (min-width: 1000px) {/*窗口宽度大于等于1000时,这儿的样式起作用*/
+    .header {
+        width: 1000px;
+        margin: 0 auto;
+    }
+}
+.header{
+    height: 80px;
+}
+.header a{
+    float: left;
+    margin-top: 20px;
+}
+.header ul{
+    float: right;
+}
+.header ul li{
+    float: left;
+    line-height: 80px;
+    margin: 0 10px;
+    font-size: 1em;
+}
+
+.channel ul {
+    text-align: center;
+    padding-top: 100px;
+}
+.channel ul li{
+    display: inline-block;
+    margin: 0 1%;
+}
+.service ul{
+    text-align: center;
+    padding-top: 50px;
+}
+.service ul li{
+    display: inline-block;
+    width: 263px;
+    line-height: 1.5em;
+    vertical-align: top;/*顶端对齐*/
+    background: #fff;
+    border-right: 1px solid #ccc;
+    border-left:1px solid #fff;
+}
+.service ul li h4{
+    font-weight: normal;
+    font-size: 1.2em;
+}
+
+.service ul li p{
+    font-size: 1em;
+}
+@media all and (max-width:999px ) {
+    .channel li{
+        max-width: 23%;/*如果li宽度大于23%,则显示成23%的大小,如果小于23%,则显示成li自己的大小*/
+    }
+    .channel li img{
+        width: 100%;
+    }
+    .channel li.watch img,.channel li.phone img{
+        max-width: 50px;
+    }
+    .service ul li {
+        width: 30%;
+        font-size: 14px;
+    }
+    .service ul li img{
+        width: 100%;
+    }
+
+}
+
+@media all and (max-width: 480px) {
+    .headerLayout{
+        position: absolute;
+        height: 50px;
+    }
+    .header{
+        height: 50px;
+        background: palegreen;
+    }
+    .header a{
+        margin-top: 10px;
+    }
+    .header ul{
+        width: 100%;
+        background: palegreen;
+        display: none;
+    }
+    .header ul li{
+        float: none;
+        line-height: 40px;
+
+    }
+    .channel ul li{
+        width: 46%;
+        max-width: 100%;
+        margin: 0 2%;
+    }
+    .channel ul li.watch img,.channel ul li.phone img{
+        max-width: 100px;
+    }
+    .service ul li{
+        width: 96%;
+        padding: 2%;
+        background: #eee;
+    }
+    .service ul li h4{
+        text-align: left;
+        padding-left: 30px;
+    }
+    .service ul li p{
+        text-align: left;
+        margin:  10px 0;
+    }
+    .service ul li img{
+        width: 20px;
+        height: 20px;
+        float: left;
+
+    }
+}
