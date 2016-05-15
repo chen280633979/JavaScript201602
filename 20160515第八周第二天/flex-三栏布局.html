@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        header{
+            background: orangered;
+            line-height: 50px;
+        }
+        .main{
+            background:deepskyblue;
+            height: 100px;
+        }
+        .aside-1{
+            background: darkorchid;
+            height: 100px;
+        }
+        .aside-2{
+            background: green;
+            height: 100px;
+        }
+        footer{
+            background: pink;
+            line-height: 50px;
+        }
+        .wrap{
+            display: flex;
+            flex-flow:row wrap;
+        }
+        .wrap > *{padding:10px;flex:1 100%}
+        @media all and (min-width:600px){.aside{flex:1  auto}
+        }
+        @media all and (min-width:800px){
+            .main{flex:2  0px}
+            .aside-1{order:1}
+            .main{order:2}
+            .aside-2{order:3}
+            .footer{order:4}
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>header</header>
+    <article class="main">main</article>
+    <aside class="aside aside-1">aside-1</aside>
+    <aside class="aside aside-2">aside-2</aside>
+    <footer class="footer">footer</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <style type="text/css">
+/*
+        @media all  and (min-device-width: 320px){
+            html{
+                font-size: 50px;
+            }
+        }
+        @media all  and (min-device-width: 410px){
+            html{
+                font-size: 60px;
+            }
+        }
+        @media all  and (min-device-width: 480px){
+            html{
+                font-size: 65px;
+            }
+        }
+        @media all  and (min-device-width: 640px){
+            html{
+                font-size: 70px;
+            }
+        }
+
+
+        p{
+            width: 2rem;
+            height: 2rem;
+            background: orange;
+        }*/
+
+       /* @media all and (min-device-width: 320px){
+            html{
+                font-size: 50px;
+            }
+        }
+        @media all and (min-device-width: 414px){
+            html{
+                font-size: 75px;
+            }
+        }
+        @media all and (min-device-width: 640px){
+            html{
+                font-size: 100px;  /!*假设设备的宽度是640,字体大小设成100px*!/
+            }
+        }*/
+        *{
+            margin: 0;
+            padding:0
+        }
+        #div1{
+            width: 6.4rem;
+            height: 4.82rem;
+            background: url(bg.jpg) no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <!--
+    em是相对于父元素的字体大小
+    rem是相对于根元素(html)的字体大小
+    640设计稿怎么切图
+    1.处理高清
+    2.宽度计算
+    3.字体计算
+    -->
+    <div id ="div1">
+    </div>
+    <script>
+        //页面适配-页面等比缩放
+        //设备的宽度/根元素字体大小 == 设计稿宽度/100;
+        //把设备像素比是2或者3的设备都处理成一样了
+        //根据设备宽度设置根元素字体大小
+        var winW = document.documentElement.clientWidth;
+        var desW = 640; //设计稿的宽度
+        var scale = desW/100;//等比缩放的比例
+        //其他设备的根元素字体大小
+        if(winW>desW){
+            document.documentElement.fontSize = "100px";
+        }else{
+            document.documentElement.style.fontSize = winW/scale+"px";
+        }
+
+
+
+
+    </script>
+
+
+</body>
+</html>

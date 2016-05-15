@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding:0
+        }
+        ul{
+            list-style: none;
+        }
+        #wrapper{
+            width: 100px;
+            height: 700px;
+            background:palegreen;
+            display: flex;
+            /*flex-direction:column;*/
+            /*flex-wrap: wrap;*/
+            flex-flow: row wrap;
+            /*justify-content: center;*/
+            /*align-items:center;*/
+            align-content:center;
+
+
+
+        }
+        #wrapper li{
+            width: 100px;
+            height: 100px;
+            border:1px solid #000;
+        }
+        #wrapper li:nth-child(1){
+            /*flex-grow: 1;*/
+            /*flex-shrink: 3;*/
+            /*flex:1 1 100px;/!*扩展比例是1,收缩比例是1 ,宽度100px*!/*/
+        }
+        /*#wrapper li:nth-child(2){*/
+            /*flex-grow:2;*/
+        /*}*/
+        div{
+            float: left;
+            background: red;
+            width: 50%;
+            height: 100px;
+            padding: 10px;
+            border:2px solid orange;
+            /*margin:10px;*/
+            box-sizing: border-box;  /*width=内容的宽度+padding值+border*/
+
+        }
+    </style>
+</head>
+<body>
+    <ul id="wrapper">
+        <li>11</li>
+        <li>22</li>
+        <li>333</li>
+    </ul>
+<div></div><div style="background: green">    </div>
+</body>
+</html>
