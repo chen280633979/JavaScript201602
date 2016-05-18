@@ -16,11 +16,11 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
-    //->编写AJAX请求数据的API
-    if (pathname === "/getData") {
-        //->首先获取所有的数据,然后根据(pageNum)把客户端需要请求的那pageCount条数据返回
-        var data = fs.readFileSync("./json/data.json", "utf8");
-        data = JSON.parse(data);
+        //->编写AJAX请求数据的API
+        if (pathname === "/getData") {
+            //->首先获取所有的数据,然后根据(pageNum)把客户端需要请求的那pageCount条数据返回
+            var data = fs.readFileSync("./json/data.json", "utf8");
+            data = JSON.parse(data);
 
         //->计算总页数
         var total = Math.ceil(data.length / query.pageCount);
