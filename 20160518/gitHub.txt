@@ -1,0 +1,25 @@
+1、使用NODE在本地创建一个服务,监听一个端口,获取到本地的IP,然后访问 IP:端口/地址 既可以访问到自己的项目
+   ->在保证同一个局域网下(连接的是同一个wife),就可以相互的访问了
+   ->应用其可以做本地移动端的项目测试
+
+2、通过gitHub发布我们的项目(静态项目/静态页面->不支持后台NODE)
+   ->创建一个新的仓库
+   ->Settings设置当前仓库 ->GitHub Pages ->Launch Automatic page generator ->Continue to layouts ->Publish pages
+   [已经在当前的仓库中发布了我们的项目->一个仓库发布一个项目,想发布多个项目只需要创建多个仓库即可]
+
+   ->我们发布的项目在gh-pages分支下,以后想要管理我们的项目其实都是管理这个分支下的文件
+   ->把项目的默认分支切换成gh-pages
+   ->Settings ->Branches ->Default branch
+
+   [http://zhouxiaotian(用户名).github.io/myResume(仓库名)/index.html(我们的index.html是默认的页面,可以写可以不写)]
+
+
+   ->把我们自己的项目代码上传到仓库的gh-pages这个分支下
+   $ git clone  自己仓库的GIT地址
+   [把原来默认创建的文件删除掉(.git不删),然后把我自己的文件考进来,在把自己的文件上传到仓库中]
+   $ git add -A
+   $ git commit -m""
+   $ git push origin gh-pages (一定要记好分支是gh-pages)
+
+   ->把我们的地址生成一个二维码
+   "草料 http://cli.im/"

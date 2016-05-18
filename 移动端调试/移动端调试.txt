@@ -1,0 +1,22 @@
+chrome调试
+
+chrome://inspect/
+1.手机上把usb调试打开
+2.手机安装谷歌浏览器
+3.手机连上电脑,允许电脑调试,VPN账号打开 ,在手机的谷歌浏览器上打开你要调试的页面
+4.点击chrome://inspect/#devices 这个地址下面的 inspect 进行调试
+
+
+微信调试
+http://bbs.mb.qq.com/thread-297799-1-1.html
+http://blog.qqbrowser.cc/an-zhuang-tbshuan-jing-jiao-cheng/
+
+远程调试 weinre
+http://www.oschina.net/p/weinre?fromerr=0EAY7MJs
+http://download.csdn.net/detail/skyhh/4629366
+http://blog.csdn.net/freshlover/article/details/42640253
+
+npm install http-server -g  
+http-server
+npm install -g weinre
+ weinre -httpPort 8082 -boundHost 192.168.2.52
