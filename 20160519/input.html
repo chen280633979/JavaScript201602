@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>HTML5表单-珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            /* -webkit-user-select: none;*/
+            /*苹果IOS手机不能给input增加这样式,否则输入不进去内容*/
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        input {
+            display: block;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        #inputColor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid green;
+        }
+
+        #inputDate, #inputTime {
+            width: 100px;
+            height: 20px;
+            border: 1px solid green;
+        }
+
+        #userAge {
+            display: inline-block;
+            margin: 10px;
+            width: 50px;
+            height: 20px;
+            text-align: center;
+            border: 1px solid green;
+        }
+
+        #inputRange {
+            display: inline-block;
+            width: 200px;
+            height: 20px;
+        }
+
+        #userEmail1, #userEmail2 {
+            margin: 10px;
+            padding: 0 10px;
+            width: 80%;
+            height: 30px;
+            border: 1px solid green;
+        }
+
+        #divEmail {
+            margin: 10px;
+            overflow: hidden;
+        }
+
+        #userEmail {
+            padding: 0 10px;
+            width: 100%;
+            height: 30px;
+            border: 1px solid green;
+            box-sizing: border-box;
+        }
+
+        #divEmail:after {
+            display: block;
+            margin-top: 10px;
+            padding: 0 10px;
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            border: 1px dashed deeppink;
+            color: red;
+            content: "";
+        }
+
+        /*CSS验证*/
+        #userEmail:valid {
+            border: 1px solid green;
+        }
+
+        #userEmail:invalid {
+            border: 1px solid red;
+        }
+
+        #spanEmail {
+            display: block;
+            margin: 10px;
+            padding: 0 10px;
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            border: 1px dashed deeppink;
+            color: red;
+        }
+
+        #spanEmail.ok {
+            border: 1px dashed lightblue;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<!--
+  HTML5中的表单元素对应INPUT新增加了很多的类型：search、url、email、tel、number、range、color、date、time...
+  ->优势
+  1)功能比较的强大
+  2)可以调取最适合用户输入的物理键盘
+  3)提供了一个默认提示文字的属性
+  4)提供了强大的CSS和JS的内置验证机制
+-->
+<!--<input type="color" id="inputColor" value="#ffffff"/>
+<script type="text/javascript">
+    var inputColor = document.getElementById("inputColor");
+    inputColor.addEventListener("change", function () {
+        document.body.style.backgroundColor = this.value;
+    }, false);
+</script>
+<input type="date" id="inputDate"/>
+<input type="time" id="inputTime"/>-->
+
+<!--<input type="text" id="userAge" value="25" disabled/>
+<input type="range" id="inputRange" value="25" min="18" max="65" step="1"/>
+<script type="text/javascript">
+    var inputRange = document.getElementById("inputRange"), userAge = document.getElementById("userAge");
+    //->input:移动端我们需要监听表单元素的键盘操作等行为的话,我们不能使用keyup、keydown、keypress这些事件,这些在部分手机中是无法监听到的(因为虚拟键盘的差异所导致),对于这类事件我们统一使用input即可
+    inputRange.addEventListener("input", function () {
+        userAge.value = this.value;
+    }, false);
+</script>-->
+
+<!--思考题：在IE6~8下我们如何自己用HTML+JS实现一个和placeholder一模一样的提示效果-->
+<!--<input type="email" id="userEmail2" placeholder="请输入邮箱~"/>-->
+
+<div id="divEmail">
+    <input type="email" id="userEmail" placeholder="请输入邮箱~"/>
+    <!--<span id="spanEmail"></span>-->
+</div>
+
+<script type="text/javascript">
+    var userEmail = document.getElementById("userEmail"), spanEmail = document.getElementById("spanEmail");
+
+    //    userEmail.addEventListener("input", function () {
+    //        var val = this.value.trim();
+    //        if (val.length === 0) {
+    //            spanEmail.innerHTML = "必须输入邮箱";
+    //            spanEmail.className = "";
+    //            return;
+    //        }
+    //
+    //        //->checkValidity:HTML5新增加的表单类型自带的验证,如果符合邮箱格式返回TRUE,反之返回FALSE
+    //        if (!this.checkValidity()) {
+    //            spanEmail.innerHTML = "邮箱格式不正确";
+    //            spanEmail.className = "";
+    //            return;
+    //        }
+    //
+    //        spanEmail.innerHTML = "输入正确";
+    //        spanEmail.className = "ok";
+    //    }, false);
+
+    //    userEmail.addEventListener("input", function () {
+    //        var val = this.value.trim();
+    //        if (val.length === 0) {
+    //            spanEmail.innerHTML = "必须输入邮箱";
+    //            spanEmail.className = "";
+    //            return;
+    //        }
+    //
+    //        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    //        if (!reg.test(val)) {
+    //            spanEmail.innerHTML = "邮箱格式不正确";
+    //            spanEmail.className = "";
+    //            return;
+    //        }
+    //
+    //        spanEmail.innerHTML = "输入正确";
+    //        spanEmail.className = "ok";
+    //    }, false);
+</script>
+
+</body>
+</html>

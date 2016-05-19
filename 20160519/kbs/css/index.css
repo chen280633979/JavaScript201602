@@ -1,0 +1,381 @@
+@charset "utf-8";
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*--HEAD START--*/
+.header {
+    width: 100%;
+    height: 76px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.sectionHead {
+    margin: 0 auto;
+    width: 1040px;
+    height: 75px;
+}
+
+.sectionHead .logo, .sectionHead .nav {
+    float: left;
+}
+
+.sectionHead .login {
+    float: right;
+}
+
+.sectionHead .logo {
+    width: 255px;
+    height: 100%;
+}
+
+.sectionHead .logo a {
+    display: block;
+    margin-top: 17px;
+    width: 184px;
+    height: 40px;
+    background: url("../img/logo.png") no-repeat;
+}
+
+.sectionHead .nav {
+    width: 605px;
+    height: 100%;
+}
+
+.sectionHead .nav li {
+    float: left;
+    margin: 0 5px;
+    width: 90px;
+    height: 100%;
+}
+
+.sectionHead .nav li.bg {
+    background: #1c90f2;
+}
+
+.sectionHead .nav li a {
+    display: block;
+    width: 100%;
+    height: 72px;
+    line-height: 72px;
+    text-align: center;
+    border-top: 3px solid transparent;
+
+    font-size: 16px;
+    color: #515151;
+    font-weight: 700;
+}
+
+.sectionHead .nav li a:hover {
+    border-top-color: #1c90f2;
+}
+
+.sectionHead .nav li.downLoad a:hover {
+    border-top-color: transparent;
+}
+
+.sectionHead .nav li.bg a {
+    color: #fff;
+}
+
+.sectionHead .login {
+    display: block;
+    margin-top: 17px;
+    width: 66px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    background: #1c90f2;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.downLoad {
+    position: relative;
+}
+
+.downLoad .downLoadImg, .downLoad .downLoadBg {
+    display: none;
+    position: absolute;
+    left: -15px;
+    top: 75px;
+    padding: 10px 17px;
+    width: 93px;
+}
+
+.downLoad .downLoadBg {
+    height: 137px;
+    background: #fff;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.downLoad .downLoadImg img {
+    width: 93px;
+    height: 93px;
+}
+
+.downLoad .downLoadImg span {
+    display: block;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+}
+
+/*--HEAD END--*/
+
+.con {
+    margin: 20px auto;
+    width: 1040px;
+    overflow: hidden;
+}
+
+/*--LEFT START--*/
+.conLeft {
+    position: relative;
+    float: left;
+    width: 198px;
+    height: 100%;
+    border: 1px solid #ececec;
+    background: #fff;
+}
+
+.conLeft li {
+    height: 58px;
+    line-height: 58px;
+    border-bottom: 1px solid #ececec;
+}
+
+.conLeft li.last {
+    border-bottom: none;
+}
+
+.conLeft li a {
+    display: block;
+    padding-left: 24px;
+    height: 100%;
+    border-left: 5px solid transparent;
+}
+
+.conLeft li a:hover {
+    border-left-color: #1C90F2;
+    background: #fafafa;
+}
+
+.conLeft li.bg a {
+    border-left-color: #1C90F2;
+    color: #1C90F2;
+}
+
+/*--LEFT END--*/
+
+/*--RIGHT START--*/
+.conRight {
+    float: right;
+    width: 800px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.conRight .calendar {
+    position: relative;
+    height: 80px;
+    border: 1px solid #dcdcdc;
+    background: #fff;
+}
+
+/*--左右切换按钮--*/
+.calBtn {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 32px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.calBtn:hover {
+    background: #F4F4F4;
+}
+
+.calendarLeft {
+    left: 0;
+}
+
+.calendarRight {
+    right: 0;
+}
+
+.calBtn .arrowDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -4px;
+    width: 8px;
+    height: 16px;
+}
+
+.calBtn .arrowDiv .arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+}
+
+.calBtn.calendarLeft .arrowDiv .arrowOut {
+    border-left-width: 0;
+    border-right-color: #1C90F2;
+}
+
+.calBtn.calendarLeft .arrowDiv .arrowIn {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    border-left-width: 0;
+    border-right-color: #fff;
+}
+
+.calBtn.calendarRight .arrowDiv .arrowOut {
+    border-right-width: 0;
+    border-left-color: #1C90F2;
+}
+
+.calBtn.calendarRight .arrowDiv .arrowIn {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    border-right-width: 0;
+    border-left-color: #fff;
+}
+
+.calBtn:hover.calendarLeft .arrowDiv .arrowIn {
+    border-right-color: #F4F4F4;
+}
+
+.calBtn:hover.calendarRight .arrowDiv .arrowIn {
+    border-left-color: #F4F4F4;
+}
+
+/*--日期列表--*/
+.calendarList {
+    position: relative;
+    margin: 0 31px;
+    padding: 5px 0;
+    width: 736px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.calendarList .inner {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    height: 70px;
+}
+
+.calendarList a {
+    display: block;
+    float: left;
+    margin: 0 12px;
+    width: 81px;
+    height: 100%;
+}
+
+.calendarList a span {
+    display: block;
+    text-align: center;
+}
+
+.calendarList a .week {
+    margin-top: 10px;
+    height: 19px;
+    line-height: 19px;
+    color: #b9b9b9;
+}
+
+.calendarList a .date {
+    margin-top: 5px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 18px;
+}
+
+.calendarList a:hover {
+    background: #e4f0fa;
+}
+
+.calendarList a:hover span {
+    color: #1c90f2;
+}
+
+.calendarList a.bg {
+    background: #1c90f2;
+}
+
+.calendarList a.bg span {
+    color: #fff;
+}
+
+/*--比赛列表--*/
+.conRight .matchList {
+    position: relative;
+    overflow: hidden;
+}
+
+.matchInfo h2 {
+    padding-left: 5px;
+    line-height: 45px;
+    font-weight: 700;
+}
+
+.matchInfo ul {
+    border: 1px solid #dcdcdc;
+    border-bottom: none;
+    background: #fff;
+}
+
+.matchInfo ul li {
+    position: relative;
+    height: 80px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.matchTime {
+    float: left;
+    width: 238px;
+    height: 100%;
+    background: red;
+}
+
+.matchBtn {
+    float: right;
+    width: 125px;
+    height: 100%;
+    background: green;
+}
+
+.matchTeam {
+    float: left;
+    width: 380px;
+    height: 100%;
+    background: yellow;
+}
+
+/*--RIGHT END--*/
+
+
+
+
+
+
+
+
+
+
+
+
+

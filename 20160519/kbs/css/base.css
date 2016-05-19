@@ -1,0 +1,30 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+}
+
+header, footer, nav, section, article, figure, figcaption, aside {
+    display: block;
+}
+
+ul, li {
+    list-style: none;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+a, a:hover, a:active, a:visited, a:target {
+    text-decoration: none;
+    color: #424242;
+}
+
+body {
+    background: #f4f4f4;
+}
