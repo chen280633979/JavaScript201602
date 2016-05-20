@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "admin",
+    "pass": "670b14728ad9902aecba32e22fa4f6bd",
+    "sex": 0,
+    "email": "zhufengpeixun@163.com",
+    "phone": "4001806960"
+  },
+  {
+    "name": "周啸天",
+    "pass": "670b14728ad9902aecba32e22fa4f6bd",
+    "sex": "0",
+    "email": "zhou_xiao_tian@163.com",
+    "phone": "13041086186",
+    "id": 2
+  }
+]
