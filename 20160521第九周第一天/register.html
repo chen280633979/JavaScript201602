@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>注册页-珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        a, a:hover, a:visited, a:active, a:target {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        input {
+            display: inline-block;
+            outline: none;
+        }
+
+        span {
+            display: inline-block;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .section {
+            margin: 20px auto;
+            padding: 20px;
+            width: 300px;
+            border: 1px solid green;
+        }
+
+        .section div {
+            margin-bottom: 20px;
+            height: 30px;
+        }
+
+        .section div span {
+            line-height: 30px;
+        }
+
+        .section div input {
+            padding: 0 5px;
+            width: 200px;
+            height: 30px;
+        }
+
+        #sexMan, #sexWoman {
+            width: 16px;
+            height: 16px;
+        }
+
+        .submit {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: coral;
+            cursor: pointer;
+        }
+
+        .tip {
+            padding-left: 10px;
+            margin-left: 35px;
+            border: 1px dashed green;
+            color: red;
+            line-height: 30px;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/HTML5.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section class="section">
+    <div>
+        <span>姓名:</span>
+        <input type="text" id="userName"/>
+    </div>
+    <div>
+        <span>邮箱:</span>
+        <input type="text" id="userEmail"/>
+    </div>
+    <div class="tip" id="tipEmail"></div>
+    <div>
+        <span>电话:</span>
+        <input type="text" id="userPhone"/>
+    </div>
+    <div>
+        <span>性别:</span>
+        <input type="radio" value="0" name="sex" id="sexMan" checked/><label for="sexMan">男</label>
+        <input type="radio" value="1" name="sex" id="sexWoman"/><label for="sexWoman">女</label>
+    </div>
+    <div>
+        <span>密码:</span>
+        <input type="password" id="userPass"/>
+    </div>
+    <div id="submit" class="submit">注册</div>
+</section>
+
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript">
+    //->邮箱验证
+    var userEmail = document.getElementById("userEmail"), tipEmail = document.getElementById("tipEmail");
+    userEmail.onblur = function () {
+        var val = this.value.replace(/(^ +| +$)/g, "");
+        if (val === "") {
+            tipEmail.innerHTML = "请输入邮箱~";
+            return false;
+        }
+
+        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if (!reg.test(val)) {
+            tipEmail.innerHTML = "邮箱格式不正确~";
+            return false;
+        }
+
+        //->验证邮箱是否已经被注册过(Ajax同步请求)
+        var flag = true;
+        ajax("post", "/checkEmail", false, function (data) {
+            if (data) {
+                if (data["isExist"]) {
+                    tipEmail.innerHTML = "该邮箱已经被注册~";
+                    flag = false;
+                } else {
+                    tipEmail.innerHTML = "";
+                }
+            }
+        }, {email: val});
+        return flag;
+    };
+
+    //->表单提交
+    document.getElementById("submit").onclick = function () {
+        //->把我们之前做的邮箱验证在处理一遍
+        if (userEmail.onblur()) {
+
+            //->获取需要注册的内容
+            var name = document.getElementById("userName").value.replace(/(^ +| +$)/g, "");
+            var email = userEmail.value.replace(/(^ +| +$)/g, "");
+            var phone = document.getElementById("userPhone").value.replace(/(^ +| +$)/g, "");
+            var sexWoman = document.getElementById("sexWoman");
+            var sex = 0;
+            if (sexWoman.checked) {
+                sex = 1;
+            }
+            var pass = document.getElementById("userPass").value;
+
+            //->给密码加密
+            pass = hex_md5(pass);
+
+            //->Ajax post 把数据都传递给服务器
+            ajax("post", "/addUser", true, function (jsonData) {
+                if (jsonData) {
+                    var data = jsonData["data"];//->当前新增加的这个用户的信息
+
+                    //->注册成功后,把用户的基本信息(用户的ID、用户的姓名、用户的密码)存储到客户端本地
+                    cookie.set("pinkIsLogin", "true");
+                    cookie.set("pinkId", data["id"]);
+                    cookie.set("pinkName", data["name"]);
+                    cookie.set("pinkPass", data["pass"]);
+
+                    //->跳转到首页
+                    window.location.href = "index.html";
+                }
+            }, {
+                name: name,
+                email: email,
+                phone: phone,
+                sex: sex,
+                pass: pass
+            });
+        }
+    }
+</script>
+</body>
+</html>

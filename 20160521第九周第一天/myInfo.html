@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心-珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        a, a:hover, a:visited, a:active, a:target {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/HTML5.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript">
+    ~function () {
+//->判断当前是否处于登录状态
+        var pinkIsLogin = cookie.get("pinkIsLogin");
+        if (!pinkIsLogin) {//->未登录
+            window.location.href = "login.html?reURL=" + encodeURIComponent(window.location.href);
+            return;
+        }
+
+        //->在每一次加载页面的时候,首先判断当前用户的这个信息是否在本地缓存过(是否还在缓存的周期内),如果缓存了,我们不需要在重新的Ajax请求了
+        var pinkId = cookie.get("pinkId") || 0;
+        if (window.localStorage) {
+            var userInfo = localStorage.getItem("userInfo" + pinkId);
+            if (userInfo) {
+                userInfo = JSON.parse(userInfo);
+                //->验证是否在有效时间内(1min过期)
+                var oldTime = userInfo["time"];
+                var curTime = new Date().getTime();
+                if (curTime <= (oldTime + (60 * 1000))) {
+                    //->还没有到过期时间呢
+                    document.write(JSON.stringify(userInfo["data"]));
+                    return;
+                }
+            }
+        }
+
+        //->Ajax读取数据
+        ajax("get", "/getInfo?id=" + pinkId, true, function (jsonData) {
+            if (jsonData) {
+                var data = jsonData["data"];
+                document.write(JSON.stringify(data));
+
+                //->把读取的数据存放在本地localStorage中:存储的数据只能是字符串
+                if (window.localStorage) {
+                    var obj = {
+                        time: new Date().getTime(),//->当前存储数据的时间
+                        pinkId: pinkId,//->知道当前的这个信息是存储谁的
+                        data: data//->我们用户信息
+                    };
+                    localStorage.setItem("userInfo" + pinkId, JSON.stringify(obj));//->根据每一个人的ID我们都会在本地存储一次
+                }
+            }
+        });
+
+
+    }();
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+http://www.tuicool.com/articles/yIfYVn
+
+JS的本地存储:把一些数据存储到客户端
+->cookie 兼容所有浏览器的
+ 1)cookie存储的内容有大小限制,一般情况下"一个源"下最大存储量是4kb左右
+ 2)cookie有存储期限,我们在设置cookie的时候可以规定过期时间(最好在30天以内),超过期限浏览器自己会把其清除 ->360或者其他的清理垃圾软件可以把cookie清除掉
+ 3)用户可能出于安全的角度,把cookie禁止掉(无痕浏览)
+
+->webStorage:localStorage/sessionStorage HTML5新提供的API,在IE6~8浏览器中不兼容
+ 1)webStorage存储的内容也有大小限制,一般情况下"一个源"下最大存储量是5mb左右
+ 2)localStorage是永久存储到本地,只要我们不去刻意的清除(JS/在控制台手动清除),会一直保留 ->360或者其他的清理垃圾软件不可以把localStorage清除掉
+
+ sessionStorage:当前页面的会话存储,只要当前页面关闭,浏览器就把sessionStorage给清除了(在JS中我们很少用)
+
+
+谷歌控制台 ->Resources
+不管是哪一种,都是明文存储,所以不能把重要的信息存放在本地,如果真的需要存储到本地,需要进行严格的加密处理,例如:用户的密码
+
+->MD5.js(不可逆转的加密->只要加密了就无法解析出来)
+
+
+    //    console.log(hex_md5("00000"));
+    //    cookie.set("name","珠峰培训");
+    //    console.log(cookie.get("name"));
+    //    cookie.clear("name");
+    //    console.log(cookie.get("name"));
+
+    //    localStorage.setItem("name", escape("珠峰培训"));
+    //    console.log(unescape(localStorage.getItem("name")));
+    //    localStorage.removeItem("name");
+    //    console.log(unescape(localStorage.getItem("name")));
+    //    localStorage.clear();//->把当前源下所有存储的都移除
+
+    //    sessionStorage.setItem("name", escape("珠峰培训"));
+    //    console.log(unescape(sessionStorage.getItem("name")));
+    //    sessionStorage.removeItem("name");
+    //    console.log(unescape(sessionStorage.getItem("name")));
+    //    sessionStorage.clear();//->把当前源下所有存储的都移除
+

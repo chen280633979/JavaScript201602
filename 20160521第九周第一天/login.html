@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录页-珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        a, a:hover, a:visited, a:active, a:target {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        input {
+            display: block;
+            outline: none;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .bg {
+            background-image: url("img/pwd-icons-new.png");
+            background-repeat: no-repeat;
+        }
+
+        .section {
+            margin: 20px auto;
+            padding: 20px;
+            width: 300px;
+            border: 1px solid green;
+        }
+
+        .tip, .tipError {
+            position: relative;
+            height: 35px;
+            background: #fff6d2;
+            border: 1px dashed #ffe57d;
+        }
+
+        .tipError {
+            display: none;
+            background: #ffebeb;
+            border: 1px dashed #e4393c;
+        }
+
+        .tip em, .tipError em {
+            position: absolute;
+            top: 9px;
+            left: 5px;
+            width: 16px;
+            height: 17px;
+            background-position: -104px -22px;
+        }
+
+        .tipError em {
+            height: 16px;
+            background-position: -104px -49px;
+        }
+
+        .tip span, .tipError span {
+            display: inline-block;
+            margin-left: 26px;
+            height: 100%;
+            line-height: 35px;
+        }
+
+        .tipError span {
+            color: #e4393c;
+        }
+
+        .account, .pass {
+            position: relative;
+            margin-top: 10px;
+            height: 40px;
+        }
+
+        .account input, .pass input {
+            padding: 0 5px 0 44px;
+            width: 250px;
+            height: 38px;
+            border: 1px solid #bdbdbd;
+        }
+
+        .account em, .pass em {
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            width: 38px;
+            height: 38px;
+            border-right: 1px solid #bdbdbd;
+            background-position: 0 0;
+        }
+
+        .pass em {
+            background-position: -48px 0;
+        }
+
+        .login {
+            margin-top: 10px;
+            height: 33px;
+            line-height: 33px;
+            text-align: center;
+            border: 1px solid #cb2a2d;
+            background: #e4393c;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/HTML5.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section class="section">
+    <div class="tip" id="tip">
+        <em class="bg"></em>
+        <span>公共场所不建议自动登录，以防账号丢失</span>
+    </div>
+
+    <div class="tipError" id="tipError">
+        <em class="bg"></em>
+        <span>用户名和密码不准确~</span>
+    </div>
+
+    <div class="account">
+        <em class="bg"></em>
+        <input type="text" id="userAccount"/>
+    </div>
+
+    <div class="pass">
+        <em class="bg"></em>
+        <input type="password" id="userPass"/>
+    </div>
+
+    <div class="login" id="login">登 录</div>
+</section>
+
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript">
+    function queryURLParameter() {
+        var url = window.location.href, obj = {}, reg = /([^?=&]+)=([^?=&]+)/g;
+        var res = reg.exec(url);
+        while (res) {
+            obj[res[1]] = res[2];
+            res = reg.exec(url);
+        }
+        return obj;
+    }
+    var urlObj = queryURLParameter();
+    if (urlObj && urlObj["reURL"]) {
+        urlObj["reURL"] = decodeURIComponent(urlObj["reURL"]);
+    }
+
+
+    var userAccount = document.getElementById("userAccount"), userPass = document.getElementById("userPass");
+    var tipError = document.getElementById("tipError"), tip = document.getElementById("tip");
+
+    //->首先获取本次存储的用户名和密码
+    var flag = false;//->登录不走cookie
+    var pinkName = cookie.get("pinkName");
+    var pinkPass = cookie.get("pinkPass");
+    if (pinkName) {
+        userAccount.value = pinkName;
+        userPass.value = "00000000";
+        flag = true;
+    } else {
+        userAccount.value = null;
+        userPass.value = null;
+    }
+
+    //->登录
+    document.getElementById("login").onclick = function () {
+        var account = userAccount.value.replace(/(^ +| +$)/g, "");
+        var pass = userPass.value;
+
+        //->说明本地存储着用户信息
+        if (flag) {
+            if (account === pinkName && pass === "00000000") {
+                //->用户并没有改变文本框中的内容,我们走cookie这一套验证
+                account = pinkName;
+                pass = pinkPass;
+            } else {
+                pass = hex_md5(pass);
+            }
+        } else {
+            pass = hex_md5(pass);
+        }
+
+        //->Ajax
+        ajax("post", "/checkLogin", true, function (jsonData) {
+            //->用户名密码正确
+            if (jsonData && jsonData["isExist"]) {
+                tipError.style.display = "none";
+                tip.style.display = "block";
+
+                //->存储用户的基本信息
+                var data = jsonData["data"];
+                cookie.set("pinkIsLogin", "true");
+                cookie.set("pinkId", data["id"]);
+                cookie.set("pinkName", data["name"]);
+                cookie.set("pinkPass", data["pass"]);
+
+                //->根据传递进来的reURL决定返回哪个页面
+                if (urlObj && urlObj["reURL"]) {
+                    window.location.href = urlObj["reURL"];
+                } else {
+                    window.location.href = "index.html";
+                }
+                return;
+            }
+            //->用户名密码不正确
+            tipError.style.display = "block";
+            tip.style.display = "none";
+        }, {
+            account: account,
+            pass: pass
+        });
+    };
+</script>
+</body>
+</html>

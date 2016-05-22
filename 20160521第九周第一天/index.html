@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页-珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+        }
+
+        a, a:hover, a:visited, a:active, a:target {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: relative;
+            height: 30px;
+            line-height: 30px;
+            background: #F1F1F1;
+        }
+
+        .header .register, .header .nick {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 100px;
+            height: 100%;
+        }
+
+        .header .register a {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+        }
+
+        .header .nick a {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/HTML5.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header class="header">
+    <div class="register" id="register"><a href="login.html">登录</a><a href="register.html">注册</a></div>
+    <div class="nick" id="nick" style="display: none;"><a href="myInfo.html">珠峰培训</a><a href="javascript:;">退出</a></div>
+</header>
+
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript">
+    //->首先获取cookie信息,判断当前用户是否登录,登录显示用户名,未登录显示登录/注册
+    var register = document.getElementById("register"), nick = document.getElementById("nick"), nickLink = nick.getElementsByTagName("a");
+    var pinkIsLogin = cookie.get("pinkIsLogin");
+    if (pinkIsLogin) {
+        var pinkName = cookie.get("pinkName");
+        nick.style.display = "block";
+        register.style.display = "none";
+        nickLink[0].innerHTML = pinkName;
+    } else {
+        nick.style.display = "none";
+        register.style.display = "block";
+    }
+
+    //->点击退出,清除所有的cookie信息
+    nickLink[1].onclick = function () {
+        cookie.clear("pinkIsLogin");
+        window.location.reload();//->window.location.href=window.location.href;
+    };
+</script>
+</body>
+</html>
