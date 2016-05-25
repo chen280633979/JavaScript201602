@@ -1,0 +1,140 @@
+@charset "utf-8";
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+
+    margin: 0;
+    padding: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+input {
+    display: block;
+    outline: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a, a:hover, a:active, a:visited, a:target {
+    color: #424242;
+    text-decoration: none;
+}
+
+header, footer, nav, section, aside, article, figure, figcaption {
+    display: block;
+}
+
+html, body {
+    -webkit-user-select: none;
+    overflow-x: hidden;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.header {
+
+}
+
+.logo {
+    height: 3.7rem;
+    background: #1c90f2;
+}
+
+.logo > span {
+    display: block;
+    float: left;
+    height: 100%;
+    line-height: 3.7rem;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.logo > span:nth-child(1) {
+    /*使用CSS3盒子模型设置整个区域的宽度10REM包含了边框、内填充、内容宽度*/
+    box-sizing: border-box;
+    padding-left: 4rem;
+    width: 10rem;
+    border-right: 0.1rem solid #066dc4;
+
+    background: url("http://mat1.gtimg.com/sports/sportAppWeb/kbsshare/statics/icon-logo40x40_6cc48e.png") no-repeat 0.8rem center;
+    background-size: 2.4rem 2.4rem;
+}
+
+.logo > span:nth-child(2) {
+    width: 5rem;
+    text-align: center;
+}
+
+.logo > span:nth-child(3) {
+    float: right;
+    background: url("http://mat1.gtimg.com/sports/sportAppWeb/kbsshare/statics/btn-nav-fold_b389a1.png") no-repeat center center;
+    width: 4.4rem;
+    background-size: 2rem 2rem;
+}
+
+.logo > span:nth-child(4) {
+    float: right;
+    width: 4.2rem;
+    text-align: center;
+}
+
+.nav {
+    height: 0;
+    background: #f7f7f7;
+    overflow: hidden;
+
+    -webkit-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+}
+
+.nav > div {
+    box-sizing: border-box;
+    padding: .5rem 2%;
+    height: 100%;
+    border-bottom: solid .1rem #DDD;
+    overflow: hidden;
+}
+
+.nav > div > a {
+    display: block;
+    float: left;
+    width: 16%;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+  我们的移动端开发都是在制作HTML(HTML5)页面,一般情况下都是运行在浏览器中的,但是在移动设备上有一些时候我们的页面需要运行在webView中
+
+  APP:IOS(object-c)、安卓(JAVA)、JS(React native)
+  ->我们有很多时候需要把我们编写的HTML5页面嵌入到APP中,在APP的WEBVIEW中运行,我们把这种开发的方式称之为"hyBrid模式"
+  ->HTML5与APP的通信交互(HTML5中调用APP中提供的功能):
+  -->伪URL传输(IOS)
+  APP->PHONE
+  http://haha.qq.com/?fn=PHONE(假地址)
+  -->bridge.js
+
+
+  ->在HTML5页面中我们不管是使用CSS还是JS,都无法设置(禁止)页面是横屏还是竖屏,但是我们可以检测到当前是横屏还是竖屏
+
+
+  ->移动端(IOS/安卓)的浏览器/webView都是基于webkit内核来构建的,但是由于各个手机都想标新立意,导致移动端存在更多的兼容问题,而且大部分兼容问题都不好解决或者是解决不了
+  ->position:fixed兼容性很差,我们就不能用它了,我们保证页面只有一屏幕,把之前需要fixed的元素给absolute定位到具体位置,在使用(iscroll.js等)实现中间内容区域的局部滚动
+  ->设计稿是1px的边框
+  ->点击穿透问题:点击弹出框中的某一个按钮,框下面的页面中的对应按钮也会被点击 ->给弹出框后面加一层蒙板
+
+
+  ->移动端和PC端的差别
+  1)CSS3/HTML5的应用上:能用CSS实现的动画绝对不用JS
+  2)响应式布局思想上
+  3)JS中的事件模型上
+    ->移动端没有鼠标,所有:hover、mousexxx的事件都没有
+    ->移动端没有实体键盘,所哟keyxxx的事件也没有,我们需要统一使用input事件 userAge.addEventListener("input",function(){},false);
+    ->移动端最常用的就是手指的事件模型
+
+    [单手指操作事件模型] ->touch (下述单词是不存在的,只是在描述这个行为)
+       点击tap、单击singleTap、双击doubleTap、长按longTap、滑动swipe、左/右/上/下滑 -> swipeLeft/Right/Top/Down ...
+
+    ->touchstart
+    ->touchmove
+    ->touchend
+    ->touchcancle:当程序非正常关闭的时候,当前操作取消的时候会触发这个行为
+
+    [多手指操作事件模型] ->gesture
+       缩放pinch、缩小pinchIn、放大pinchOut、旋转rotate ...
+
+
+    ->click在移动端是否存在? 存在,但是一般不用,因为触发click操作的时候存在300ms的延迟问题(因为在第一次触发click之后,浏览器会等待300ms,看是否还有第二次触发,如果有的话属于双击,没有的话才是单击)
+    ->我们尽量不要去使用click,而是用touch事件模型去模拟实现
+    1)当手指偏移的距离超过30px算作滑动,小于30px算作点击
+    2)单击和双击的区别在于300ms内是否有第二次的触发
+    3)点击和长按的区别在于750ms内是否触发了touchend
+
+    ->解决click的300ms延迟可以使用FastClick.js操作
+
+    ->移动端常用的事件库:Zepto.js(被誉为移动端的小型jQuery,在PC端如果说要用类库,我们第一想到的是jQuery,同理在移动端需要用类库,第一想到的应该是Zepto)中提供的TOUCH模块；百度云TOUCH手势事件库(http://touch.code.baidu.com/)；hammer.js；
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,88 @@
+@charset "utf-8";
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #424242;
+}
+
+html, body {
+    -webkit-user-select: none;
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+html {
+    /*--设置REM参考的基本值(根值):默认字体大小是16px,我们设置根植为10px,也就是相当于原有的62.5%--*/
+    /*--此处的根值其实就是10px,也就相当于1REM的值就是10px--*/
+    font-size: 62.5%;
+}
+
+.banner {
+    /*--REM的布局思想非常的简单,让我们需要设置的固定值根据根植来进行动态的计算--*/
+    position: relative;
+    height: 18rem;
+    overflow: hidden;
+}
+
+.banner .inner {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    /*--给INNER设置了过渡动画,以后只要INNER的样式发生改变,都会执行这样的过渡效果--*/
+    -webkit-transition: all 0.5s linear 0s;
+    transition: all 0.5s linear 0s;
+}
+
+.banner .inner > div {
+    float: left;
+    /*--后期inner或者是当前div的宽度都要根据屏幕的宽度来动态的进行计算--*/
+    width: 100%;
+    height: 100%;
+    background: url("../img/default.gif") no-repeat center center #eee;
+    background-size: 3.4rem 3.4rem;
+}
+
+.banner .inner > div img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.banner .tip {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    overflow: hidden;
+}
+
+.banner .tip > li {
+    float: left;
+    margin-left: 0.6rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.banner .tip > li.bg {
+    background: #f94747;
+}

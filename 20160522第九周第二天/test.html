@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #424242;
+
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+            -webkit-overflow-scrolling: touch;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        html, body {
+            -webkit-user-select: none;
+        }
+
+        #div1 {
+            margin: 10px;
+            height: 50px;
+            background: pink;
+            border: 1px solid green;
+
+            /*-webkit-transform: scale(0.5);*/
+            /*transform: scale(0.5);*/
+        }
+
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript" src="js/fastClick.js"></script>
+<script type="text/javascript">
+    FastClick.attach(document.body);//->把BODY容器中所有元素的CLICK替换成TOUCH
+
+    document.getElementById("div1").onclick = function () {
+        console.log("ok");
+    }
+</script>
+</body>
+</html>
